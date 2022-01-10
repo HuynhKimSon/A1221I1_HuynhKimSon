@@ -2,10 +2,12 @@ body {
     background-color: #525659;
     font-size: 14px;
 }
-h5{
+
+h5 {
     font-family: "Arial Rounded MT Bold";
     font-weight: bold;
 }
+
 #main {
     display: flex;
     margin: 20px auto;
@@ -28,21 +30,26 @@ h5{
     background-color: #37474f;
     height: 1210px;
 }
+
 .info, .objective, .skill, .interests {
     padding: 15px 15px 0 15px;
 }
+
 /*info*/
-.info>div{
+.info > div {
     padding-top: 10px;
 }
-.info_content{
+
+.info_content {
     padding-left: 8px;
 }
+
 /*interests*/
-.interests>ul>li{
+.interests > ul > li {
     padding-bottom: 10px;
 }
-.form-range::-webkit-slider-thumb{
+
+.form-range::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
@@ -51,32 +58,39 @@ h5{
     background: #263238;
     cursor: pointer;
 }
+
 /* block 2 */
 #block_2 {
     background-color: #ffffff;
-    color: #263238; !important;
+    color: #263238;
+!important;
     width: 620px;
     height: 1500px;
     padding: 20px;
 }
+
 /*education*/
-.title{
+.title {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
-.title>h5 {
+
+.title > h5 {
     padding: 10px 0 0 20px;
 }
-.university{
+
+.university {
     display: flex;
     justify-content: space-between;
 
 }
-.name_university, .year_university, .name_project{
+
+.name_university, .year_university, .name_project {
     font-weight: bold;
     margin-bottom: 0px;
 }
-.role_project{
+
+.role_project {
     margin-bottom: 8px;
 }

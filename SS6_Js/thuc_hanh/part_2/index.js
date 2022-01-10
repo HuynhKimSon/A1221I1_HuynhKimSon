@@ -1,19 +1,19 @@
 <!-- BT1 -->
-function showAlert(){
+function showAlert() {
     alert("Xin Chào");
 }
 
 <!-- BT2 -->
-function showHTML(){
+function showHTML() {
     document.getElementById('mess').innerHTML = 'Xin chào';
 }
 
 <!-- BT3 -->
-function showWrite(){
+function showWrite() {
     document.write("Xin Chào");
 }
 
 <!-- BT4 -->
-function showConsolog(){
+function showConsolog() {
     console.log("Xin Chào");
 }
