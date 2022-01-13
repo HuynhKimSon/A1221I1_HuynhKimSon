@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Bài tập] Câu lệnh switch-case</title>
+</head>
+<style>
+    table {
+        margin: 0 auto;
+        width: 50%;
+        border-collapse: collapse;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th,
+    td {
+        padding-top: 20px;
+        width: 200px;
+    }
+</style>
+
+<body>
+    <form id="myForm">
+        <table>
+            <tr>
+                <th colspan="2">Tính số ngày trong một tháng:</th>
+            </tr>
+            <tr>
+                <td>
+                    <input id="month" type="text" style="width: 150px; height: 24px" placeholder="Nhập tháng">
+                </td>
+                <td>
+                    <button type="button" style="width: 120px;
+                        height: 32px;
+                        background-color:blue;
+                        color: white;
+                        font-weight: bold; font-size: 13px" onclick="calculateDay()">
+                        Tính số ngày
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 id="result" style=" text-align:center; width: 100%">
+                        Kết quả:
+                    </h4>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+    function calculateDay() {
+        // Lay gia tri cua thang
+        let month = document.getElementById("month").value;
+        month = parseInt(month);
+        // Check month
+        if (month > 0 & month < 13) {
+            // group month
+            let grMonth;
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                grMonth = "A";
+            } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+                grMonth = "B";
+            } else {
+                grMonth = "C";
+            }
+            // logic
+            switch (grMonth) {
+                case "A":
+                    document.getElementById('result').innerHTML = "Kết quả: Tháng " + month + " có 31 ngày";
+                    break;
+                case "B":
+                    document.getElementById('result').innerHTML = "Kết quả: Tháng " + month + " có 30 ngày";
+                    break;
+                default:
+                    document.getElementById('result').innerHTML = "Kết quả: Tháng " + month + " có 28 ngày trong các năm thường hay 29 ngày trong các năm nhuận";
+            }
+        } else {
+            document.getElementById("result").style.color = "red";
+            document.getElementById('result').innerHTML = "Kết quả: Vui lòng nhập từ tháng 1 đến tháng 12";
+        }
+        // reset
+        document.getElementById("myForm").reset();
+    }
+</script>
+
+</html>

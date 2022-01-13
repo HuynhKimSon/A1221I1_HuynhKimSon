@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Bài tập] Máy tính đơn giản</title>
+</head>
+<style>
+    table {
+        margin: 100px auto;
+        width: 30%;
+        border-collapse: collapse;
+    }
+
+    tr {}
+
+    td {
+        border: solid gray;
+        padding: 20px;
+        text-align: center;
+        color: blue;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 26px;
+    }
+</style>
+
+<body>
+    <form id="myForm">
+        <table>
+            <tr>
+                <td colspan="4">
+                    <input id="number" type="text" onclick="showResult()"
+                        style="width: 90%; height: 44px; color: blue; font-weight: bold;font-size: 20px;">
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>+</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>X</td>
+            </tr>
+            <tr>
+                <td onclick="reset()">C</td>
+                <td>0</td>
+                <td>=</td>
+                <td>/</td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+    // get value number
+    function getValue() {
+
+    }
+
+    // result
+    function showResult() {
+        let result;
+        document.getElementById("number").innerText = result;
+    }
+
+    // reset
+    function reset() {
+        document.getElementById("myForm").reset();
+    }
+</script>
+
+</html>

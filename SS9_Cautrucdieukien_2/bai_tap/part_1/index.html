@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Bài tập] Tính chỉ số cân nặng của cơ thể</title>
+</head>
+<style>
+    table {
+        margin: 0 auto;
+        width: 50%;
+        border-collapse: collapse;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th,
+    td {
+        padding-top: 20px;
+        width: 200px;
+    }
+</style>
+
+<body>
+    <form id="myForm">
+        <table>
+            <tr>
+                <th>Nhập chiều cao (đơn vị tính cm):</th>
+                <th>Nhập cân nặng (đơn vị tính kg):</th>
+            </tr>
+            <tr>
+                <td>
+                    <input id="numberHeight" type="text" style="width: 150px; height: 24px">
+                </td>
+                <td>
+                    <input id="numberWeight" type="text" style="width: 150px; height: 24px">
+                </td>
+                <td>
+                    <button type="button" style="width: 120px;
+                        height: 32px;
+                        background-color:blue;
+                        color: white;
+                        font-weight: bold; font-size: 16px" onclick="calculateBMI()">
+                        Tính BMI
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 id="result" style=" text-align:center; width: 100%">
+                        Kết quả BMI:
+                    </h4>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+    function calculateBMI() {
+        // Lay gia tri chieu cao
+        let numberHeight = document.getElementById("numberHeight").value;
+        numberHeight = parseInt(numberHeight);
+        // Lay gia tri can nang
+        let numberWeight = document.getElementById("numberWeight").value;
+        numberWeight = parseInt(numberWeight);
+        // logic
+        let bmi = (numberWeight / ((numberHeight / 100) ^ 2)).toFixed(2);
+        if (bmi < 18)
+            document.getElementById('result').innerHTML = "Kết quả BMI: Underweight (" + bmi + ")";
+        else if (bmi < 25)
+            document.getElementById('result').innerHTML = "Kết quả BMI: Normal (" + bmi + ")";
+        else if (bmi < 30)
+            document.getElementById('result').innerHTML = "Kết quả BMI: Overweight (" + bmi + ")";
+        else
+            document.getElementById('result').innerHTML = "Kết quả BMI:Obese (" + bmi + ")";
+
+        // reset
+        document.getElementById("myForm").reset();
+    }
+
+</script>
+
+</html>

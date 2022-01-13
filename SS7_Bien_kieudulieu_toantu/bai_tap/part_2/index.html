@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>[Bài tập] ỨNG DỤNG CHUYỂN ĐỔI TIỀN TỆ</title>
 </head>
@@ -12,65 +13,61 @@
         width: 100%;
         border-collapse: collapse;
     }
+
     td {
         text-align: center;
     }
 
-    th, td {
+    th,
+    td {
         padding-top: 20px;
         width: 200px;
     }
 </style>
+
 <body>
-<form id="myForm">
-    <table>
-        <tr>
-            <th>Amount</th>
-            <th>From Currency</th>
-            <th>To Currency</th>
-        </tr>
-        <tr>
-            <td>
-                <input id="amount" type="text" style="width: 150px; height: 24px">
-            </td>
-            <td>
-                <select id="from_cur" style="width: 150px; height: 30px">
-                    <option value="0">VND</option>
-                    <option value="1">USD</option>
-                </select>
-            </td>
-            <td>
-                <select id="to_cur" style="width: 150px; height: 30px">
-                    <option value="1">USD</option>
-                    <option value="0">VND</option>
-                </select>
-            </td>
-            <td>
-                <button
-                        type="button"
-                        style="width: 120px;
+    <form id="myForm">
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>From Currency</th>
+                <th>To Currency</th>
+            </tr>
+            <tr>
+                <td>
+                    <input id="amount" type="text" style="width: 150px; height: 24px">
+                </td>
+                <td>
+                    <select id="from_cur" style="width: 150px; height: 30px">
+                        <option value="0">VND</option>
+                        <option value="1">USD</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="to_cur" style="width: 150px; height: 30px">
+                        <option value="1">USD</option>
+                        <option value="0">VND</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" style="width: 120px;
                         height: 32px;
                         background-color:blue;
                         color: white;
-                        font-weight: bold; font-size: 16px"
-                        onclick="convert()"
-                >
-                    Convert
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h3
-                        id="result"
-                        style=" text-align:center; color: blue; width: 100%"
-                >
-                    Result:
-                </h3>
-            </td>
-        </tr>
-    </table>
-</form>
+                        font-weight: bold; font-size: 16px" onclick="convert()">
+                        Convert
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 id="result" style=" text-align:center; color: blue; width: 100%">
+                        Result:
+                    </h3>
+                </td>
+            </tr>
+        </table>
+    </form>
 </body>
 <script>
     function convert() {
@@ -105,11 +102,11 @@
                 }
             }
             // show result
-            var convert = "Result: " + result + currency;
+            let convert = "Result: " + result + currency;
             document.getElementById('result').innerHTML = convert;
         } else {
             // show result
-            var convert = "Please, enter the correct format !";
+            let convert = "Please, enter the correct format !";
             document.getElementById("result").style.color = "red";
             document.getElementById('result').innerHTML = convert;
         }
@@ -117,4 +114,5 @@
         document.getElementById("myForm").reset();
     }
 </script>
+
 </html>

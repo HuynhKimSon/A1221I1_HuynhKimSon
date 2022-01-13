@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>[Bài tập] Ứng dụng máy tính</title>
 </head>
@@ -18,7 +19,8 @@
         text-align: center;
     }
 
-    th, td {
+    th,
+    td {
         padding-top: 20px;
         width: 200px;
     }
@@ -32,52 +34,53 @@
         font-size: 16px;
     }
 </style>
-<body>
-<form id="myForm">
-    <table>
 
-        <tr>
-            <th colspan="4" style="font-size: 24px">Calculator</th>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input id="first" type="text" style="width: 90%; height: 24px">
-            </td>
-            <td colspan="2">
-                <input id="second" type="text" style="width: 90%; height: 24px">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button type="button" onclick="addition('+')">
-                    Addition(+)
-                </button>
-            </td>
-            <td>
-                <button type="button" onclick="addition('-')">
-                    Subtraction(-)
-                </button>
-            </td>
-            <td>
-                <button type="button" onclick="addition('*')">
-                    Multiplication(X)
-                </button>
-            </td>
-            <td>
-                <button type="button" onclick="addition('/')">
-                    Division(/)
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h3 id="result" style=" text-align:center; color: blue; width: 100%">
-                    Result Division:
-                </h3>
-            </td>
-        </tr>
-    </table>
-</form>
+<body>
+    <form id="myForm">
+        <table>
+
+            <tr>
+                <th colspan="4" style="font-size: 24px">Calculator</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input id="first" type="text" style="width: 90%; height: 24px">
+                </td>
+                <td colspan="2">
+                    <input id="second" type="text" style="width: 90%; height: 24px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" onclick="addition('+')">
+                        Addition(+)
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick="addition('-')">
+                        Subtraction(-)
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick="addition('*')">
+                        Multiplication(X)
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick="addition('/')">
+                        Division(/)
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 id="result" style=" text-align:center; color: blue; width: 100%">
+                        Result Division:
+                    </h3>
+                </td>
+            </tr>
+        </table>
+    </form>
 </body>
 <script>
     // Calculate
@@ -114,4 +117,5 @@
         document.getElementById("myForm").reset();
     }
 </script>
+
 </html>
