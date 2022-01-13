@@ -9,23 +9,30 @@
     <title>[Bài tập] Máy tính đơn giản</title>
 </head>
 <style>
+    body{
+        background: #373B44;
+        background: -webkit-linear-gradient(to right, #4286f4, #373B44);
+        background: linear-gradient(to right, #4286f4, #373B44);
+    }
     table {
-        margin: 100px auto;
-        width: 30%;
+        margin: 200px auto;
+        width: 15%;
         border-collapse: collapse;
+        border-radius: 5px;
+        background-color: #eaedef;
     }
-
-    tr {}
-
     td {
-        border: solid gray;
-        padding: 20px;
+        padding: 15px 0px;
         text-align: center;
-        color: blue;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 26px;
     }
+    .number, .calculation, .result {
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     border-width: 0;
+     font-weight:bold;
+     font-size:16px;
+ }
 </style>
 
 <body>
@@ -33,41 +40,42 @@
         <table>
             <tr>
                 <td colspan="4">
-                    <input id="number" type="text" onclick="showResult()"
-                        style="width: 90%; height: 44px; color: blue; font-weight: bold;font-size: 20px;">
+                    <input id="numberInput" type="text" onclick="showResult()"
+                        style="width: 90%; height: 34px; font-weight: bold;font-size: 16px;">
                 </td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>+</td>
+                <td><button type="button" class="number" id="1">1</button></td>
+                <td><button type="button" class="number" id="2">2</button></td>
+                <td><button type="button" class="number" id="3">3</button></td>
+                <td><button type="button" class="calculation" id="+" style="background-color: #20b2aa;">+</button></td>
             </tr>
             <tr>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>-</td>
+                <td><button type="button" class="number" id="4">4</button></td>
+                <td><button type="button" class="number" id="5">5</button></td>
+                <td><button type="button" class="number" id="6">6</button></td>
+                <td><button type="button" class="calculation" id="-" style="background-color: #ffa500;">-</button></td>
             </tr>
             <tr>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>X</td>
+                <td><button type="button" class="number" id="7">7</button></td>
+                <td><button type="button" class="number" id="8">8</button></td>
+                <td><button type="button" class="number" id="9">9</button></td>
+                <td><button type="button" class="calculation" id="*" style="background-color: #f08080;">X</button></td>
             </tr>
             <tr>
-                <td onclick="reset()">C</td>
-                <td>0</td>
-                <td>=</td>
-                <td>/</td>
+                <td><button type="button" class="number" id="C" style="background-color: #9477af;"  onclick="reset()">C</button></td>
+                <td><button type="button" class="number" id="0">0</button></td>
+                <td><button type="button" class="result" id="=">=</button></td>
+                <td><button type="button" class="calculation" id="/" style="background-color: #7d93e0;">/</button></td>
             </tr>
         </table>
     </form>
 </body>
 <script>
-    // get value number
-    function getValue() {
-
+    function getValue(){
+        // get value number
+            var getValueNumber = document.getElementsByClassName("number");
+            console.log(getValueNumber);
     }
 
     // result
