@@ -7,24 +7,25 @@
     <title>[Bài tập] Ứng dụng vui DoYouLoveMe</title>
 </head>
 <body>
-        <h1 style="position:absolute; left:220px; top:75px;">Do you love me?</h1>
-        <button type="button" id = "yes" onclick="showLove()" style="position:absolute; left:270px; top:150px;">Yes</button>
-        <button type="button" id = "no" onmouseover="move()"style="position:absolute; left:350px; top:150px;">No</button>
-    <div style="display: flex; justify-content: center;">
-        <img id="heart" src="" alt="">
-    </div>
+<h1 style="position:absolute; left:220px; top:75px;">Do you love me?</h1>
+<button type="button" id="yes" onclick="showLove()" style="position:absolute; left:270px; top:150px;">Yes</button>
+<button type="button" id="no" onmouseover="move()" style="position:absolute; left:350px; top:150px;">No</button>
+<div style="display: flex; justify-content: center;">
+    <img id="heart" src="" alt="">
+</div>
 </body>
 <script>
-function showLove(){
-    document.getElementById("heart").src = "heart.gif"
-}
-function move(){
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    randomWidth = Math.floor(Math.random() * width) + 1;
-    randomHeight = Math.floor(Math.random() * height) + 1;
-    document.getElementById("no").style.marginLeft = randomWidth + "px";
-    document.getElementById("no").style.marginTop = randomHeight + "px";
-}
+    function showLove() {
+        document.getElementById("heart").src = "heart.gif"
+    }
+
+    function move() {
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        randomWidth = Math.floor(Math.random() * width) + 1;
+        randomHeight = Math.floor(Math.random() * height) + 1;
+        document.getElementById("no").style.marginLeft = randomWidth + "px";
+        document.getElementById("no").style.marginTop = randomHeight + "px";
+    }
 </script>
 </html>
