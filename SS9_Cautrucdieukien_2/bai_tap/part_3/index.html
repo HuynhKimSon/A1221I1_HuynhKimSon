@@ -35,6 +35,7 @@
         border-width: 0;
         font-weight: bold;
         font-size: 16px;
+        cursor: pointer;
     }
 </style>
 
@@ -58,8 +59,7 @@
                 <button type="button" class="number" onclick="getValue('3')">3</button>
             </td>
             <td>
-                <button type="button" class="calculation" onclick="getValue('+')" style="background-color: #20b2aa;">+
-                </button>
+                <button type="button" class="calculation" onclick="getValue('+')" style="background-color: #20b2aa;">+</button>
             </td>
         </tr>
         <tr>
@@ -73,9 +73,7 @@
                 <button type="button" class="number" onclick="getValue('6')">6</button>
             </td>
             <td>
-                <button type="button" class="calculation" id="-" onclick="getValue('-')"
-                        style="background-color: #ffa500;">-
-                </button>
+                <button type="button" class="calculation" id="-" onclick="getValue('-')" style="background-color: #ffa500;">-</button>
             </td>
         </tr>
         <tr>
@@ -89,14 +87,12 @@
                 <button type="button" class="number" onclick="getValue('9')">9</button>
             </td>
             <td>
-                <button type="button" class="calculation" onclick="getValue('*')" style="background-color: #f08080;">X
-                </button>
+                <button type="button" class="calculation" onclick="getValue('*')" style="background-color: #f08080;">X</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button type="button" class="number" style="background-color: #9477af;" onclick="getValue('C')">C
-                </button>
+                <button type="button" class="number" style="background-color: #9477af;" onclick="getValue('C')">C</button>
             </td>
             <td>
                 <button type="button" class="number" onclick="getValue('0')">0</button>
@@ -105,8 +101,7 @@
                 <button type="button" class="result" onclick="getValue('=')">=</button>
             </td>
             <td>
-                <button type="button" class="calculation" onclick="getValue('/')" style="background-color: #7d93e0;">/
-                </button>
+                <button type="button" class="calculation" onclick="getValue('/')" style="background-color: #7d93e0;">/</button>
             </td>
         </tr>
     </table>
@@ -146,8 +141,8 @@
                     }
                 }
             } else {
-                document.getElementById("myForm").reset();
                 list = [];
+                list.push(value);
             }
         }
     }
