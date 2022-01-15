@@ -27,20 +27,34 @@
 <body>
 <div class="container">
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="good">
+        <input class="form-check-input" type="checkbox" id="good" onclick="changeSwitch(event)">
         <label class="form-check-label" >GOOD</label>
     </div>
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="cheap">
+        <input class="form-check-input" type="checkbox" id="cheap" onclick="changeSwitch(event)">
         <label class="form-check-label" >CHEAP</label>
     </div>
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="fast">
+        <input class="form-check-input" type="checkbox" id="fast" onclick="changeSwitch(event)">
         <label class="form-check-label" >FAST</label>
     </div>
 </div>
 </body>
 <script>
+function changeSwitch(event){
+    let option = event.target.id;
 
+    var good = document.getElementById('good').checked;
+    var cheap =document.getElementById('cheap').checked;
+    var fast = document.getElementById('fast').checked;
+  
+    if (good && option == 'cheap') {
+         document.getElementById('fast').checked = false;
+    } else if (cheap && option == 'fast') {
+         document.getElementById('good').checked = false;      
+    } else if (fast && option == "good") {
+        document.getElementById('cheap').checked = false;    
+  }
+}
 </script>
 </html>
