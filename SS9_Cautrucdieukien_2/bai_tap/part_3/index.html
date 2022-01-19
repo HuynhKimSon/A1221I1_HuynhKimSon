@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Bài tập] Máy tính đơn giản</title>
+</head>
+<style>
+    body {
+        background: #373B44;
+        background: -webkit-linear-gradient(to right, #4286f4, #373B44);
+        background: linear-gradient(to right, #4286f4, #373B44);
+    }
+
+    table {
+        margin: 150px auto;
+        width: 15%;
+        border-collapse: collapse;
+        border-radius: 5px;
+        background-color: #eaedef;
+    }
+
+    td {
+        padding: 15px 0px;
+        text-align: center;
+    }
+
+    .number, .calculation, .result {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border-width: 0;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+<form id="myForm">
+    <table>
+        <tr>
+            <td colspan="4">
+                <input id="numberInput" type="text"
+                       style="width: 90%; height: 34px; font-weight: bold;font-size: 16px;">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="number" onclick="getValue('1')">1</button>
+            </td>
+            <td>
+                <button type="button" class="number" onclick="getValue('2')">2</button>
+            </td>
+            <td>
+                <button type="button" class="number" onclick="getValue('3')">3</button>
+            </td>
+            <td>
+                <button type="button" class="calculation" onclick="getValue('+')" style="background-color: #20b2aa;">+
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="number" onclick="getValue('4')">4</button>
+            </td>
+            <td>
+                <button type="button" class="number" onclick="getValue('5')">5</button>
+            </td>
+            <td>
+                <button type="button" class="number" onclick="getValue('6')">6</button>
+            </td>
+            <td>
+                <button type="button" class="calculation" id="-" onclick="getValue('-')"
+                        style="background-color: #ffa500;">-
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="number" onclick="getValue('7')">7</button>
+            </td>
+            <td>
+                <button type="button" class="number" onclick="getValue('8')">8</button>
+            </td>
+            <td>
+                <button type="button" class="number" onclick="getValue('9')">9</button>
+            </td>
+            <td>
+                <button type="button" class="calculation" onclick="getValue('*')" style="background-color: #f08080;">X
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="number" style="background-color: #9477af;" onclick="getValue('C')">C
+                </button>
+            </td>
+            <td>
+                <button type="button" class="number" onclick="getValue('0')">0</button>
+            </td>
+            <td>
+                <button type="button" class="result" onclick="getValue('=')">=</button>
+            </td>
+            <td>
+                <button type="button" class="calculation" onclick="getValue('/')" style="background-color: #7d93e0;">/
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+<script>
+    var list = [];
+
+    function getValue(value) {
+        if (value == 'C') {
+            document.getElementById("myForm").reset();
+            list = [];
+        } else {
+            list.push(value);
+            if (value !== '+' && value !== '-' && value !== '*' && value !== '/' && value !== '=') {
+                document.getElementById("numberInput").value = value;
+            }
+            if (list.length < 5) {
+                if (list.length == 4 && list[3] == '=') {
+                    switch (list[1]) {
+                        case '+':
+                            result = parseInt(list[0]) + parseInt(list[2]);
+                            document.getElementById("numberInput").value = result;
+                            break;
+                        case '-':
+                            result = parseInt(list[0]) - parseInt(list[2]);
+                            document.getElementById("numberInput").value = result;
+                            break;
+                        case '*':
+                            result = parseInt(list[0]) * parseInt(list[2]);
+                            document.getElementById("numberInput").value = result;
+                            break;
+                        case '/':
+                            result = parseInt(list[0]) / parseInt(list[2]);
+                            document.getElementById("numberInput").value = result;
+                            break;
+                    }
+                }
+            } else {
+                list = [];
+                list.push(value);
+            }
+        }
+    }
+</script>
+</html>
