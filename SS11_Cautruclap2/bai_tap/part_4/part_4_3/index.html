@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bài 3: In tam giác vuông. Các góc vuông nằm ở các vị trí khác nhau</title>
+</head>
+<body>
+
+</body>
+<script>
+    // Hinh 1
+    // *
+    // * *
+    // * * *
+    // * * * *
+    // * * * * *
+    for (let i = 1; i <= 5; i++) {
+        for (let j = 1; j <= i; j++) {
+            document.writeln("*");
+        }
+        document.writeln("<br/>");
+    }
+    document.writeln("<br/>");
+
+    // Hinh 2
+    // * * * * *
+    // * * * *
+    // * * *
+    // * *
+    // *
+    for (let i = 1; i <= 5; i++) {
+        for (let j = 5; j >= i; j--) {
+            document.writeln("*");
+        }
+        document.writeln("<br/>");
+    }
+    document.writeln("<br/>");
+
+    //Hinh 3
+    //          *
+    //        * *
+    //      * * *
+    //    * * * *
+    //  * * * * *
+    for (let i = 1; i <= 5; i++) {
+        for (let j = i; j < 5; j++) {
+            document.writeln("&nbsp&nbsp");
+        }
+        for (let j = 1; j <= i; j++) {
+            document.writeln("*");
+        }
+        document.writeln("<br/>");
+    }
+    document.writeln("<br/>");
+
+    // Hinh 4
+    //  * * * * *
+    //    * * * *
+    //      * * *
+    //        * *
+    //          *
+    for (let i = 1; i <= 5; i++) {
+        for (let j = 1; j < i; j++) {
+            document.writeln("&nbsp&nbsp");
+        }
+        for (let j = i; j <= 5; j++) {
+            document.writeln("*");
+        }
+        document.writeln("<br/>");
+    }
+    document.writeln("<br/>");
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bài 2: Sử dụng hàm prompt() để lấy thông tin nhiệt độ hiện tại được nhập bởi người truy cập. Nếu nhiệt độ
+        nhập vào trên 100, yêu cầu người dùng giảm nhiệt độ. Nếu nhiệt độ dưới 20, yêu cầu người dùng tăng nhiệt
+        độ.</title>
+</head>
+<body>
+
+</body>
+<script>
+    let n = 0;
+    let mess = 'Nhập nhiệt độ hiện tại: ';
+    while (true) {
+        n = Number(prompt(mess));
+        if (n > 100) {
+            mess = 'Giảm nhiệt độ';
+        } else if (n < 20) {
+            mess = 'Tăng nhiệt độ';
+        } else {
+            break;
+        }
+    }
+</script>
+</html>
