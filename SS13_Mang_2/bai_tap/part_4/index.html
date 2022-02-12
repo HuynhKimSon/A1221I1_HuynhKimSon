@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[*Bài tập] Luyện tập mảng 02</title>
+</head>
+<body>
+
+</body>
+<script>
+    /* Bài 1: Viết chương trình khởi tạo mảng 2 chiều, gồm một bộ các phần tử có sẵn,  in ra các phần tử trong mảng.
+    Chú ý: Sử dụng vòng lặp for lồng nhau
+     Ví dụ mảng sau:
+         let a = [
+             [1, 2, 1, 24],
+             [8, 11, 9, 4],
+             [7, 0, 7, 27],
+             [7, 4, 28, 14],
+             [3, 10, 26, 7]
+         ]; */
+
+    // let a = [
+    //     [1, 2, 1, 24],
+    //     [8, 11, 9, 4],
+    //     [7, 0, 7, 27],
+    //     [7, 4, 28, 14],
+    //     [3, 10, 26, 7]
+    // ];
+    // for (let i = 0; i < a.length; i++) {
+    //     console.log("Row : " + i);
+    //     for (let j = 0; j < a[i].length; j++) {
+    //         console.log(a[i][j]);
+    //     }
+    // }
+
+    /* Bài 2: Viết một chương trình để in các ký tự trong một mảng theo thứ tự đảo ngược.
+    Ví dụ, nếu một mảng chứa các ký tự  [ 'c', 's', 'c', '2', '6', '1' ] sau khi thực hiện đảo ngược sẽ là "162csc" */
+
+    // var arr = ['c', 's', 'c', '2', '6', '1'];
+    //              CACH 1
+    // let first = 0;
+    // for (let last = arr.length - 1; last > first; last--, first++) {
+    //     let b = arr[first];
+    //     arr[first] = arr[last];
+    //     arr[last] = b;
+    // }
+    //              CACH 2
+    // for (let i = 0; i < arr.length / 2; i++) {
+    //     let temp = arr[i];
+    //     arr[i] = arr[arr.length - i - 1];
+    //     arr[arr.length - i - 1] = temp;
+    // }
+    //console.log(arr);
+
+    /* Bài 3: Viết một chương trình khai báo một mảng ký tự và kích thước của mảng. Chương trình này đếm số ký tự số trong mảng. */
+
+    // var arr = ['a', 'c', 1, 2, 3, 4, 'f', 'r', 'g', 'r'];
+    // var total = 0;
+    // for (let i = 0; i < arr.length; i++){
+    //     if (!isNaN(arr[i])){
+    //         total++;
+    //     }
+    // }
+    // console.log("Số ký tự số trong mảng : " + total);
+
+    /* Bài 4: Viết một chương trình để đếm số từ trong một chuỗi */
+    // var str = "abc-./1234";
+    // var arr = str.replace(/[^a-zA-Z0-9]/g, "").split('');
+    // var count = 0;
+    // for (let i = 0; i < arr.length; i++) {
+    //     if (isNaN(arr[i])) {
+    //         count++;
+    //     }
+    // }
+    // console.log("Tổng số lượng số từ trong mảng: " + count);
+
+
+    /* Bài 5: Viết một chương trình nhập vào 2 chuỗi, sau đó kiểm tra xem hai chuỗi có giống nhau hay không. */
+
+    // var strA = prompt("Nhập chuỗi A: ");
+    // var strB = prompt("Nhập chuỗi B: ");
+    // if (strA === strB){
+    //     alert("Hai chuỗi bằng nhau");
+    // } else {
+    //     alert("Hai chuỗi không bằng nhau");
+    // }
+
+    /* Bài 6: Viết chương trình nhập vào một mảng ký tự, tìm tất cả các ký tự trong mảng là (-)
+    và thay thế các ký tự này bởi ký tự ( _ ) */
+
+    var str = prompt("Nhập một mảng ký tự: ");
+    var arr = str.split('');
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == '-') {
+            arr.splice(i, 1, "_");
+        }
+    }
+    alert("Đã thay thế lý tự (-) thành (_) : " + arr.toString());
+</script>
+</html>
