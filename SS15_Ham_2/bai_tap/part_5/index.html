@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[*Bài tập] Ứng dụng quản lý sản phẩm sử dụng hàm</title>
+    <script src="../part_5/index.js"></script>
 </head>
-<body>
-    
+<style>
+    .main {
+        display: flex;
+        justify-content: center;
+    }
+
+    .addProduct {
+        margin: 20px;
+    }
+
+    .btn-add, .btn-edit, .btn-delete {
+        width: 100px;
+        height: 35px;
+        margin-left: 20px;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #nameProduct {
+        width: 550px;
+        height: 30px;
+    }
+
+    #showProduct {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    #showProduct th, tr {
+        text-align: start;
+        font-size: 18px;
+    }
+
+    td {
+        padding-top: 30px;
+    }
+</style>
+
+<body onload="showProductList()">
+<div class="main">
+    <div class="addProduct">
+        <form id="formAdd" action="" method="get">
+            <h2 for="">Thêm mới sản phẩm</h2>
+            <input type="text" id="nameProduct" autofocus>
+            <button class="btn-add" type="button" style="background-color: green;" onclick="addProduct()">Thêm</button>
+        </form>
+        <h2 for="" style="margin-top: 50px">Danh sách sản phẩm</h2>
+        <table id="showProduct">
+        </table>
+    </div>
+</div>
 </body>
+
 </html>

@@ -9,11 +9,11 @@
 </head>
 
 <body onload="inputNameStart()">
-    <!-- <body onload="showMessage()">  -->
-    <!-- <body onload="increase()"> -->
-    <!-- <body onload="checkParameter()"> -->
-    <!-- <body onload="addNumbers()"> -->
-    <!-- <body onload="inputNameStart()"> -->
+<!-- <body onload="showMessage()">  -->
+<!-- <body onload="increase()"> -->
+<!-- <body onload="checkParameter()"> -->
+<!-- <body onload="addNumbers()"> -->
+<!-- <body onload="inputNameStart()"> -->
 </body>
 <script>
     /* Bài 1: Tạo hàm alertMessage() hiển thị hộp thoại chứa chuỗi  "Xin chao". Gọi hàm từ trong phần <body> của trang web. */
@@ -33,7 +33,6 @@
     //     var result = num + 1;
     //     alert(result);
     // }
-
 
 
     /* Bài 3: Tạo hàm nhận vào hai tham số. Nếu giá trị của tham số thứ nhất lớn hơn tham số thứ hai,
@@ -86,14 +85,26 @@
 
     var arr_1 = ["Polaris", "Aldebaran", "Deneb", "Vega", "Altair", "Dubhe", "Regulus"];
     var arr_2 = ["Ursa Minor", "Tarurus", "Cygnus", "Lyra", "Aquila", "Ursa Major", "Leo"];
-    function checkNameStart() {
-        inputNameStart();
-        
+
+    function checkNameStart(nameStart) {
+        for (let i = 0; i <= arr_1.length; i++) {
+            if (nameStart === arr_1[i]) {
+                return arr_2[i];
+            }
+        }
     }
 
     function inputNameStart() {
         var nameStart = prompt("Nhập tên của một ngôi sao: ");
+        var result = checkNameStart(nameStart);
+        if (result != undefined || result != null) {
+            alert("Chòm sao tương ứng: " + result);
+        } else {
+            alert("Không tìm thấy chòm sao tương ứng ");
+        }
+
     }
+
 
 </script>
 
