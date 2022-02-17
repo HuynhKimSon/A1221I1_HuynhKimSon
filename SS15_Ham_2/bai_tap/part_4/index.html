@@ -9,7 +9,7 @@
 </head>
 
 <body onload="calculator()">
-<!--<body onload="calculator()">-->
+    <!--<body onload="calculator()">-->
 
 </body>
 <script>
@@ -95,10 +95,49 @@
     // }
 
     /* Bài 7: Viết hàm truyền vào 2 số nguyên bất kì, thực hiện đổi chỗ hai số nguyên đó. */
+    // var list = [];
+    // for (let i = 0; i < 2; i++) {
+    //     let number = Number(prompt("Nhập số nguyên bất kỳ"));
+    //     list.push(number);
+    // }
+    // function check(list) {
+    //     let temp = list[0];
+    //     list[0] = list[1];
+    //     list[1] = temp;
+    // }
+    // check(list);
+    // console.log("a : " + list[0]);
+    // console.log("b : " + list[1]);
 
     /* Bài 8: Viết hàm truyền vào mảng số nguyên bất kỳ, sau đó đảo ngược mảng số nguyên đó. */
+    // var list = [1, 2, 3, 4, 5, 6];
+    // let first = 0;
+    // function calculator() {
+    //     for (let last = list.length - 1; last > first; first++, last--) {
+    //         let temp = list[first];
+    //         list[first] = list[last];
+    //         list[last] = temp;
+    //     }
+    //     console.log(list);
+    // }
+
     /* Bài 9: Viết hàm truyền vào một mảng ký tự, và một ký tự bất kỳ, kiểm tra xem ký tự bất kỳ đó có nằm trong mảng không.
     Nếu có trả về số lần xuất hiện của ký tự đó, nếu không trả về -1. */
+
+    var list = ["!", "@", "#", "$", "%", "^", "&", "*"];
+    var count = 0;
+    function calculator() {
+        let temp = prompt("Nhập một ký tự cần tìm:");
+        var listTemp = temp.split('');
+        for (let i = 0; i < listTemp.length; i++) {
+            for (let j = 0; j < list.length; j++) {
+                if (listTemp[i] == list[j]) {
+                    count++;
+                }
+            }
+        }
+        console.log("Số lần xuất hiện của ký tự:", count);
+    }
 </script>
 
 </html>

@@ -4,7 +4,12 @@ var listProduct = ["Bánh Socola", "Kẹo"];
 function showProductList() {
     let table = "";
     for (let index = 0; index < listProduct.length; index++) {
-        table += "<tr>" + "<td style=\"width: 100px\">" + (index + 1) + "</td>" + "<td style=\"width: 400px\">" + listProduct[index] + "</td>" + "<td>" + "<button class=\"btn-edit\" type=\"button\" style=\"background-color: yellow\" onclick='editProduct(" + index + ")'>" + "Sửa" + "</button>" + "</td>" + "<td>" + "<button class=\"btn-delete\" type=\"button\" style=\"background-color: red\" onclick='deleteProduct(" + index + ")'>" + "Xóa" + "</button>" + "</td>" + "</tr>";
+        table += "<tr>" +
+            "<td style=\"width: 100px\">" + (index + 1) +
+            "</td>" + "<td style=\"width: 400px\">" + listProduct[index] + "</td>" +
+            "<td>" + "<button class=\"btn-edit\" type=\"button\" style=\"background-color: yellow\" onclick='editProduct(" + index + ")'>" + "Sửa" + "</button>" + "</td>" +
+            "<td>" + "<button class=\"btn-delete\" type=\"button\" style=\"background-color: red\" onclick='deleteProduct(" + index + ")'>" + "Xóa" + "</button>" + "</td>" +
+            "</tr>";
     }
     document.getElementById("showProduct").innerHTML = table;
 }
