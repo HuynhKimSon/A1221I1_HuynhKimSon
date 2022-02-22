@@ -10,7 +10,7 @@
 
 <body>
 
-    <canvas id="myCanvas" style="border:1px solid #d3d3d3;">
+<canvas id="myCanvas" width="500" height="600" style="border:1px solid #d3d3d3;">
 
 </body>
 <script>
@@ -38,17 +38,23 @@
             return (long + wide) * 2;
         }
     }
-    // sử dụng lớp vừa tạo. Tạo mới đôi tượng với chiều dài = 5, rộng = 4
-    let rectangle = new Rectangle(5, 4);
+    // sử dụng lớp vừa tạo. Tạo mới đối tượng với chiều dài = 160, rộng = 140
+    let rectangle = new Rectangle(160, 140);
 
-    //Truy cập phương thức của lớp hình chữ nhật vừa tạo và gán cho các biến radius, area
+    //Truy cập phương thức của lớp hình chữ nhật vừa tạo và gán cho các biến radius, area, width, height
     let area = rectangle.getArea();
     let radius = rectangle.getRadius();
+    let width = rectangle.getLong();
+    let height = rectangle.getWide();
 
     // Hiển thị chiều dài và chiều rộng
-    //document.getElementById("myCanvas").style.height = rectangle.getLong();
-    //document.getElementById("myCanvas").style.width = rectangle.getWide();
+    function createRectangle() {
+        var ctx = document.getElementById("myCanvas").getContext("2d");
+        ctx.fillStyle = '#fa4b2a';
+        ctx.fillRect(10, 40, width, height);
+    }
 
+    createRectangle()
     console.log("Diện tích: " + area + " - Chu vi: " + radius);
 
 </script>
