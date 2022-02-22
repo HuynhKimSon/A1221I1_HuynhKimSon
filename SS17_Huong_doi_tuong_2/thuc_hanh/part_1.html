@@ -5,58 +5,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Thực hành] Xây dựng lớp Date</title>
+    <title>[Thực hành] Xây dựng lớp mô phỏng sự hoạt động của đèn pin</title>
 </head>
 
 <body>
 
 </body>
 <script>
-    // Xây dựng lớp MyDate với phương thức khởi tạo có 3 tham số truyền vào
-    let MyDate = function (day, month, year) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
+    let Battery = function () {
 
-        // Xây dựng phương thức trả về ngày, tháng, năm
-        this.getDay = function () {
-            return this.day;
+        this.setEnergy = function (energy) {
+            this.energy = energy;
+        };
+
+        this.getEnergy = function () {
+            return this.energy;
+        };
+
+        this.decreaseEnergy = function () {
+            if (this.energy > 0) {
+                this.energy--;
+            }
         }
-        this.getMonth = function () {
-            return this.month;
+    };
+    let FlashLamp = function () {
+
+        this.setBattery = function (battery) {
+            this.battery = battery;
+        };
+
+        this.getBatteryInfo = function () {
+            return this.battery.getEnergy();
+        };
+
+        this.light = function () {
+            if (this.status) {
+                alert("Lighting");
+            } else {
+                alert("Not lighting");
+            }
+        };
+
+        this.turnOn = function () {
+            this.status = true;
+        };
+
+        this.turnOff = function () {
+            this.status = false;
         }
-        this.getYear = function () {
-            return this.year;
-        }
+    };
+    let battery = new Battery();
+    battery.setEnergy(10);
 
-        // Xây dựng phương thức thiết đặt lại giá trị các thuộc tính day, month, year
-        this.setDay = function (day) {
-            this.day = day;
-        }
-        this.setMonth = function (month) {
-            this.month = month;
-        }
-        this.setYear = function (year) {
-            this.year = year;
-        }
-    }
-    // Sử dụng lớp vừa tạo. Tạo đối tượng date với ngày:2, tháng:2, năm: 2007:
-    let date = new MyDate(2, 2, 2007);
+    let flashLamp = new FlashLamp();
+    flashLamp.setBattery(battery);
 
-    // Gọi phương thức để thay đổi ngày, tháng, năm của đối tượng date vừa tạo ra thành ngày mùng 10/10/2019 sau đó hiển thị lại
-    date.setDay(10);
-    date.setMonth(10);
-    date.setYear(2019);
+    document.write("Battery info:" + flashLamp.getBatteryInfo() + "<br/>");
+    flashLamp.light();
 
-    // Truy cập phương thức của lớp date
-    let day = date.getDay();
+    document.write("Turn on<br/>")
+    flashLamp.turnOn();
+    flashLamp.light();
+    document.write("Battery info:" + flashLamp.getBatteryInfo() + "<br/>");
 
-    let month = date.getMonth();
-
-    let year = date.getYear();
-    // Hiển thị ngày, tháng, năm:
-    alert(day + "/" + month + "/" + year);
-
+    document.write("Turn off<br/>")
+    flashLamp.turnOff();
+    flashLamp.light();
 </script>
 
 </html>
