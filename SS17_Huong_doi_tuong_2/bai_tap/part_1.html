@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="game"></div>
+<div id="game"></div>
 </body>
 <script>
     /*  Thay thế ảnh nhân vật bằng một ảnh khác
@@ -37,25 +37,48 @@
             console.log("move right : " + this.left);
         }
 
+        moveLeft() {
+            this.left -= this.speed;
+            console.log("move left : " + this.left);
+        }
+
         moveDown() {
-            this.top += 250;
+            this.top += this.speed;
             console.log("move down : " + this.top);
         }
+
+        moveUp() {
+            this.top -= this.speed;
+            console.log("move up : " + this.top);
+        }
     };
-    var hero = new Hero('./tom-and-jerry.png', 10, 120, 200, 200);
+    var hero = new Hero('./tom-and-jerry.png', 0, 0, 100, 100);
+
+    var run = "right";
+
     function start() {
-        if (hero.left < window.innerWidth - hero.size) {
+        if (run === "right") {
             hero.moveRight();
-        }
-        if (hero.left == window.innerWidth - hero.size) {
+        } else if (run === "down") {
             hero.moveDown();
+        } else if (run === "left") {
+            hero.moveLeft();
+        } else if (run == "up") {
+            hero.moveUp();
         }
-        if (hero.top < window.innerHeight - hero.size) {
-            console.log("innerHeight : " + window.innerHeight);
+        if (hero.left > window.innerWidth - hero.size && run === "right") {
+            run = "down";
+        } else if ((hero.left < window.innerWidth - hero.size || hero.top > window.innerHeight - hero.size) && run === "down") {
+            run = "left";
+        } else if (hero.left == 0 && run === "left") {
+            run = "up";
+        } else if (hero.top == 0 && run == "up") {
+            run = "right";
         }
         document.getElementById('game').innerHTML = hero.getHeroElement();
         setTimeout(start, 500)
     }
+
     start();
 </script>
 
