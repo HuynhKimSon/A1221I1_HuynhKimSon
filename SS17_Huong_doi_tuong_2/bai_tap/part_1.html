@@ -9,10 +9,54 @@
 </head>
 
 <body>
-
+    <div id="game"></div>
 </body>
 <script>
+    /*  Thay thế ảnh nhân vật bằng một ảnh khác
+        Thêm thuộc tính speed (tốc độ) cho đối tượng Hero (tốc độ hiện tại đang được để cố định là 20)
+        Viết thêm các hàm để nhân vật có thể di chuyển xung quanh màn hình */
 
+    class Hero {
+        constructor(image, top, left, size, speed) {
+            this.image = image;
+            this.top = top;
+            this.left = left;
+            this.size = size;
+            this.speed = speed;
+        }
+
+        getHeroElement() {
+            return '<img width="' + this.size + '"' +
+                ' height="' + this.size + '"' +
+                ' src="' + this.image + '"' +
+                ' style="top: ' + this.top + 'px; left:' + this.left + 'px;position:absolute;" />';
+        }
+
+        moveRight() {
+            this.left += this.speed;
+            console.log("move right : " + this.left);
+        }
+
+        moveDown() {
+            this.top += 250;
+            console.log("move down : " + this.top);
+        }
+    };
+    var hero = new Hero('./tom-and-jerry.png', 10, 120, 200, 200);
+    function start() {
+        if (hero.left < window.innerWidth - hero.size) {
+            hero.moveRight();
+        }
+        if (hero.left == window.innerWidth - hero.size) {
+            hero.moveDown();
+        }
+        if (hero.top < window.innerHeight - hero.size) {
+            console.log("innerHeight : " + window.innerHeight);
+        }
+        document.getElementById('game').innerHTML = hero.getHeroElement();
+        setTimeout(start, 500)
+    }
+    start();
 </script>
 
 </html>
