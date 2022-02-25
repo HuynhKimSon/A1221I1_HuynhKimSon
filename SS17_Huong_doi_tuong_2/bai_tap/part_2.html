@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>[Bài tập] Phát triển ứng dụng nhỏ mô phỏng câu chuyện Adam và Eva</title>
 </head>
+
 <body>
-<button type="button" onclick="adamEat()">Adam</button>
-<button type="button" onclick="evaEat()">Eva</button>
+    <button type="button" onclick="adamEat()">Adam</button>
+    <button type="button" onclick="evaEat()">Eva</button>
 </body>
 <script>
     class Apple {
@@ -19,15 +21,17 @@
 
         decrease() {
             if (this.weight > 0 && this.weight < 11) {
-                return this.weight--;
+                this.weight--;
             } else {
-                return this.weight = 0
+                this.weight = 0
             }
         };
 
         isEmpty() {
-            if (this.weight == 0) {
+            if (this.weight > 0) {
                 return true;
+            } else {
+                return false;
             }
         };
 
@@ -44,12 +48,7 @@
         }
 
         isMale() {
-
-            if (this.gender === "Male") {
-                return true;
-            } else {
-                return false;
-            }
+            return this.gender;
         };
 
         setGender() {
@@ -60,25 +59,24 @@
             if (apple.isEmpty() === true) {
                 alert("Quả táo đã được ăn hết");
                 this.weight = 0;
+                return true;
             }
         };
 
         eat(apple) {
             apple.decrease();
-            this.say();
         };
 
         say() {
-            alert(this.getName() + " ăn táo");
-            console.log(this.weight);
+            console.log(this.name + " ăn 1 lát táo");
         };
 
         getName() {
             return this.name;
         };
 
-        setName() {
-            (this.name === "Adam") ? this.name === "Eva" : this.name === "Adam";
+        setName(stringName) {
+            this.name = stringName;
         };
 
         getWeight() {
@@ -88,24 +86,32 @@
         setWeight() {
             if (this.weight > 0 && this.weight < 11) {
                 this.weight++;
+            } else {
+                this.weight = 0;
             }
         };
     }
 
     let apple = new Apple(10);
-    let adam = new Human("Adam", "Male", 1);
-    let eva = new Human("Eva", "Female", 8);
-
-
-
+    let adam = new Human("Adam", true, 0);
+    let eva = new Human("Eva", false, 0);
 
     function adamEat() {
+        console.log("================");
         adam.eat(apple);
+        adam.say();
+        console.log("Adam đã ăn được " + adam.weight + " lát táo");
+        console.log("Tổng còn " + apple.Weight + " lát táo");
     }
 
     function evaEat() {
+        console.log("================");
         eva.eat(apple);
-
+        eva.say();
+        eva.getWeight();
+        console.log("Eva đã ăn được " + eva.weight + " lát táo");
+        console.log("Tổng còn " + apple.weight + " lát táo");
     }
 </script>
+
 </html>
