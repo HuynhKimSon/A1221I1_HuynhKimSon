@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yêu cầu 3 (Mảng và Loop) - Bài 3</title>
+</head>
+<body>
+
+</body>
+<script>
+    /* Bài 3: Cho một danh sách các phân số, hãy tìm chỉ số của phân số lớn nhất (đếm từ 0)
+     Giả định rằng không có các phân số bằng nhau trong tập đầu vào
+     Ví dụ: numerators = [5, 2, 5] và denominators = [6, 3, 4], thì kết quả
+     maxFraction(numerators, denominators) = 2.
+     ⇨ 5/4 là phân số lớn nhất, có chỉ số là 2. */
+
+    let numerators = [5, 2, 5];
+    let denominators = [6, 3, 4];
+    let max = numerators[0] / denominators[0];
+    let index = 0;
+    for (let i = 1; i < numerators.length; i++) {
+        let temp = numerators[i] / denominators[i];
+        if (temp > max) {
+            max = temp;
+            index = i;
+        }
+    }
+    console.log(max + " - " + index);
+
+
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yêu cầu 3 (Mảng và Loop) - Bài 2</title>
+</head>
+<body>
+
+</body>
+<script>
+    /* Bài 2: Cho 2 mảng A và B chứa số nguyên. Tìm ra một mảng đã được sắp xếp chứa các
+    phần tử xuất hiện trong mảng B nhưng lại không xuất hiện A
+    Chú ý các phần tử giống nhau chỉ tính là 1 lần xuất hiện
+    Ví dụ: A=[7,2,5,3,5,3] và B=[7,2,5,4,6,3,5,3] thì kết quả missingValue(A, B) = [4, 6] */
+
+    let a = [7, 2, 5, 3, 5, 3];
+    let b = [7, 2, 5, 10, 4, 6, 3, 5, 3];
+    let arr = [];
+
+    for (let i = 0; i < b.length; i++) {
+        let check = false;
+        for (let j = 0; j < a.length; j++) {
+            if (a[j] === b[i]) {
+                check = true;
+                break;
+            }
+        }
+        if (!check) {
+            arr.push(b[i]);
+        }
+    }
+    // Sap xep tu nhỏ den lon
+    for (let i = 0; i < arr.length - 1; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                let temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    console.log(arr);
+
+</script>
+</html>
