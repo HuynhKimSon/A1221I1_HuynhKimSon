@@ -1,17 +1,19 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>VI. Yêu cầu 6 (OOP)</title>
 </head>
 <style>
-    th, tr {
+    th,
+    tr {
         text-align: start;
         font-size: 18px;
-        width: 400px;
+        width: 500px;
         margin: 30px;
     }
 
@@ -24,14 +26,20 @@
         border-radius: 40px;
     }
 </style>
+
 <body onload="showTicket()">
-<div style="margin: 0 auto; width: 500px">
-    <h2 style="margin-top:50px">Xổ số CodeGym</h2>
-    <table id="tickets" style="margin: 20px 0px">
-    </table>
-    <button type="button" onclick="ticket()"> Mua vé</button>
-    <button type="button" style="margin-left: 10px "> Kết quả</button>
-</div>
+    <div style="margin: 0 auto; width: 500px">
+        <h2 style="margin-top:50px">Xổ số CodeGym</h2>
+        <table id="tickets" style="margin: 20px 0px">
+        </table>
+        <h2 style="margin-top:50px">Kết quả quay số</h2>
+        <table id="result" style="margin: 20px 0px">
+        </table>
+        <button type="button" onclick="ticket()"> Mua vé</button>
+        <button type="button" style="margin-left: 10px" onclick="checkResult()"> Kết quả</button>
+        <h3 id="messResult"></h3>
+    </div>
+
 
 </body>
 <script>
@@ -51,6 +59,7 @@
     */
 
     var listTicket = [];
+    var listResultTicket = [];
 
     class Vietlot {
         constructor(no1, no2, no3, no4, no5, no6) {
@@ -69,21 +78,35 @@
         let option = Number(prompt("Bạn có 2 lựa chọn \n1. Bạn muốn tự chọn số. \n2. Hệ thống tự random."));
         if (option === 1) {
             let qty = Number(prompt("Bạn muốn mua mấy vé (tối đa 4 vé)"));
-            setManual(qty);
+            if (qty > 0 && qty <= 4) {
+                setManual(qty);
+                setResultTicket(qty);
+            } else if (qty <= 0) {
+                alert("Bạn phải chọn số lượng vé cần mua từ 1 đến 4 vé")
+            } else {
+                alert("Bạn chỉ mua được tối đa 4 vé")
+            }
         } else if (option === 2) {
             let qty = Number(prompt("Bạn muốn mua mấy vé (tối đa 4 vé)"));
-            setAuto(qty);
+            if (qty > 0 && qty <= 4) {
+                setAuto(qty);
+                setResultTicket(qty);
+            } else if (qty <= 0) {
+                alert("Bạn phải chọn số lượng vé cần mua từ 1 đến 4 vé")
+            } else {
+                alert("Bạn chỉ mua được tối đa 4 vé")
+            }
         } else {
             alert("Bạn đã chọn sai phương thức mua vé");
         }
     }
 
-    //
+    // hiển thị vé đã chọn
     function showTicket() {
         let table = '';
         for (let index = 0; index < listTicket.length; index++) {
             table += ` <tr>
-            <td>Cặp số ` + index + `:</td>
+            <td>Cặp số ` + (index + 1) + `:</td>
             <td class="number">` + listTicket[index].no1 + `</td>
             <td class="number">` + listTicket[index].no2 + `</td>
             <td class="number">` + listTicket[index].no3 + `</td>
@@ -95,86 +118,156 @@
         document.getElementById("tickets").innerHTML = table;
     }
 
+    // hiển thị kết quả 
+    function showResult() {
+        let table = '';
+        for (let index = 0; index < listResultTicket.length; index++) {
+            table += ` <tr>
+            <td>Cặp số ` + (index + 1) + `:</td>
+            <td class="number">` + listResultTicket[index].no1 + `</td>
+            <td class="number">` + listResultTicket[index].no2 + `</td>
+            <td class="number">` + listResultTicket[index].no3 + `</td>
+            <td class="number">` + listResultTicket[index].no4 + `</td>
+            <td class="number">` + listResultTicket[index].no5 + `</td>
+            <td class="number">` + listResultTicket[index].no6 + `</td>
+        </tr>`;
+        }
+        document.getElementById("result").innerHTML = table;
+    }
+
     // tự động random
     function setAuto(qty) {
-        if (qty > 0 && qty <= 4) {
-            for (let i = 1; i <= qty; i++) {
-                for (let j = 1; j <= 6; j++) {
-                    switch (j) {
-                        case 1:
-                            var no1 = Math.floor(Math.random() * 100);
-                            break;
-                        case 2:
-                            var no2 = Math.floor(Math.random() * 100);
-                            break;
-                        case 3:
-                            var no3 = Math.floor(Math.random() * 100);
-                            break;
-                        case 4:
-                            var no4 = Math.floor(Math.random() * 100);
-                            break;
-                        case 5:
-                            var no5 = Math.floor(Math.random() * 100);
-                            break;
-                        case 6:
-                            var no6 = Math.floor(Math.random() * 100);
-                            break;
-                    }
+        for (let i = 1; i <= qty; i++) {
+            for (let j = 1; j <= 6; j++) {
+                switch (j) {
+                    case 1:
+                        var no1 = Math.floor(Math.random() * 100);
+                        break;
+                    case 2:
+                        var no2 = Math.floor(Math.random() * 100);
+                        break;
+                    case 3:
+                        var no3 = Math.floor(Math.random() * 100);
+                        break;
+                    case 4:
+                        var no4 = Math.floor(Math.random() * 100);
+                        break;
+                    case 5:
+                        var no5 = Math.floor(Math.random() * 100);
+                        break;
+                    case 6:
+                        var no6 = Math.floor(Math.random() * 100);
+                        break;
                 }
-                let ticketNumber = new Vietlot(no1, no2, no3, no4, no5, no6);
-                listTicket.push(ticketNumber);
             }
-        } else if (qty <= 0) {
-            alert("Bạn phải chọn số lượng vé cần mua từ 1 đến 4 vé")
-        } else {
-            alert("Bạn chỉ mua được tối đa 4 vé")
+            let ticketNumber = new Vietlot(no1, no2, no3, no4, no5, no6);
+            listTicket.push(ticketNumber);
         }
         showTicket();
     }
 
     // chọn vé thủ công
     function setManual(qty) {
-        if (qty > 0 && qty <= 4) {
-            for (let i = 1; i <= qty; i++) {
-                for (let j = 1; j <= 6; j++) {
-                    switch (j) {
-                        case 1:
-                            var no1 = Number(prompt("Nhập cặp số thứ " + i + " lần 1"));
-                            break;
-                        case 2:
-                            var no2 = Number(prompt("Nhập cặp số thứ " + i + " lần 2"));
-                            break;
-                        case 3:
-                            var no3 = Number(prompt("Nhập cặp số thứ " + i + " lần 3"));
-                            break;
-                        case 4:
-                            var no4 = Number(prompt("Nhập cặp số thứ " + i + " lần 4"));
-                            break;
-                        case 5:
-                            var no5 = Number(prompt("Nhập cặp số thứ " + i + " lần 5"));
-                            break;
-                        case 6:
-                            var no6 = Number(prompt("Nhập cặp số thứ " + i + " lần 6"));
-                            break;
-                    }
+        for (let i = 1; i <= qty; i++) {
+            for (let j = 1; j <= 6; j++) {
+                switch (j) {
+                    case 1:
+                        var no1 = Number(prompt("Nhập cặp số thứ " + i + " lần 1"));
+                        break;
+                    case 2:
+                        var no2 = Number(prompt("Nhập cặp số thứ " + i + " lần 2"));
+                        break;
+                    case 3:
+                        var no3 = Number(prompt("Nhập cặp số thứ " + i + " lần 3"));
+                        break;
+                    case 4:
+                        var no4 = Number(prompt("Nhập cặp số thứ " + i + " lần 4"));
+                        break;
+                    case 5:
+                        var no5 = Number(prompt("Nhập cặp số thứ " + i + " lần 5"));
+                        break;
+                    case 6:
+                        var no6 = Number(prompt("Nhập cặp số thứ " + i + " lần 6"));
+                        break;
                 }
-                let ticketNumber = new Vietlot(no1, no2, no3, no4, no5, no6);
-                listTicket.push(ticketNumber);
             }
-        } else if (qty <= 0) {
-            alert("Bạn phải chọn số lượng vé cần mua từ 1 đến 4 vé")
-        } else {
-            alert("Bạn chỉ mua được tối đa 4 vé")
+            let ticketNumber = new Vietlot(no1, no2, no3, no4, no5, no6);
+            listTicket.push(ticketNumber);
         }
         showTicket();
     }
 
+    // tự động random kết quả
+    function setResultTicket(qty) {
+        for (let i = 1; i <= qty; i++) {
+            for (let j = 1; j <= 6; j++) {
+                switch (j) {
+                    case 1:
+                        var no1 = Math.floor(Math.random() * 100);
+                        break;
+                    case 2:
+                        var no2 = Math.floor(Math.random() * 100);
+                        break;
+                    case 3:
+                        var no3 = Math.floor(Math.random() * 100);
+                        break;
+                    case 4:
+                        var no4 = Math.floor(Math.random() * 100);
+                        break;
+                    case 5:
+                        var no5 = Math.floor(Math.random() * 100);
+                        break;
+                    case 6:
+                        var no6 = Math.floor(Math.random() * 100);
+                        break;
+                }
+            }
+            let ticketNumber = new Vietlot(no1, no2, no3, no4, no5, no6);
+            listResultTicket.push(ticketNumber);
+        }
+
+    }
+
     // kiểm tra kết quả
     function checkResult() {
+        setResultTicket();
+        showResult();
+        let winningTicketPair = [];
+        for (let i = 0; i < listTicket.length; i++) {
+            if (
+                listTicket[i].no1 === listResultTicket[i].no1 &&
+                listTicket[i].no2 === listResultTicket[i].no2 &&
+                listTicket[i].no3 === listResultTicket[i].no3 &&
+                listTicket[i].no4 === listResultTicket[i].no4 &&
+                listTicket[i].no5 === listResultTicket[i].no5 &&
+                listTicket[i].no6 === listResultTicket[i].no6
+            ) {
+                document.getElementById("messResult").innerText = "Chúc mừng bạn đã trúng giải nhất";
+            } else if
+                (
+                listTicket[i].no2 === listResultTicket[i].no2 &&
+                listTicket[i].no3 === listResultTicket[i].no3 &&
+                listTicket[i].no4 === listResultTicket[i].no4 &&
+                listTicket[i].no5 === listResultTicket[i].no5 &&
+                listTicket[i].no6 === listResultTicket[i].no6
+            ) {
+                document.getElementById("messResult").innerText = "Chúc mừng bạn đã trúng giải nhì";
+            } else if
+                (
+                listTicket[i].no4 === listResultTicket[i].no4 &&
+                listTicket[i].no5 === listResultTicket[i].no5 &&
+                listTicket[i].no6 === listResultTicket[i].no6
+            ) {
+                document.getElementById("messResult").innerText = "Chúc mừng bạn đã trúng giải khuyến khích";
+            } else {
+                document.getElementById("messResult").innerText = "Chúc bạn may mắn lần sau";
+            }
+        }
         // Giải nhất: 6 số trên vé của KH trùng khớp hoàn toàn với 6 số của hệ thống
         // Giải nhì: 5 số cuối của vé KH trùng khớp với 5 số cuối của hệ thống
         // Giải khuyến khích: 3 số cuối của vé KH trùng khớp với 3 số cuối của hệ thống
     }
 
 </script>
+
 </html>
