@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V. Yêu cầu 5 (Mảng 2 chiều) - Bài 3</title>
+</head>
+<body>
+
+</body>
+<script>
+    /* Bài 3: Viết hàm tìm giá trị lớn nhất, nhỏ nhất trong mảng 2 chiều.*/
+    let numbers = [
+        [1, 3, 2, 1, 6, 40, 6, 1, 4, 5],
+        [5, 6, 3, 6, 7, 8, 9, 5, 4, 1]
+    ];
+
+    function checkMinMax(numbers) {
+        let result = [];
+        let max = numbers[0][0];
+        let min = numbers[0][0];
+        for (let i = 0; i < numbers.length; i++) {
+            for (let j = 0; j < numbers[i].length; j++) {
+                if (numbers[i][j] > max) {
+                    max = numbers[i][j];
+                } else {
+                    min = numbers[i][j];
+                }
+            }
+        }
+        result.push(max);
+        result.push(min);
+        return result;
+    }
+
+    let result = checkMinMax(numbers);
+    console.log("Số lớn nhất : " + result[0]);
+    console.log("Số nhỏ nhất : " + result[1]);
+</script>
+</html>
