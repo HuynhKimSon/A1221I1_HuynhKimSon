@@ -115,9 +115,9 @@
         var itemQty = document.getElementById("qtyProduct").value;
         var itemPrice = document.getElementById("priceProduct").value;
         let product = new Product(itemName, itemQty, itemPrice);
-        if (currentIndex >= 0) {    // Check valid product
+        if (currentIndex >= 0) {    // kiem tra dieu kien - them || sua
             if (listProduct[currentIndex].name != itemName || listProduct[currentIndex].qty != itemQty || listProduct[currentIndex].price != itemPrice) {
-                listProduct.splice(currentIndex, 1, product);    // Edit product
+                listProduct.splice(currentIndex, 1, product);    // chinh sua san pham
                 currentIndex = -1;
             } else {
                 document.getElementById("nameProduct").value = "";
@@ -130,7 +130,7 @@
         showProductList();
     }
 
-    // View product
+    // hien thi san pham
     function editProduct(indexEdit) {
         document.getElementById("nameProduct").value = listProduct[indexEdit].name;
         document.getElementById("qtyProduct").value = listProduct[indexEdit].qty;
@@ -138,7 +138,7 @@
         currentIndex = indexEdit;
     }
 
-    // Delete product
+    // xoa san pham
     function deleteProduct(indexDelete) {
         listProduct.splice(indexDelete, 1);
         showProductList();
