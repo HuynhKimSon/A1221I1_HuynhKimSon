@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<style>
+    .main {
+        display: flex;
+        justify-content: center;
+    }
+
+    .addProduct {
+        margin: 20px;
+    }
+
+    #formAdd {
+        width: 500px;
+    }
+
+    .btn-add, .btn-edit, .btn-delete {
+        width: 100px;
+        height: 35px;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    input {
+        width: 550px;
+        height: 30px;
+        margin-bottom: 30px;
+    }
+
+    #showProduct {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    #showProduct th, tr {
+        text-align: start;
+        font-size: 18px;
+        width: 400px;
+    }
+
+    td {
+        padding-top: 30px;
+    }
+</style>
+
+<body onload="showProductList()">
+<div class="main">
+    <div class="addProduct">
+        <form id="formAdd" action="" method="get">
+            <h2 for="">Thêm mới sản phẩm</h2>
+            <input type="text" id="id" autofocus placeholder="Nhập mã sổ">
+            <input type="text" id="type" placeholder="Nhập loại tiết kiệm">
+            <input type="text" id="name" placeholder="Nhập Họ và tên">
+            <input type="number" id="code" autofocus placeholder="Nhập chứng minh nhân dân">
+            <input type="date" id="date" placeholder="Nhập ngày mở sổ">
+            <input type="number" id="amount" placeholder="Nhập số tiền gửi">
+            <p id="error" style="color: red"></p>
+            <button class="btn-add" type="button" style="background-color: green;" onclick="addProduct()">Thêm</button>
+            <button class="btn-add" type="button" style="background-color: red;" onclick="deleteProduct()">Xóa</button>
+        </form>
+        <h2 for="" style="margin-top: 50px">Danh sách sản phẩm</h2>
+        <table id="showProduct">
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    class SOTIETKIEM {
+        constructor(id, type, name, code, date, amount) {
+            this.id = id;
+            this.type = type;
+            this.name = name;
+            this.code = code;
+            this.date = date;
+            this.amount = amount;
+        }
+    }
+
+    // danh sach so tiet kiem
+    var list = [
+        {
+            id: "A0001",
+            type: "AA",
+            name: "Nguyễn Văn A",
+            code: 206269200,
+            date: "20/01/2021",
+            amount: 12000,
+        },
+        {
+            id: "A0002",
+            type: "BB",
+            name: "Lê Văn B",
+            code: 206269333,
+            date: "20/11/2021",
+            amount: 200000,
+        }
+    ];
+
+    // hien thi danh sach so tiet kiem
+    function showProductList() {
+        let table = "    <tr>\n" +
+            "                <th>ID</th>\n" +
+            "                <th>Loại tiết kiệm</th>\n" +
+            "                <th>Họ tên khách hàng</th>\n" +
+            "                <th>Chứng minh nhân dân</th>\n" +
+            "                <th>Ngày mở sổ</th>\n" +
+            "                <th>Số tiền gửi</th>\n" +
+            "            </tr>";
+        for (let index = 0; index < list.length; index++) {
+            table += "<tr>" +
+                "</td>" + "<td>" + list[index].id + "</td>" +
+                "</td>" + "<td>" + list[index].type + "</td>" +
+                "</td>" + "<td>" + list[index].name + "</td>" +
+                "</td>" + "<td>" + list[index].code + "</td>" +
+                "</td>" + "<td>" + list[index].date + "</td>" +
+                "</td>" + "<td>" + list[index].amount + "</td>" +
+                //"<td>" + "<button class=\"btn-edit\" type=\"button\" style=\"background-color: yellow\" onclick='editProduct(" + index + ")'>" + "Sửa" + "</button>" + "</td>" +
+                //"<td>" + "<button class=\"btn-delete\" type=\"button\" style=\"background-color: red\" onclick='deleteProduct(" + index + ")'>" + "Xóa" + "</button>" + "</td>" +
+                "</tr>";
+        }
+        document.getElementById("showProduct").innerHTML = table;
+    }
+
+    var currentIndex = -1;
+
+    // them moi san pham
+    function addProduct() {
+        var itemId = document.getElementById("id").value;
+        var itemType = document.getElementById("type").value;
+        var itemName = document.getElementById("name").value;
+        var itemCode = document.getElementById("code").value;
+        var itemDate = document.getElementById("date").value;
+        var itemAmount = document.getElementById("amount").value;
+        // Validate du lieu
+        if (
+            itemId != '' &&
+            itemType != '' &&
+            itemName != '' &&
+            itemCode != '' &&
+            itemDate != '' &&
+            itemAmount != ''
+        ) {
+            if (itemId.length < 0 || itemId.length > 5) {
+                document.getElementById("error").innerText = "Vui lòng nhập mã số có đối đa 5 ký tự";
+            } else if (itemType.length < 0 || itemType.length > 10) {
+                document.getElementById("error").innerText = "Vui lòng nhập loại tiết kiệm có đối đa 10 ký tự";
+            } else if (itemName.length < 0 || itemName.length > 30) {
+                document.getElementById("error").innerText = "Vui lòng nhập họ tên khách hàng có đối đa 30 ký tự";
+            } else {
+                // validate ma so
+                let check = true;
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].id === itemId.replace(" ", "")) {
+                        check = false;
+                        break;
+                    }
+                }
+                // check = true - them / check = false - log error
+                if (check) {
+                    // them moi
+                    let item = new SOTIETKIEM(itemId, itemType, itemName, itemCode, itemDate, itemAmount);
+                    if (currentIndex >= 0) {    // kiem tra dieu kien - them || sua
+                        if (
+                            list[currentIndex].id != itemId ||
+                            list[currentIndex].type != itemType ||
+                            list[currentIndex].name != itemName ||
+                            list[currentIndex].code != itemCode ||
+                            list[currentIndex].date != itemDate ||
+                            list[currentIndex].amount != itemAmount
+                        ) {
+                            list.splice(currentIndex, 1, item);    // chinh sua san pham
+                            currentIndex = -1;
+                        } else {
+                            document.getElementById("id").value = "";
+                            document.getElementById("type").value = "";
+                            document.getElementById("name").value = "";
+                            document.getElementById("code").value = "";
+                            document.getElementById("date").value = "";
+                            document.getElementById("amount").value = "";
+                        }
+                    } else {
+                        list.push(item);
+                        document.getElementById("error").innerText = "";
+                        document.getElementById("id").value = "";
+                        document.getElementById("type").value = "";
+                        document.getElementById("name").value = "";
+                        document.getElementById("code").value = "";
+                        document.getElementById("date").value = "";
+                        document.getElementById("amount").value = "";
+                    }
+                    showProductList();
+                } else {
+                    document.getElementById("error").innerText = "Mã sổ đã tồn tại, vui lòng chọn mã sổ khác";
+                }
+            }
+        } else {
+            document.getElementById("error").innerText = "Vui lòng nhập đầy đủ thông tin";
+        }
+    }
+
+    // hien thi san pham
+    function editProduct(indexEdit) {
+        document.getElementById("id").value = list[indexEdit].name;
+        document.getElementById("type").value = list[indexEdit].qty;
+        document.getElementById("name").value = list[indexEdit].price;
+        document.getElementById("code").value = list[indexEdit].name;
+        document.getElementById("date").value = list[indexEdit].qty;
+        document.getElementById("amount").value = list[indexEdit].price;
+        currentIndex = indexEdit;
+    }
+
+    // xoa san pham
+    function deleteProduct() {
+        var itemId = document.getElementById("id").value;
+        if (itemId === '') {
+            document.getElementById("error").innerText = "Vui lòng nhập mã sổ cần xóa";
+        } else {
+            let check = false;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].id === itemId.replace(" ", "")) {
+                    check = true;
+                    break;
+                }
+            }
+            if (check) {
+                list.splice(i, 1);
+                document.getElementById("error").innerText = "";
+                showProductList();
+            } else {
+                document.getElementById("error").innerText = "Không tìm thấy Mã sổ cần xóa, vui lòng nhập lại";
+            }
+        }
+
+
+
+    }
+</script>
+</html>
