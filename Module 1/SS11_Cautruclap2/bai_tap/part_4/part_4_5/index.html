@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bài 5: Viết chương trình tính lãi ngân hàng (lãi mẹ đẻ lãi con) khi biết số tiền ban đầu, số tháng cho vay
+        và lãi xuất hàng tháng.</title>
+</head>
+<body>
+
+</body>
+<script>
+    let money = Number(prompt("Nhập số tiền ban đầu:"));
+    let month = Number(prompt("Nhập số tháng cho vay:"));
+    let interestRate = Number(prompt("Nhập số lãi suất hàng tháng:"));
+    var total;
+    for (let i = 0; i < month; i++) {
+        total = money + money * interestRate / 100;
+    }
+    alert("Số tiền gốc và lãi của bạn: " + total);
+</script>
+</html>

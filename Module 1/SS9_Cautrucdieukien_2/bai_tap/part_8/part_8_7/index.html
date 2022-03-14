@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bài 6: Giải phương trình bậc 2.</title>
+</head>
+<body>
+
+</body>
+<script>
+    let a = prompt("Nhập a : ");
+    a = parseInt(a);
+    let b = prompt("Nhập b : ");
+    b = parseInt(b);
+    let c = prompt("Nhập c : ");
+    c = parseInt(c);
+    let x, d, x1, x2;
+    if (a == 0) {
+        x = -c / b;
+        alert("x = " + x);
+    } else {
+        d = (b * b - 4 * a * c);
+        if (d == 0) {
+            x = -b / (2 * a);
+            alert("phuong trinh co nghiem kep : x = " + x);
+        } else if (d < 0) {
+            alert("phuong trinh vo nghiem");
+        } else {
+            x1 = (-b + Math.sqrt(d)) / (2 * a);
+            x2 = (-b - Math.sqrt(d)) / (2 * a);
+            alert("phuong trinh co hai nghiem : x1 = " + x1 + " / x2 = " + x2);
+        }
+    }
+</script>
+</html>

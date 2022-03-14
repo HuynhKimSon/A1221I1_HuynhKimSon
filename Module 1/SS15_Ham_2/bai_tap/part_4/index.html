@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Bài tập] Luyện tập tạo và sử dụng hàm 02</title>
+</head>
+
+<body onload="calculator()">
+    <!--<body onload="calculator()">-->
+
+</body>
+<script>
+    /* Bài 1: Viết hàm tính bình phương của một số bất kỳ được đưa vào. Gọi hàm vừa xây dựng được. */
+
+    // function calculator(){
+    //     var num = Number(prompt("Nhập vào một số bất kỳ"));
+    //     var result = num * num;
+    //     console.log(result);
+    // }
+
+
+    /* Bài 2: Viết hàm tính diện tích, hàm tính chu vi hình tròn. Gọi hàm vừa xây dựng được */
+
+    // function calculator() {
+    //     chuvi();
+    //     dientich();
+    // }
+    //
+    // function chuvi() {
+    //     let d = 10;
+    //     var resultChuVi = d * 3.14;
+    //     console.log(resultChuVi);
+    // }
+    //
+    // function dientich() {
+    //     let r = 15;
+    //     var resultDienTich = r * r * 3.14;
+    //     console.log(resultDienTich);
+    //
+    // }
+
+    /* Bài 3: Viết hàm tính giai thừa của một số nguyên bất kỳ được đưa vào. Gọi hàm vừa xây dựng được. */
+
+    // function calculator() {
+    //     var gt = 1;
+    //     var num = Number(prompt("Nhập số nguyên bất kỳ:"));
+    //     for (let i = 1; i <= num; i++) {
+    //         gt *= i;
+    //     }
+    //     console.log(gt);
+    // }
+
+    /* Bài 4: Viết hàm kiểm tra xem ký tự nhập vào có phải là ký tự số không. Nếu là ký tự số hàm trả về true, ngược lại trả về false. */
+
+    // function calculator() {
+    //     var val = prompt("Nhập");
+    //     var arr = val.split('');
+    //     var check = true;
+    //     for (let i = 0; i < arr.length; i++) {
+    //         if (isNaN(arr[i])) {
+    //             check = false;
+    //         }
+    //     }
+    //     console.log(check);
+    // }
+
+    /* Bài 5: Viết hàm nhận vào 3 số nguyên bất kỳ, trả về số nguyên có giá trị nhỏ nhất. */
+    // var a = Number(prompt("Nhập A"));
+    // var b = Number(prompt("Nhập B"));
+    // var c = Number(prompt("Nhập C"));
+    // var max;
+    //
+    // function calculator() {
+    //     a = max;
+    //     if (b > max) {
+    //         b = max;
+    //     }
+    //     if (c > max) {
+    //         c = max;
+    //     }
+    // }
+
+    /* Bài 6: Viết hàm nhận vào một số, kiểm tra xem nếu số đưa vào có phải là nguyên dương không.
+    Nếu là nguyên dương trả về true, ngược lại trả về false. */
+    // var a = Number(prompt("Nhập một số nguyên "));
+    // function calculator() {
+    //     if (a > 0) {
+    //         alert("Là số nguyên dương");
+    //     } else {
+    //         alert("Không phải là số nguyên dương");
+    //     }
+    // }
+
+    /* Bài 7: Viết hàm truyền vào 2 số nguyên bất kì, thực hiện đổi chỗ hai số nguyên đó. */
+    // var list = [];
+    // for (let i = 0; i < 2; i++) {
+    //     let number = Number(prompt("Nhập số nguyên bất kỳ"));
+    //     list.push(number);
+    // }
+    // function check(list) {
+    //     let temp = list[0];
+    //     list[0] = list[1];
+    //     list[1] = temp;
+    // }
+    // check(list);
+    // console.log("a : " + list[0]);
+    // console.log("b : " + list[1]);
+
+    /* Bài 8: Viết hàm truyền vào mảng số nguyên bất kỳ, sau đó đảo ngược mảng số nguyên đó. */
+    // var list = [1, 2, 3, 4, 5, 6];
+    // let first = 0;
+    // function calculator() {
+    //     for (let last = list.length - 1; last > first; first++, last--) {
+    //         let temp = list[first];
+    //         list[first] = list[last];
+    //         list[last] = temp;
+    //     }
+    //     console.log(list);
+    // }
+
+    /* Bài 9: Viết hàm truyền vào một mảng ký tự, và một ký tự bất kỳ, kiểm tra xem ký tự bất kỳ đó có nằm trong mảng không.
+    Nếu có trả về số lần xuất hiện của ký tự đó, nếu không trả về -1. */
+
+    var list = ["!", "@", "#", "$", "%", "^", "&", "*"];
+    var count = 0;
+    function calculator() {
+        let temp = prompt("Nhập một ký tự cần tìm:");
+        var listTemp = temp.split('');
+        for (let i = 0; i < listTemp.length; i++) {
+            for (let j = 0; j < list.length; j++) {
+                if (listTemp[i] == list[j]) {
+                    count++;
+                }
+            }
+        }
+        console.log("Số lần xuất hiện của ký tự:", count);
+    }
+</script>
+
+</html>

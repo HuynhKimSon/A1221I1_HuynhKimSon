@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V. Yêu cầu 5 (Mảng 2 chiều) - Bài 2</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* Bài 2: Viết hàm liệt kê các số nguyên tố trong mảng 2 chiều, đếm các số nguyên tố có trong mảng đó. */
+    var numbers = [
+        [1, 17, 2, 25, 6, 11, 53, 59, 28, 5],
+        [11, 40, 3, 39, 7, 8, 9, 19, 29, 26]
+    ];
+
+    function checkPrime(numbers) {
+        let result = [];
+        for (let i = 0; i < numbers.length; i++) {
+            for (let j = 0; j < numbers[i].length; j++) {
+                let check = true;
+                for (let x = 2; x < numbers[i][j]; x++) {
+                    if (numbers[i][j] < 2) {
+                        check = false;
+                        break;
+                    } else if (numbers[i][j] === 2) {
+                        break;
+                    } else if (numbers[i][j] % x === 0) {
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) {
+                    result.push(numbers[i][j]);
+                }
+            }
+        }
+        return result;
+    }
+
+    let result = checkPrime(numbers);
+    console.log("Số nguyên tố : " + result);
+    console.log("Số lượng số nguyên tố : " + result.length);
+
+</script>
+
+</html>

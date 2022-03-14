@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Bài tập] Ứng dụng máy tính</title>
+</head>
+<style>
+    table {
+        margin: 0 auto;
+        width: 45%;
+        border-collapse: collapse;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th,
+    td {
+        padding-top: 20px;
+        width: 200px;
+    }
+
+    button {
+        width: 150px;
+        height: 32px;
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+
+<body>
+    <form id="myForm">
+        <table>
+
+            <tr>
+                <th colspan="4" style="font-size: 24px">Calculator</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input id="first" type="text" style="width: 90%; height: 24px">
+                </td>
+                <td colspan="2">
+                    <input id="second" type="text" style="width: 90%; height: 24px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" onclick="addition('+')">
+                        Addition(+)
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick="addition('-')">
+                        Subtraction(-)
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick="addition('*')">
+                        Multiplication(X)
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick="addition('/')">
+                        Division(/)
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 id="result" style=" text-align:center; color: blue; width: 100%">
+                        Result Division:
+                    </h3>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+    // Calculate
+    function addition(calculation) {
+        // get value first
+        let first = document.getElementById("first").value;
+        first = Number(first);
+
+        // get value second
+        let second = document.getElementById("second").value;
+        second = Number(second);
+
+        // logic
+        let result;
+        switch (calculation) {
+            case '+':
+                result = first + second;
+                break;
+            case '-':
+                result = first - second;
+                break;
+            case '*':
+                result = first * second;
+                break;
+            case '/':
+                result = first / second;
+                break;
+        }
+        result = result.toFixed(2);
+        let convert = "Result Division: " + result;
+        // show result
+        document.getElementById('result').innerHTML = convert;
+        // reset
+        document.getElementById("myForm").reset();
+    }
+</script>
+</html>

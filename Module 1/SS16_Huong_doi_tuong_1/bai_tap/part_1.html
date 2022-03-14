@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Bài tập] Xây dựng lớp mô tả hình chữ nhật</title>
+</head>
+
+<body>
+
+<canvas id="myCanvas" width="500" height="600" style="border:1px solid #d3d3d3;">
+
+</body>
+<script>
+    // Xây dựng lớp Rectangle với phương thức khởi tạo có 2 tham số truyền vào
+    let Rectangle = function (long, wide) {
+        this.long = long;
+        this.wide = wide;
+
+        // Xây dựng phương thức trả về dài rộng
+        this.getLong = function () {
+            return this.long;
+        }
+
+        this.getWide = function () {
+            return this.wide;
+        }
+
+        // tinh dien tinh hcn
+        this.getArea = function () {
+            return long * wide;
+        }
+
+        // tinh chu vi hcn
+        this.getRadius = function () {
+            return (long + wide) * 2;
+        }
+    }
+    // sử dụng lớp vừa tạo. Tạo mới đối tượng với chiều dài = 160, rộng = 140
+    let rectangle = new Rectangle(160, 140);
+
+    //Truy cập phương thức của lớp hình chữ nhật vừa tạo và gán cho các biến radius, area, width, height
+    let area = rectangle.getArea();
+    let radius = rectangle.getRadius();
+    let width = rectangle.getLong();
+    let height = rectangle.getWide();
+
+    // Hiển thị chiều dài và chiều rộng
+    function createRectangle() {
+        var ctx = document.getElementById("myCanvas").getContext("2d");
+        ctx.fillStyle = '#fa4b2a';
+        ctx.fillRect(10, 40, width, height);
+    }
+
+    createRectangle()
+    console.log("Diện tích: " + area + " - Chu vi: " + radius);
+
+</script>
+
+</html>

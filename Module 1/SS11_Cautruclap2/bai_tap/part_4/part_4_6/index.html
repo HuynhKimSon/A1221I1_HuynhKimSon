@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bài 6: In hình trái tim</title>
+</head>
+<body>
+
+</body>
+<script>
+    let x = [-3, 5, 1, 3, 2, 10];
+    let first = 0;
+    let last = x.length - 1;
+    while (first < last) {
+        console.log("x : ", x)
+        let b = x[first];
+        console.log("x1 : ", x[first])
+        x[first] = x[last];
+        console.log("x2 : ", x[first])
+        console.log("last1 : ", x[last])
+        x[last] = b;
+        console.log("last2 : ", x[last])
+
+        first++;
+        last--;
+    }
+</script>
+</html>

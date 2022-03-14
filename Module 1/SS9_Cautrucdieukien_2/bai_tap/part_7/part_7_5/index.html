@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bài 5: Xếp hạng học lực của học sinh dựa trên các điểm bài kiểm tra, điểm thi giữa kỳ, điểm thi cuối
+        kỳ</title>
+</head>
+<body>
+
+</body>
+<script>
+    let a = Number(prompt("Nhập điểm bài kiểm tra hệ số 1:"));
+    let b = Number(prompt("Nhập điểm bài thi giữa kỳ hệ số 2:"));
+    let c = Number(prompt("Nhập điểm bài thi cuối kỳ hệ số 3:"));
+    let avg = (a + b * 2 + c * 3) / 6;
+    if (avg >= 9) {
+        alert("Xếp loại xuất sắc");
+    } else if (avg >= 8.5) {
+        alert("Xếp loại giỏi");
+    } else if (avg >= 7) {
+        alert("Xếp loại khá");
+    } else if (avg >= 5) {
+        alert("Xếp loại trung bình");
+    } else {
+        alert("Xếp loại yếu");
+    }
+</script>
+</html>

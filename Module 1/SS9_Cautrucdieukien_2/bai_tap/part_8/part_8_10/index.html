@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bài 10: Viết chương trình tính giá điện.</title>
+</head>
+<body>
+
+</body>
+<script>
+    // > 400 : 2.9
+    // 301 - 400 : 2.8
+    // 201 - 300 : 2.7
+    // 101 - 200 : 2.6
+    // 51 - 100 : 2.5
+    // < 50 : 2.4
+    let a = Number(prompt("Nhập số chữ điện đã tiêu thụ : "));
+    let total;
+    if (a > 400) {
+        total = ((a - 400) * 2.9) + (100 * 2.8) + (100 * 2.7) + (100 * 2.6) + (50 * 2.5) + (50 * 2.4);
+    } else if (a > 300) {
+        total = ((a - 300) * 2.8) + (100 * 2.7) + (100 * 2.6) + (50 * 2.5) + (50 * 2.4);
+    } else if (a > 200) {
+        total = ((a - 200) * 2.7) + (100 * 2.6) + (50 * 2.5) + (50 * 2.4);
+    } else if (a > 100) {
+        total = ((a - 100) * 2.6) + (50 * 2.5) + (50 * 2.4);
+    } else if (a > 50) {
+        total = ((a - 50) * 2.5) + (50 * 2.4);
+    } else {
+        total = a * 2.4;
+    }
+    alert("Số tiền phải đóng: " + total);
+</script>
+</html>
