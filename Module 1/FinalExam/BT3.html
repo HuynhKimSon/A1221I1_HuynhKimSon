@@ -8,10 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
-<body>
-
-</body>
 <style>
     .main {
         display: flex;
@@ -19,64 +15,83 @@
     }
 
     .addProduct {
-        margin: 20px;
+        margin-bottom: 50px;
     }
 
     #formAdd {
-        width: 500px;
+        width: 600px;
     }
 
-    .btn-add,
-    .btn-edit,
-    .btn-delete {
+    button {
         width: 100px;
-        height: 35px;
-        color: black;
+        height: 30px;
+        color: white;
+        border: none;
         font-weight: bold;
         cursor: pointer;
     }
 
-    input {
+    button:disabled {
+        opacity: 0.3;
+        cursor: not-allowed !important;
+    }
+
+    #formAdd>input {
         width: 550px;
         height: 30px;
         margin-bottom: 30px;
     }
 
     #showProduct {
-        width: 100%;
-        margin-top: 30px;
+        width: 85%;
+        border-collapse: collapse;
     }
 
-    #showProduct th,
-    tr {
-        text-align: start;
+    #showProduct th {
+        width: 230px;
         font-size: 18px;
-        width: 400px;
+        text-align: start;
     }
 
-    td {
-        padding-top: 30px;
+    #showProduct tr th:first-child {
+        width: 50px;
+    }
+
+    td,
+    th {
+        padding: 10px 0 10px 15px;
+    }
+
+    tr {
+        border-bottom: 1px solid #cccccc;
+    }
+
+    tr:nth-last-child(2n) {
+        background-color: #f9f9f9;
+
     }
 </style>
 
-<body onload="showProductList()">
+<body onload="display()">
     <div class="main">
         <div class="addProduct">
             <form id="formAdd" action="" method="get">
-                <h2 for="">Thêm mới sản phẩm</h2>
+                <h2 for="">Thêm mới sổ tiết kiệm</h2>
                 <input type="text" id="id" autofocus placeholder="Nhập mã sổ">
                 <input type="text" id="type" placeholder="Nhập loại tiết kiệm">
-                <input type="text" id="name" placeholder="Nhập Họ và tên">
-                <input type="number" id="code" autofocus placeholder="Nhập chứng minh nhân dân">
+                <input type="text" id="name" placeholder="Nhập họ và tên">
+                <input type="number" id="code" autofocus placeholder="Nhập thẻ căn cước">
                 <input type="date" id="date" placeholder="Nhập ngày mở sổ">
                 <input type="number" id="amount" placeholder="Nhập số tiền gửi">
                 <p id="error" style="color: red"></p>
-                <button class="btn-add" type="button" style="background-color: green;"
-                    onclick="addProduct()">Thêm</button>
-                <button class="btn-add" type="button" style="background-color: red;"
+                <button id="btn-add" type="button" style="background-color: #1c84c6;" onclick="addProduct()">Thêm
+                    mới</button>
+                <button id="btn-delete" type="button" style="background-color: #ed5565"
                     onclick="deleteProduct()">Xóa</button>
+                <button id="btn-search" type="button" style="background-color: #1ab394;" onclick="search()">Tìm
+                    kiếm</button>
             </form>
-            <h2 for="" style="margin-top: 50px">Danh sách sản phẩm</h2>
+            <h2 for="" style="margin-top: 50px">Danh sách sổ tiết kiệm</h2>
             <table id="showProduct">
             </table>
         </div>
@@ -94,8 +109,8 @@
         }
     }
 
-    // danh sach so tiet kiem
-    var list = [
+    // Danh sach so tiet kiem
+    var listData = [
         {
             id: "A0001",
             type: "AA",
@@ -111,48 +126,159 @@
             code: 206269333,
             date: "20/11/2021",
             amount: 200000,
+        },
+        {
+            id: "A0003",
+            type: "AA",
+            name: "Nguyễn Văn C",
+            code: 206231452,
+            date: "15/05/2021",
+            amount: 15000,
+        },
+        {
+            id: "A0004",
+            type: "BB",
+            name: "Lê Văn D",
+            code: 206269311,
+            date: "20/12/2022",
+            amount: 300000,
+        },
+        {
+            id: "A0005",
+            type: "AA",
+            name: "Nguyễn Văn E",
+            code: 206200222,
+            date: "11/01/2021",
+            amount: 12000,
+        },
+        {
+            id: "A0006",
+            type: "BB",
+            name: "Lê Văn F",
+            code: 206256733,
+            date: "01/11/2021",
+            amount: 210000,
         }
     ];
 
-    // hien thi danh sach so tiet kiem
-    function showProductList() {
+    // Convert format "yyyy-MM-dd" -> "dd/MM/yyyy" || "dd/MM/yyyy" -> "yyyy-MM-dd"
+    function convertDate(dateFormat) {
+        if (dateFormat.includes("-")) {
+            let date = dateFormat.split("-");
+            let dd = date[2];
+            let mm = date[1];
+            let yyyy = date[0];
+            var itemDate = dd + "/" + mm + "/" + yyyy;
+        } else {
+            let date = dateFormat.split("/");
+            let dd = date[0];
+            let mm = date[1];
+            let yyyy = date[2];
+            var itemDate = yyyy + "-" + mm + "-" + dd;
+        }
+        return itemDate;
+    }
+
+    // Tim kiem so tiet kiem
+    function search() {
+        let itemId = document.getElementById("id").value;
+        let isIdExist = false;
+        let indexId = -1;
+        if (itemId === "") {
+            document.getElementById("error").innerText = "Vui lòng nhập mã sổ cần tìm kiếm";
+        } else {
+            for (let index = 0; index < listData.length; index++) {
+                if (listData[index].id === itemId.replace(" ", "")) {
+                    isIdExist = true;
+                    indexId = index;
+                    break;
+                }
+            }
+        }
+        if (!isIdExist && itemId !== "") {
+            document.getElementById("error").innerText = "Không tìm thấy mã sổ cần tìm kiếm";
+        }
+        display(indexId, itemId, isIdExist);
+    }
+
+
+    // Hien thi danh sach so tiet kiem
+    function display(indexId, itemId, isIdExist) {
         let table = "    <tr>\n" +
+            "<th><input type=\"checkbox\" id=\"select-all\" onclick ='checkSelectAll()'></th>\n" +
             "                <th>ID</th>\n" +
             "                <th>Loại tiết kiệm</th>\n" +
             "                <th>Họ tên khách hàng</th>\n" +
-            "                <th>Chứng minh nhân dân</th>\n" +
+            "                <th>Thẻ căn cước</th>\n" +
             "                <th>Ngày mở sổ</th>\n" +
             "                <th>Số tiền gửi</th>\n" +
+            "                <th>Hành động</th>\n" +
             "            </tr>";
-        for (let index = 0; index < list.length; index++) {
+        if (indexId === -1 || indexId === undefined) {
+            if ((!isIdExist && indexId !== -1) || itemId === "") {
+                for (let index = 0; index < listData.length; index++) {
+                    table += "<tr>" +
+                        "<td>" + "<input type=\"checkbox\" name =\"btnSelect\" value=" + index + " onclick ='checkSelect(" + index + ")'>" + "</td>" +
+                        "<td>" + listData[index].id + "</td>" +
+                        "<td>" + listData[index].type + "</td>" +
+                        "<td>" + listData[index].name + "</td>" +
+                        "<td>" + listData[index].code + "</td>" +
+                        "<td>" + listData[index].date + "</td>" +
+                        "<td>" + listData[index].amount + "</td>" +
+                        "<td>" + "<button className=\"btn-edit\" name=\"btn-edit\" type=\"button\" style=\"background-color: #ebb134\" onclick='editProduct(" + index + ")'>" + "Sửa" + "</button>" + "</td>" +
+                        "</tr>";
+                }
+            }
+        } else {
+            document.getElementById("error").innerText = "";
             table += "<tr>" +
-                "</td>" + "<td>" + list[index].id + "</td>" +
-                "</td>" + "<td>" + list[index].type + "</td>" +
-                "</td>" + "<td>" + list[index].name + "</td>" +
-                "</td>" + "<td>" + list[index].code + "</td>" +
-                "</td>" + "<td>" + list[index].date + "</td>" +
-                "</td>" + "<td>" + list[index].amount + "</td>" +
-                "<td>" + "<button class=\"btn-edit\" type=\"button\" style=\"background-color: yellow\" onclick='editProduct(" + index + ")'>" + "Sửa" + "</button>" + "</td>" +
+                "<td>" + "<input type=\"checkbox\" name =\"btnSelect\" value=" + indexId + " onclick ='checkSelect(" + indexId + ")'>" + "</td>" +
+                "<td>" + listData[indexId].id + "</td>" +
+                "<td>" + listData[indexId].type + "</td>" +
+                "<td>" + listData[indexId].name + "</td>" +
+                "<td>" + listData[indexId].code + "</td>" +
+                "<td>" + listData[indexId].date + "</td>" +
+                "<td>" + listData[indexId].amount + "</td>" +
+                "<td>" + "<button className=\"btn-edit\" name=\"btn-edit\" type=\"button\" style=\"background-color: #ebb134\" onclick='editProduct(" + indexId + ")'>" + "Sửa" + "</button>" + "</td>" +
                 "</tr>";
         }
         document.getElementById("showProduct").innerHTML = table;
     }
 
-    var currentIndex = -1;
+    // Check - Uncheck
+    function checkSelect() {
 
-    // them moi san pham
+    }
+
+    // Check all - Uncheck all
+    function checkSelectAll() {
+        let isChecked = document.getElementById("select-all").checked;
+        let checkboxes = document.getElementsByName("btnSelect");
+        // Vong lap set true/false checked
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = isChecked;
+        }
+        let btnEdit = document.getElementsByName("btn-edit");
+        // Vong lap set disabled btn Edit
+        for (var i = 0; i < btnEdit.length; i++) {
+            btnEdit[i].disabled = isChecked;
+        }
+        // set disabled btn add, btn search
+        document.getElementById("btn-add").disabled = isChecked;
+        document.getElementById("btn-search").disabled = isChecked;
+        return isChecked;
+    }
+
+    // Them moi san pham
+    var currentIndex = -1;
     function addProduct() {
         var itemId = document.getElementById("id").value;
         var itemType = document.getElementById("type").value;
         var itemName = document.getElementById("name").value;
         var itemCode = document.getElementById("code").value;
 
-        // Convert format "dd/MM/yyyy" -> "yyyy-MM-dd"
-        var date = document.getElementById("date").value.split("-");
-        let dd = date[2];
-        let mm = date[1];
-        let yyyy = date[0];
-        var itemDate = document.getElementById("date").value = dd + "/" + mm + "/" + yyyy;
+        // Convert format: "yyyy-MM-dd" -> "dd/MM/yyyy"
+        var itemDate = convertDate(document.getElementById("date").value);
         var itemAmount = document.getElementById("amount").value;
 
         // Validate du lieu
@@ -174,95 +300,114 @@
                 let item = new SOTIETKIEM(itemId, itemType, itemName, itemCode, itemDate, itemAmount);
                 if (currentIndex >= 0) {    // kiem tra dieu kien - them || sua
                     if (
-                        list[currentIndex].id != itemId ||
-                        list[currentIndex].type != itemType ||
-                        list[currentIndex].name != itemName ||
-                        list[currentIndex].code != itemCode ||
-                        list[currentIndex].date != itemDate ||
-                        list[currentIndex].amount != itemAmount
+                        listData[currentIndex].id != itemId ||
+                        listData[currentIndex].type != itemType ||
+                        listData[currentIndex].name != itemName ||
+                        listData[currentIndex].code != itemCode ||
+                        listData[currentIndex].date != itemDate ||
+                        listData[currentIndex].amount != itemAmount
                     ) {
-                        if (confirm("Bạn có chắc chắn muốn chỉnh sửa thông tin của mã sổ " + itemId + "?") == true) {
-                            list.splice(currentIndex, 1, item);    // chinh sua san pham
+                        if (confirm("Bạn có chắc chắn muốn chỉnh sửa thông tin của mã sổ " + itemId) == true) {
+                            listData.splice(currentIndex, 1, item);    // chinh sua san pham
                             currentIndex = -1;
+                            confirm("Chỉnh sửa thành công !");
                         }
-                    } else {
-                        document.getElementById("id").value = "";
-                        document.getElementById("type").value = "";
-                        document.getElementById("name").value = "";
-                        document.getElementById("code").value = "";
-                        document.getElementById("date").value = "";
-                        document.getElementById("amount").value = "";
                     }
+                    document.getElementById("id").value = "";
+                    document.getElementById("type").value = "";
+                    document.getElementById("name").value = "";
+                    document.getElementById("code").value = "";
+                    document.getElementById("date").value = "";
+                    document.getElementById("amount").value = "";
+                    document.getElementById("btn-search").disabled = false;
                 } else {
-                    // check = true - them / check = false - log error
-                    let check = true;
-                    for (let i = 0; i < list.length; i++) {
-                        if (list[i].id === itemId.replace(" ", "")) {
-                            check = false;
+                    let isIdExist = true;
+                    let isCodeExist = true;
+                    for (let index = 0; index < listData.length; index++) {
+                        if (listData[index].id === itemId.replace(" ", "")) {
+                            isIdExist = false;
+                            break;
+                        } else if (listData[index].code === Number(itemCode.replace(" ", ""))) {
+                            isCodeExist = false;
                             break;
                         }
                     }
-                    // validate ma so
-                    if (check) {
-                        // them moi
-                        list.push(item);
-                        document.getElementById("error").innerText = "";
-                        document.getElementById("id").value = "";
-                        document.getElementById("type").value = "";
-                        document.getElementById("name").value = "";
-                        document.getElementById("code").value = "";
-                        document.getElementById("date").value = "";
-                        document.getElementById("amount").value = "";
+                    // Validate ma so va cmnd  => isIdExist && isCodeExist isCodeExist - Them / Nguoc lai - Log error
+                    if (isIdExist) {
+                        if (isCodeExist) {
+                            // Them moi
+                            listData.push(item);
+                            document.getElementById("error").innerText = "";
+                            document.getElementById("id").value = "";
+                            document.getElementById("type").value = "";
+                            document.getElementById("name").value = "";
+                            document.getElementById("code").value = "";
+                            document.getElementById("date").value = "";
+                            document.getElementById("amount").value = "";
+                        } else {
+                            document.getElementById("error").innerText = "Số chứng minh nhân dân đã tồn tại, vui lòng chọn mã sổ khác";
+                        }
                     } else {
-                        document.getElementById("error").innerText = "Mã sổ đã tồn tại, vui lòng chọn mã sổ khác";
+                        document.getElementById("error").innerText = "Mã sổ đã tồn tại, vui lòng kiểm tra lại";
                     }
                 }
-                showProductList();
+                display();
             }
         } else {
             document.getElementById("error").innerText = "Vui lòng nhập đầy đủ thông tin";
         }
     }
 
-    // hien thi san pham
+    // Hien thi san pham
     function editProduct(indexEdit) {
-        document.getElementById("id").value = list[indexEdit].id;
-        document.getElementById("type").value = list[indexEdit].type;
-        document.getElementById("name").value = list[indexEdit].name;
-        document.getElementById("code").value = list[indexEdit].code;
+        document.getElementById("id").value = listData[indexEdit].id;
+        document.getElementById("type").value = listData[indexEdit].type;
+        document.getElementById("name").value = listData[indexEdit].name;
+        document.getElementById("code").value = listData[indexEdit].code;
 
-        // Convert format "dd/MM/yyyy" -> "yyyy-MM-dd"
-        let date = list[indexEdit].date.split("/");
-        let dd = date[0];
-        let mm = date[1];
-        let yyyy = date[2];
-        document.getElementById("date").value = yyyy + "-" + mm + "-" + dd;
-        document.getElementById("amount").value = list[indexEdit].amount;
+        // Convert format: "dd/MM/yyyy" -> "yyyy-MM-dd"
+        let date = convertDate(listData[indexEdit].date);
+        document.getElementById("date").value = date;
+
+        document.getElementById("amount").value = listData[indexEdit].amount;
         currentIndex = indexEdit;
+        document.getElementById("btn-search").disabled = true;
     }
 
-    // xoa san pham
+    // Xoa san pham
     function deleteProduct() {
-        var itemId = document.getElementById("id").value;
-        if (itemId === '') {
-            document.getElementById("error").innerText = "Vui lòng nhập mã sổ cần xóa";
-        } else {
-            let check = false;
-            for (var i = 0; i < list.length; i++) {
-                if (list[i].id === itemId.replace(" ", "")) {
-                    check = true;
-                    break;
-                }
+        let isCheckedAll = checkSelectAll();
+        if (isCheckedAll) {
+            if (confirm("Bạn có chắc chắn muốn xoá tất cả mã sổ") == true) {
+                listData = [];
+                confirm("Xoá thành công");
+                document.getElementById("btn-add").disabled = false;
+                document.getElementById("btn-search").disabled = false;
+                display();
             }
-            if (check) {
-                if (confirm("Bạn có chắc chắn muốn xoá mã sổ " + itemId + "?") == true) {
-                    list.splice(i, 1);
-                    showProductList();
-                }
-                document.getElementById("error").innerText = "";
-                document.getElementById("id").value = "";
+        } else {
+            var itemId = document.getElementById("id").value;
+            if (itemId === '') {
+                document.getElementById("error").innerText = "Vui lòng nhập mã sổ cần xóa";
             } else {
-                document.getElementById("error").innerText = "Không tìm thấy Mã sổ cần xóa, vui lòng nhập lại";
+                let check = false;
+                for (var i = 0; i < listData.length; i++) {
+                    if (listData[i].id === itemId.replace(" ", "")) {
+                        check = true;
+                        break;
+                    }
+                }
+                if (check) {
+                    if (confirm("Bạn có chắc chắn muốn xoá mã sổ " + itemId) == true) {
+                        listData.splice(i, 1);
+                        confirm("Xoá thành công");
+                        display();
+                    }
+                    document.getElementById("error").innerText = "";
+                    document.getElementById("id").value = "";
+                } else {
+                    document.getElementById("error").innerText = "Không tìm thấy Mã sổ cần xóa, vui lòng nhập lại";
+                }
             }
         }
     }
