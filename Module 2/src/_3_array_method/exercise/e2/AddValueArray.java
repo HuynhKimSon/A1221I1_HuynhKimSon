@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class AddValueArray {
     public static void main(String[] args) {
-        int[] listArray = {1, 2, 3, 4, 5, 6, 0, 0, 0, 0};
+        int[] listArray = {1, 2, 3, 4, 5, 6};
         System.out.println("Mang ban dau : " + Arrays.toString(listArray));
         int[] listArrayNew = addArray(listArray);
         System.out.println("Mang ket qua : " + Arrays.toString(listArrayNew));
