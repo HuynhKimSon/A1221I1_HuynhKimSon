@@ -1,32 +1,36 @@
 package _4_class_obj.exercise.e2;
 
-import java.util.Date;
 
 public class StopWatch {
-    private Date startTime;
-    private Date endTime;
+    private long startTime;
+    private long endTime;
 
-    public StopWatch(Date startTime, Date endTime) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public StopWatch() {
+        this.startTime = System.currentTimeMillis();
     }
 
-    public Date start() {
-        return this.startTime = new Date();
+    public void start() {
+        this.startTime = System.currentTimeMillis();
     }
 
-    public Date stop() {
-        return this.endTime = new Date();
+    public void stop() {
+        this.endTime = System.currentTimeMillis();
     }
 
-//    public Date getElapsedTime() {
-//
-//    }
+
+    public long getElapsedTime() {
+        long milliseconds = this.endTime - this.startTime;
+        return milliseconds;
+    }
 
     public static void main(String[] args) {
-        Date startTime = new Date();
-        Date endTime = new Date();
-        StopWatch stopWatch = new StopWatch(startTime, endTime);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        System.out.println("Thoi gian bat dau : " + stopWatch.startTime);
+        for (int i = 0; i < 100000000; i++) {
+        }
+        stopWatch.stop();
+        System.out.println("Thoi gian ket thuc : " + stopWatch.endTime);
+        System.out.println("Thoi gian thuc thi : " + stopWatch.getElapsedTime());
     }
-
 }
