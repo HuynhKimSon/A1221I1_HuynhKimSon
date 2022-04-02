@@ -1,4 +1,4 @@
-package _7_abstract_interface.exercise.e2;
+package _7_abstract_interface.exercise.e3;
 
 public class Circle extends Shape {
     private double radius = 1.0;
