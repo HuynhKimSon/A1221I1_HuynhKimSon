@@ -15,4 +15,8 @@ public class EmployeeController {
     public List<Employee> display() {
         return iEmployeeServiceImpl.display();
     }
+
+    public void remove(int id){
+        iEmployeeServiceImpl.remove(id);
+    }
 }

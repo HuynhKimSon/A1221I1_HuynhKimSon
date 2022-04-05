@@ -10,8 +10,6 @@ public interface Service {
 
     void add(Employee employee);
 
-    void edit();
-
-    void remove();
+    void remove(int id);
 
 }

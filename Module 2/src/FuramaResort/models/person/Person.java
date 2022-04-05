@@ -54,7 +54,7 @@ public class Person {
         this.idCard = idCard;
     }
 
-    public String isGender() {
+    public String getGender() {
         return gender;
     }
 

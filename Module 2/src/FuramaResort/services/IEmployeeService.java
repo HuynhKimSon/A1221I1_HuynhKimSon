@@ -12,8 +12,5 @@ public interface IEmployeeService extends Service {
     void add(Employee employee);
 
     @Override
-    void edit();
-
-    @Override
-    void remove();
+    void remove(int id);
 }
