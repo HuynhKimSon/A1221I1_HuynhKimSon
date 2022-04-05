@@ -2,9 +2,11 @@ package FuramaResort.services;
 
 import FuramaResort.models.employee.Employee;
 
+import java.util.List;
+
 public interface Service {
 
-    void display();
+    List<Employee> display();
 
     void add(Employee employee);
 

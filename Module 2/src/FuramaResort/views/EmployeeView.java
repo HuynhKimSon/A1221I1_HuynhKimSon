@@ -3,6 +3,7 @@ package FuramaResort.views;
 import FuramaResort.controllers.EmployeeController;
 import FuramaResort.models.employee.Employee;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeView {
@@ -23,6 +24,7 @@ public class EmployeeView {
             switch (choice) {
                 case 1:
                     System.out.println("Danh sách nhân viên: ");
+                    getAllEmployee();
                     displayEmployeeMenu();
                     break;
                 case 2:
@@ -67,5 +69,16 @@ public class EmployeeView {
         double salary = Double.parseDouble(input.nextLine());
         Employee employee = new Employee(id, name, dateOfBirth, idCard, gender, phone, email, level, position, salary);
         return employee;
+    }
+
+    public static void getAllEmployee(){
+        List<Employee> list = employeeController.display();
+                String result = "[ ";
+        for (Employee item : list) {
+            result += item.toString();
+            result += "}, ";
+        }
+        result += " ]";
+        System.out.println(result);
     }
 }

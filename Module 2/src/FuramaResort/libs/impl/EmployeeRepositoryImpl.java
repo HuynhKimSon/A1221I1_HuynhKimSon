@@ -15,13 +15,6 @@ public class EmployeeRepositoryImpl implements IEmployeeRepository {
     }
 
     public List<Employee> display(){
-//        String result = "[ ";
-//        for (Employee item : employeeList) {
-//            result += item.toString();
-//            result += "}, ";
-//        }
-//        result += " ]";
-//        System.out.println(result);
         return employeeList;
     }
 }

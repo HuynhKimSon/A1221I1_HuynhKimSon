@@ -5,14 +5,15 @@ import FuramaResort.libs.impl.EmployeeRepositoryImpl;
 import FuramaResort.models.employee.Employee;
 import FuramaResort.services.IEmployeeService;
 
+import java.util.List;
 
 
 public class EmployeeServiceImpl implements IEmployeeService {
 
     private static IEmployeeRepository iSEmployeeRepository = new EmployeeRepositoryImpl();
     @Override
-    public void display() {
-
+    public List<Employee> display() {
+        return iSEmployeeRepository.display();
     }
 
     @Override
