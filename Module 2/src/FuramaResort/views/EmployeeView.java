@@ -74,19 +74,19 @@ public class EmployeeView {
     }
 
     public static void displayEmployee() {
-        List<Employee> listEmployee = employeeController.display();
-        for (int i = 0; i < listEmployee.size(); i++) {
+        List<Employee> employeeList = employeeController.display();
+        for (int i = 0; i < employeeList.size(); i++) {
             System.out.printf("%-20s%-30s%-30s%-50s%-30s%-30s%-30s%-30s%-30s%s",
-                    listEmployee.get(i).getId(),
-                    listEmployee.get(i).getName(),
-                    listEmployee.get(i).getDateOfBirth(),
-                    listEmployee.get(i).getIdCard(),
-                    listEmployee.get(i).getGender(),
-                    listEmployee.get(i).getPhone(),
-                    listEmployee.get(i).getEmail(),
-                    listEmployee.get(i).getLevel(),
-                    listEmployee.get(i).getPosition(),
-                    listEmployee.get(i).getSalary() + "\n"
+                    employeeList.get(i).getId(),
+                    employeeList.get(i).getName(),
+                    employeeList.get(i).getDateOfBirth(),
+                    employeeList.get(i).getIdCard(),
+                    employeeList.get(i).getGender(),
+                    employeeList.get(i).getPhone(),
+                    employeeList.get(i).getEmail(),
+                    employeeList.get(i).getLevel(),
+                    employeeList.get(i).getPosition(),
+                    employeeList.get(i).getSalary() + "\n"
             );
         }
     }

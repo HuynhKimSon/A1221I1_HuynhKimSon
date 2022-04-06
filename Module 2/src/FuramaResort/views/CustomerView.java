@@ -2,7 +2,6 @@ package FuramaResort.views;
 
 import FuramaResort.controllers.CustomerController;
 import FuramaResort.models.customer.Customer;
-import FuramaResort.models.employee.Employee;
 
 import java.util.List;
 import java.util.Scanner;
@@ -67,18 +66,18 @@ public class CustomerView {
     }
 
     public static void displayCustomer() {
-        List<Customer> listCustomer = customerController.display();
-        for (int i = 0; i < listCustomer.size(); i++) {
+        List<Customer> customerList = customerController.display();
+        for (int i = 0; i < customerList.size(); i++) {
             System.out.printf("%-30s%-30s%-30s%-50s%-30s%-30s%-30s%-30s%s",
-                    listCustomer.get(i).getId(),
-                    listCustomer.get(i).getName(),
-                    listCustomer.get(i).getDateOfBirth(),
-                    listCustomer.get(i).getIdCard(),
-                    listCustomer.get(i).getGender(),
-                    listCustomer.get(i).getPhone(),
-                    listCustomer.get(i).getEmail(),
-                    listCustomer.get(i).getTypeCustomer(),
-                    listCustomer.get(i).getAddress() + "\n"
+                    customerList.get(i).getId(),
+                    customerList.get(i).getName(),
+                    customerList.get(i).getDateOfBirth(),
+                    customerList.get(i).getIdCard(),
+                    customerList.get(i).getGender(),
+                    customerList.get(i).getPhone(),
+                    customerList.get(i).getEmail(),
+                    customerList.get(i).getTypeCustomer(),
+                    customerList.get(i).getAddress() + "\n"
             );
         }
     }
