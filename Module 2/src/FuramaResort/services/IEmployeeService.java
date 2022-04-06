@@ -4,13 +4,11 @@ import FuramaResort.models.employee.Employee;
 
 import java.util.List;
 
-public interface IEmployeeService extends Service {
-    @Override
+public interface IEmployeeService {
+
     List<Employee> display();
 
-    @Override
-    void add(Employee employee);
+    void add(Employee employee, String type);
 
-    @Override
     void remove(int id);
 }

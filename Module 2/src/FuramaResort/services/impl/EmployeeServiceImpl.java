@@ -8,38 +8,38 @@ import FuramaResort.services.IEmployeeService;
 import java.util.List;
 
 public class EmployeeServiceImpl implements IEmployeeService {
-    private static int indexRemove = -1;
-
+    private static int currentIndex = -1;
     private static IEmployeeRepository iSEmployeeRepository = new EmployeeRepositoryImpl();
+    List<Employee> employeeList = iSEmployeeRepository.display();
 
     @Override
     public List<Employee> display() {
-        return iSEmployeeRepository.display();
+        return employeeList;
     }
 
     @Override
-    public void add(Employee employee) {
-        List<Employee> newEmployeeList = iSEmployeeRepository.getEmployeeList();
-        for (int i = 0; i < newEmployeeList.size(); i++) {
-            if (newEmployeeList.get(i).getId() == employee.getId()) {
-                iSEmployeeRepository.save(false,employee.getId(), employee);
+    public void add(Employee employee, String type) {
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getId() == employee.getId()) {
+                currentIndex = i;
+                iSEmployeeRepository.save(false, currentIndex, employee, type);
+                currentIndex = -1;
                 return;
             }
         }
-        iSEmployeeRepository.save(true,employee.getId(), employee);
+        iSEmployeeRepository.save(true, currentIndex, employee, type);
     }
 
     @Override
     public void remove(int id) {
-        List<Employee> newEmployeeList = iSEmployeeRepository.getEmployeeList();
-        for (int i = 0; i < newEmployeeList.size(); i++) {
-            if (newEmployeeList.get(i).getId() == id) {
-                indexRemove = i;
-                iSEmployeeRepository.remove(indexRemove, id);
-                indexRemove = -1;
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getId() == id) {
+                currentIndex = i;
+                iSEmployeeRepository.remove(currentIndex, id);
+                currentIndex = -1;
                 return;
             }
         }
-        iSEmployeeRepository.remove(indexRemove, id);
+        iSEmployeeRepository.remove(currentIndex, id);
     }
 }

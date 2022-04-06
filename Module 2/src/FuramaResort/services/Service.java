@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface Service {
 
-    List<Employee> display();
-
-    void add(Employee employee);
-
-    void remove(int id);
+//    List<Employee> display();
+//
+//    void add(Employee employee, String type);
+//
+//    void remove(int id);
 
 }
