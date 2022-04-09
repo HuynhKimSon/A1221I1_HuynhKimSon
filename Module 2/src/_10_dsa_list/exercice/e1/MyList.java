@@ -1,4 +1,4 @@
-package _10_DSA.exercice.e1;
+package _10_dsa_list.exercice.e1;
 
 import java.util.Arrays;
 

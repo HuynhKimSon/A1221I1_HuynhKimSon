@@ -1,4 +1,4 @@
-package _10_DSA.practice.p1;
+package _10_dsa_list.practice.p1;
 
 import java.util.Arrays;
 
@@ -32,8 +32,8 @@ public class MyList<E> {
         if (index >= 0 && index <= size) {
             size += 1;
             ensureCapacity(1);
-            for (int i = size; i >= index; i--) {
-                dataList[i + 1] = dataList[i];
+            for (int i = size - 2; i >= index; i--) {
+                dataList[i+1] = dataList[i];
             }
             dataList[index] = item;
         }
@@ -69,10 +69,6 @@ public class MyList<E> {
         dataList = new Object[DEFAULT_CAPACITY];
         size = 0;
     }
-
-//    E clone() {
-//
-//    }
 
     boolean contains(E item) {
         for (int i = 0; i < size; i++) {

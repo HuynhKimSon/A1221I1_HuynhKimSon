@@ -1,4 +1,4 @@
-package _10_DSA.exercice.e2;
+package _10_dsa_list.exercice.e2;
 
 public class MyLinkedList {
     private  Node head;

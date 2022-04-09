@@ -1,4 +1,4 @@
-package _10_DSA.practice.p1;
+package _10_dsa_list.practice.p1;
 
 public class MyListTest<E> {
     public static void main(String[] args) {
@@ -19,11 +19,11 @@ public class MyListTest<E> {
         print(list.getData());
         System.out.println("size : " + list.size());
         System.out.println("----------Chèn phần tử-------------");
-        list.add(1, "HAHA");
+        list.add(12, "HAHA");
         print(list.getData());
         System.out.println("size : " + list.size());
         System.out.println("----------Lấy phần tử-------------");
-        System.out.println("get item : " + list.get(3));
+        System.out.println("get item : " + list.get(11));
         System.out.println("size : " + list.size());
         System.out.println("----------Trả về vị trí của item-------------");
         System.out.println("Index : " + list.indexOf("HAHA"));
@@ -33,7 +33,7 @@ public class MyListTest<E> {
         System.out.println("contains : " + list.contains("HAHA"));
         System.out.println("size : " + list.size());
         System.out.println("----------Xoá phần tử-------------");
-        System.out.println("Remove : " + list.remove(0));
+        System.out.println("Remove : " + list.remove(5));
         print(list.getData());
         System.out.println("size : " + list.size());
         System.out.println("----------Xoá tất cả phần tử-------------");
