@@ -15,8 +15,8 @@ public class MyGenericStack<T> {
 
     public void reverse() {
         Stack<T> stackReverse = new Stack<>();
-        for (int i = 0, j = size() - 1; i < size(); i++, j--) {
-            stackReverse.add(stack.get(j));
+        for (int i = size() - 1; i <= 0 ; i--) {
+            stackReverse.add(stack.get(i));
         }
         stack.clear();
         stack = stackReverse;
