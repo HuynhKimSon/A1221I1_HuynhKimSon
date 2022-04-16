@@ -1,12 +1,12 @@
 package _12_java_collection_framework.practice.p1;
 
+import java.util.Map;
 import java.util.TreeMap;
 
 public class ProductManager {
-    private int id;
     private String nameProduct;
     private double price;
-    private static final TreeMap<Integer, ProductManager> mapItem = new TreeMap<>();
+    private static final Map<Integer, ProductManager> mapItem = new TreeMap<>();
 
     public ProductManager() {
     }
@@ -16,18 +16,42 @@ public class ProductManager {
         this.price = price;
     }
 
-    public void push(int id, ProductManager item) {
+    public boolean push(int id, ProductManager item) {
+        if (mapItem.containsKey(id)) {
+            return false;
+        }
         mapItem.put(id, item);
+        return true;
     }
 
-    public TreeMap<Integer, ProductManager> getMapItem() {
+    public boolean edit(int id, ProductManager item) {
+        if (mapItem.containsKey(id)) {
+            mapItem.put(id, item);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean remove(int id) {
+        if (mapItem.containsKey(id)) {
+            mapItem.remove(id);
+            return true;
+        }
+        return false;
+    }
+
+    public ProductManager searchProduct(int id) {
+        return mapItem.get(id);
+    }
+
+    public Map<Integer, ProductManager> getMapItem() {
         return mapItem;
     }
 
     public String getNameProduct() {
         return nameProduct;
     }
-    
+
     public double getPrice() {
         return price;
     }
