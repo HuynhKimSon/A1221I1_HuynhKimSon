@@ -1,38 +1,33 @@
 package _11_dsa_stack_queue.exercice.e1;
 
-import java.util.EmptyStackException;
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class MyGenericStack<T> {
-    private LinkedList<T> stack;
+    private Stack<T> stack;
 
     public MyGenericStack() {
-        stack = new LinkedList<>();
+        stack = new Stack<>();
     }
 
     public void push(T element) {
-        stack.addFirst(element);
+        stack.add(element);
+    }
+
+    public void reverse() {
+        Stack<T> stackReverse = new Stack<>();
+        for (int i = size() - 1; i <= 0 ; i--) {
+            stackReverse.add(stack.get(i));
+        }
+        stack.clear();
+        stack = stackReverse;
     }
 
     public T get(int index) {
         return stack.get(index);
     }
 
-    public T pop() {
-        if (isEmpty()) {
-            throw new EmptyStackException();
-        }
-        return stack.removeFirst();
-    }
-
     public int size() {
         return stack.size();
     }
 
-    public boolean isEmpty() {
-        if (stack.size() == 0) {
-            return true;
-        }
-        return false;
-    }
 }

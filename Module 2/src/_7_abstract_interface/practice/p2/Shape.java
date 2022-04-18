@@ -1,6 +1,6 @@
 package _7_abstract_interface.practice.p2;
 
-public class Shape{
+public class Shape {
     private String color = "green";
     private boolean filled = true;
 
