@@ -57,4 +57,6 @@ public class Facility {
     public void setRentalType(String rentalType) {
         this.rentalType = rentalType;
     }
+
+
 }

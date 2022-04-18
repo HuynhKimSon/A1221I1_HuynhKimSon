@@ -1,6 +1,6 @@
 package FuramaResort.models.facility;
 
-public class House extends Facility{
+public class House extends Facility {
     private String roomStandard;
     private int numberOfFloors;
 

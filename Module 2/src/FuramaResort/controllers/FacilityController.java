@@ -13,7 +13,7 @@ public class FacilityController {
         return iFacilityServiceImpl.display();
     }
 
-    public void addVilla(Facility facility, String type) {
-        iFacilityServiceImpl.addVilla(facility, type);
+    public void add(Facility facility, String type) {
+        iFacilityServiceImpl.add(facility, type);
     }
 }

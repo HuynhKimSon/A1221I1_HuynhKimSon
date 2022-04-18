@@ -15,7 +15,7 @@ public class FacilityRepositoryImpl implements IFacilityRepository {
     }
 
     @Override
-    public void saveVilla(Facility facility, String type) {
+    public void save(Facility facility, String type) {
         facilityList.add(facility);
     }
 }
