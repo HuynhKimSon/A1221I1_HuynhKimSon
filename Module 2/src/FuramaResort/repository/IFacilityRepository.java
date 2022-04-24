@@ -7,5 +7,5 @@ import java.util.List;
 public interface IFacilityRepository {
     List<Facility> display();
 
-    void save(Facility facility, String type);
+    void save(Facility facility);
 }
