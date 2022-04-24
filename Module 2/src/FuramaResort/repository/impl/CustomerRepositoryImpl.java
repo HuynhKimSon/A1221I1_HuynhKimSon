@@ -1,6 +1,6 @@
-package FuramaResort.libs.impl;
+package FuramaResort.repository.impl;
 
-import FuramaResort.libs.ICustomerRepository;
+import FuramaResort.repository.ICustomerRepository;
 import FuramaResort.models.customer.Customer;
 
 import java.util.LinkedList;

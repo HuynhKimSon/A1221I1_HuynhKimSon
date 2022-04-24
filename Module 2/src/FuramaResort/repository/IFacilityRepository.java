@@ -1,4 +1,4 @@
-package FuramaResort.libs;
+package FuramaResort.repository;
 
 import FuramaResort.models.facility.Facility;
 

@@ -58,5 +58,12 @@ public class Facility {
         this.rentalType = rentalType;
     }
 
-
+    @Override
+    public String toString() {
+        return  nameService + ","
+                + usableArea + ","
+                + cost + ","
+                + maximumPeople + ","
+                + rentalType + ",";
+    }
 }

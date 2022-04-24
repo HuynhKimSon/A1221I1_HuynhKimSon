@@ -13,7 +13,6 @@ public class FacilityView {
     private static final String[] facilityMenuList = {"1. Display list facility", "2. Add new facility", "3. Display list facility maintenance", "4. Return main menu"};
     private static final String[] facilityServiceList = {"1. Add New Villa", "2. Add New House", "3. Add New Room", "4. Back to menu"};
     private static int choice;
-    private static String type;
     static Scanner input = new Scanner(System.in);
 
     private static FacilityController facilityController = new FacilityController();
@@ -108,21 +107,18 @@ public class FacilityView {
             switch (choice) {
                 case 1:
                     System.out.println("Mời bạn nhập thông tin Villa cần thêm mới: ");
-                    type = "INSERT";
                     Villa addVilla = inputInformationOfVilla();
-                    facilityController.add(addVilla, type);
+                    facilityController.add(addVilla);
                     break;
                 case 2:
                     System.out.println("Mời bạn nhập thông tin House cần thêm mới: ");
                     House addHouse = inputInformationHouse();
-                    type = "INSERT";
-                    facilityController.add(addHouse, type);
+                    facilityController.add(addHouse);
                     break;
                 case 3:
                     System.out.println("Mời bạn nhập thông tin Room cần thêm mới: ");
                     Room addRoom = inputInformationRoom();
-                    type = "INSERT";
-                    facilityController.add(addRoom, type);
+                    facilityController.add(addRoom);
                     break;
                 case 4:
                     displayFacilityMenu();

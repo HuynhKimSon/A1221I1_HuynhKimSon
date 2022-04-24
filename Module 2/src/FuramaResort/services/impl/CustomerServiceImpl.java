@@ -1,7 +1,7 @@
 package FuramaResort.services.impl;
 
-import FuramaResort.libs.ICustomerRepository;
-import FuramaResort.libs.impl.CustomerRepositoryImpl;
+import FuramaResort.repository.ICustomerRepository;
+import FuramaResort.repository.impl.CustomerRepositoryImpl;
 import FuramaResort.models.customer.Customer;
 import FuramaResort.services.ICustomerService;
 

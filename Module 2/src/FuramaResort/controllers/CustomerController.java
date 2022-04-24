@@ -1,9 +1,7 @@
 package FuramaResort.controllers;
 
-import FuramaResort.libs.impl.CustomerRepositoryImpl;
 import FuramaResort.models.customer.Customer;
 import FuramaResort.services.impl.CustomerServiceImpl;
-import FuramaResort.services.impl.EmployeeServiceImpl;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package FuramaResort.services.impl;
 
-import FuramaResort.libs.IEmployeeRepository;
-import FuramaResort.libs.impl.EmployeeRepositoryImpl;
+import FuramaResort.repository.IEmployeeRepository;
+import FuramaResort.repository.impl.EmployeeRepositoryImpl;
 import FuramaResort.models.employee.Employee;
 import FuramaResort.services.IEmployeeService;
 

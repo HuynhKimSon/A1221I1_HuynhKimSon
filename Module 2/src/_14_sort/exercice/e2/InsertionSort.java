@@ -1,4 +1,4 @@
-package _14_sort.exercice.e1;
+package _14_sort.exercice.e2;
 
 public class InsertionSort {
     static int[] list = {2, 3, 2, 5, 6, 1, -2, 3, 14, 12};

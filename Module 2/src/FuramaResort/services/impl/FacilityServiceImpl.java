@@ -1,6 +1,6 @@
 package FuramaResort.services.impl;
 
-import FuramaResort.libs.impl.FacilityRepositoryImpl;
+import FuramaResort.repository.impl.FacilityRepositoryImpl;
 import FuramaResort.models.facility.Facility;
 import FuramaResort.services.IFacilityService;
 
@@ -16,7 +16,7 @@ public class FacilityServiceImpl implements IFacilityService {
     }
 
     @Override
-    public void add(Facility facility, String type) {
-        facilityRepository.save(facility, type);
+    public void add(Facility facility) {
+        facilityRepository.save(facility);
     }
 }

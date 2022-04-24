@@ -1,6 +1,6 @@
-package FuramaResort.libs.impl;
+package FuramaResort.repository.impl;
 
-import FuramaResort.libs.IEmployeeRepository;
+import FuramaResort.repository.IEmployeeRepository;
 import FuramaResort.models.employee.Employee;
 
 import java.util.ArrayList;
