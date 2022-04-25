@@ -6,7 +6,7 @@ public class Customer extends Person {
     /* Diamond, Platinum, Gold, Silver, Member */
     private String typeCustomer;
     private String address;
-    
+
     public Customer() {
     }
 
@@ -30,5 +30,12 @@ public class Customer extends Person {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()
+                + typeCustomer + ", "
+                + address;
     }
 }

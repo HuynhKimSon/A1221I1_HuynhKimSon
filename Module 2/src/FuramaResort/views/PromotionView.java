@@ -18,13 +18,10 @@ public class PromotionView {
             switch (choice) {
                 case 1:
                     System.out.print("1. Display list customers use service");
-                    break;
                 case 2:
                     System.out.print("2. Display list customers get voucher");
-                    break;
                 case 3:
                     FuramaView.displayMainMenu();
-                    break;
                 default:
                     System.out.println("No choice!");
             }

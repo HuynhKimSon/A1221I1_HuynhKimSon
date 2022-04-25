@@ -24,7 +24,6 @@ public class FileCSVHelper<T> {
 
     public void write(List<T> tList, String path, boolean isAppend) {
         createIfNotExists(path);
-        System.out.println(tList);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, isAppend))) {
             for (T t : tList) {
                 bufferedWriter.write(t.toString());

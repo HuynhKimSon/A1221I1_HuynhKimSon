@@ -6,13 +6,13 @@ import FuramaResort.services.impl.CustomerServiceImpl;
 import java.util.List;
 
 public class CustomerController {
-    private static CustomerServiceImpl iCustomerServiceImpl = new CustomerServiceImpl();
+    private CustomerServiceImpl iCustomerServiceImpl = new CustomerServiceImpl();
 
     public List<Customer> display() {
-        return iCustomerServiceImpl.display();
+        return iCustomerServiceImpl.getAll();
     }
 
-    public void add(Customer customer, String type) {
-        iCustomerServiceImpl.add(customer, type);
+    public void save(Customer customer, String type) {
+        iCustomerServiceImpl.save(customer, type);
     }
 }

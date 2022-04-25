@@ -4,8 +4,11 @@ import FuramaResort.models.facility.Facility;
 
 import java.util.List;
 
-public interface IFacilityRepository {
-    List<Facility> display();
+public interface IFacilityRepository extends BaseRepository<Facility> {
 
-    void save(Facility facility);
+    @Override
+    List<Facility> getAll();
+
+    @Override
+    void save(Facility facility, String type);
 }

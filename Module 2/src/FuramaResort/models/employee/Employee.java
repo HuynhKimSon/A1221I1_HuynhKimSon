@@ -3,8 +3,10 @@ package FuramaResort.models.employee;
 import FuramaResort.models.person.Person;
 
 public class Employee extends Person {
+
     /* Trung cấp, Cao đẳng, Đại học và sau đại học */
     private String level;
+
     /* Lễ tân, phục vụ, chuyên viên, giám sát, quản lý, giám đốc. */
     private String position;
 
@@ -18,15 +20,6 @@ public class Employee extends Person {
         this.level = level;
         this.position = position;
         this.salary = salary;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-                ", level: '" + level + '\'' +
-                ", position: '" + position + '\'' +
-                ", salary: " + salary +
-                '}';
     }
 
     public String getLevel() {
@@ -53,5 +46,11 @@ public class Employee extends Person {
         this.position = position;
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString()
+                + level + ", "
+                + position + ", "
+                + salary;
+    }
 }

@@ -4,10 +4,11 @@ import FuramaResort.models.employee.Employee;
 
 import java.util.List;
 
-public interface IEmployeeRepository {
-    List<Employee> display();
+public interface IEmployeeRepository extends BaseRepository<Employee> {
 
-    void save(boolean isAdd, int indexEdit, Employee employee, String type);
+    @Override
+    List<Employee> getAll();
 
-    void remove(int currentIndex, int id);
+    @Override
+    void save(Employee employee, String type);
 }

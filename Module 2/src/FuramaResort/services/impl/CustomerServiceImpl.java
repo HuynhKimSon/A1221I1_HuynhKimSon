@@ -8,25 +8,16 @@ import FuramaResort.services.ICustomerService;
 import java.util.List;
 
 public class CustomerServiceImpl implements ICustomerService {
-    private static int currentIndex = -1;
-    private static ICustomerRepository iSCustomerRepository = new CustomerRepositoryImpl();
-    List<Customer> customerList = iSCustomerRepository.display();
+
+    private ICustomerRepository iSCustomerRepository = new CustomerRepositoryImpl();
 
     @Override
-    public List<Customer> display() {
-        return customerList;
+    public List<Customer> getAll() {
+        return iSCustomerRepository.getAll();
     }
 
     @Override
-    public void add(Customer customer, String type) {
-        for (int i = 0; i < customerList.size(); i++) {
-            if (customerList.get(i).getId() == customer.getId()) {
-                currentIndex = i;
-                iSCustomerRepository.save(false, currentIndex, customer, type);
-                currentIndex = -1;
-                return;
-            }
-        }
-        iSCustomerRepository.save(true, currentIndex, customer, type);
+    public void save(Customer customer, String type) {
+        iSCustomerRepository.save(customer, type);
     }
 }

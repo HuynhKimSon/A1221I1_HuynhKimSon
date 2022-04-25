@@ -6,17 +6,13 @@ import FuramaResort.services.impl.EmployeeServiceImpl;
 import java.util.List;
 
 public class EmployeeController {
-    private static EmployeeServiceImpl iEmployeeServiceImpl = new EmployeeServiceImpl();
+    private EmployeeServiceImpl iEmployeeServiceImpl = new EmployeeServiceImpl();
 
     public List<Employee> display() {
-        return iEmployeeServiceImpl.display();
+        return iEmployeeServiceImpl.getAll();
     }
 
-    public void add(Employee employee, String type) {
-        iEmployeeServiceImpl.add(employee, type);
-    }
-
-    public void remove(int id) {
-        iEmployeeServiceImpl.remove(id);
+    public void save(Employee employee, String type) {
+        iEmployeeServiceImpl.save(employee, type);
     }
 }

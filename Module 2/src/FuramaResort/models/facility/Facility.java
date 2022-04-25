@@ -1,13 +1,15 @@
 package FuramaResort.models.facility;
 
 public class Facility {
+    private String idService;
     private String nameService;
     private double usableArea;
     private double cost;
     private int maximumPeople;
     private String rentalType;
 
-    public Facility(String nameService, double usableArea, double cost, int maximumPeople, String rentalType) {
+    public Facility(String idService, String nameService, double usableArea, double cost, int maximumPeople, String rentalType) {
+        this.idService = idService;
         this.nameService = nameService;
         this.usableArea = usableArea;
         this.cost = cost;
@@ -16,6 +18,14 @@ public class Facility {
     }
 
     public Facility() {
+    }
+
+    public String getIdService() {
+        return idService;
+    }
+
+    public void setIdService(String idService) {
+        this.idService = idService;
     }
 
     public String getNameService() {
@@ -60,7 +70,8 @@ public class Facility {
 
     @Override
     public String toString() {
-        return  nameService + ","
+        return idService + ","
+                + nameService + ","
                 + usableArea + ","
                 + cost + ","
                 + maximumPeople + ","

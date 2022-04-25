@@ -43,30 +43,24 @@ public class EmployeeView {
                     displayEmployee();
                     System.out.println("-----------------------------");
                     displayEmployeeMenu();
-                    break;
                 case 2:
                     System.out.println("Mời bạn thông tin nhân viên cần thêm mới: ");
                     Employee employeeAdd = inputInformationOfEmployee();
                     type = "INSERT";
-                    employeeController.add(employeeAdd, type);
+                    employeeController.save(employeeAdd, type);
                     displayEmployeeMenu();
-                    break;
                 case 3:
                     System.out.println("Mời bạn thông tin nhân viên cần chỉnh sửa: ");
                     Employee employeeEdit = inputInformationOfEmployee();
                     type = "EDIT";
-                    employeeController.add(employeeEdit, type);
+                    employeeController.save(employeeEdit, type);
                     displayEmployeeMenu();
-                    break;
                 case 4:
                     System.out.println("Mời bạn thông tin nhân viên cần xóa: ");
                     int id = removeEmployee();
-                    employeeController.remove(id);
                     displayEmployeeMenu();
-                    break;
                 case 5:
                     FuramaView.displayMainMenu();
-                    break;
                 default:
                     System.out.println("No choice!");
             }

@@ -2,8 +2,8 @@ package FuramaResort.utils;
 
 public interface ConstantUtil {
     interface PATH {
-        String VILLA = "src/FuramaResort/data/villa.csv";
-        String ROOM = "src/FuramaResort/data/room.csv";
-        String HOUSE = "src/FuramaResort/data/house.csv";
+        String FACILITY = "src/FuramaResort/data/facility.csv";
+        String CUSTOMER = "src/FuramaResort/data/customer.csv";
+        String EMPLOYEE = "src/FuramaResort/data/employee.csv";
     }
 }

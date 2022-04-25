@@ -22,19 +22,14 @@ public class FuramaView {
             switch (choice) {
                 case 1:
                     EmployeeView.displayEmployeeMenu();
-                    break;
                 case 2:
                     CustomerView.displayCustomerMenu();
-                    break;
                 case 3:
                     FacilityView.displayFacilityMenu();
-                    break;
                 case 4:
                     BookingView.displayBookingMenu();
-                    break;
                 case 5:
                     PromotionView.displayPromotionMenu();
-                    break;
                 case 6:
                     System.exit(6);
                 default:

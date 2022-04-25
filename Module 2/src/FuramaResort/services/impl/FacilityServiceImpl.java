@@ -1,5 +1,6 @@
 package FuramaResort.services.impl;
 
+import FuramaResort.repository.IFacilityRepository;
 import FuramaResort.repository.impl.FacilityRepositoryImpl;
 import FuramaResort.models.facility.Facility;
 import FuramaResort.services.IFacilityService;
@@ -8,15 +9,15 @@ import java.util.List;
 
 public class FacilityServiceImpl implements IFacilityService {
 
-    private static FacilityRepositoryImpl facilityRepository = new FacilityRepositoryImpl();
+    private IFacilityRepository facilityRepository = new FacilityRepositoryImpl();
 
     @Override
-    public List<Facility> display() {
-        return facilityRepository.display();
+    public List<Facility> getAll() {
+        return facilityRepository.getAll();
     }
-
+    
     @Override
-    public void add(Facility facility) {
-        facilityRepository.save(facility);
+    public void save(Facility facility, String type) {
+        facilityRepository.save(facility, type);
     }
 }

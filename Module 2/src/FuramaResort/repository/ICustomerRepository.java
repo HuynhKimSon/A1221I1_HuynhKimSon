@@ -4,8 +4,11 @@ import FuramaResort.models.customer.Customer;
 
 import java.util.List;
 
-public interface ICustomerRepository {
-    List<Customer> display();
+public interface ICustomerRepository extends BaseRepository<Customer> {
 
-    void save(boolean isAdd, int indexEdit, Customer customer, String type);
+    @Override
+    List<Customer> getAll();
+
+    @Override
+    void save(Customer customer, String type);
 }

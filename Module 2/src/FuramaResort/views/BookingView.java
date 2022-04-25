@@ -18,22 +18,16 @@ public class BookingView {
             switch (choice) {
                 case 1:
                     System.out.print("1. Add new booking");
-                    break;
                 case 2:
                     System.out.print("2. Display list booking");
-                    break;
                 case 3:
                     System.out.print("3. Create new contracts");
-                    break;
                 case 4:
                     System.out.print("4. Display list contracts");
-                    break;
                 case 5:
                     System.out.print("5. Edit contracts");
-                    break;
                 case 6:
                     FuramaView.displayMainMenu();
-                    break;
                 default:
                     System.out.println("No choice!");
             }

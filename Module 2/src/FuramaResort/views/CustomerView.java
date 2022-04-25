@@ -41,24 +41,20 @@ public class CustomerView {
                     displayCustomer();
                     System.out.println("-----------------------------");
                     displayCustomerMenu();
-                    break;
                 case 2:
                     System.out.println("Mời bạn thông tin khách hàng cần thêm mới: ");
                     Customer customerAdd = inputInformationOfCustomer();
                     type = "INSERT";
-                    customerController.add(customerAdd, type);
+                    customerController.save(customerAdd, type);
                     displayCustomerMenu();
-                    break;
                 case 3:
                     System.out.println("Mời bạn thông tin khách hàng cần chỉnh sửa: ");
                     Customer customerEdit = inputInformationOfCustomer();
                     type = "EDIT";
-                    customerController.add(customerEdit, type);
+                    customerController.save(customerEdit, type);
                     displayCustomerMenu();
-                    break;
                 case 4:
                     FuramaView.displayMainMenu();
-                    break;
                 default:
                     System.out.println("No choice!");
             }

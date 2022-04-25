@@ -5,6 +5,7 @@ import FuramaResort.models.facility.Facility;
 import FuramaResort.models.facility.House;
 import FuramaResort.models.facility.Room;
 import FuramaResort.models.facility.Villa;
+import FuramaResort.utils.Validate;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class FacilityView {
     private static final String[] facilityMenuList = {"1. Display list facility", "2. Add new facility", "3. Display list facility maintenance", "4. Return main menu"};
     private static final String[] facilityServiceList = {"1. Add New Villa", "2. Add New House", "3. Add New Room", "4. Back to menu"};
     private static int choice;
+    private static boolean isAdd;
     static Scanner input = new Scanner(System.in);
 
     private static FacilityController facilityController = new FacilityController();
@@ -30,7 +32,8 @@ public class FacilityView {
                     System.out.println("-----------------------------");
                     System.out.println("Danh sách thông tin cơ sở Khu nghỉ dưỡng Furama: ");
                     System.out.printf(
-                            "%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%s",
+                            "%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%s",
+                            "Mã dịch vụ",
                             "Tên dịch vụ",
                             "Diện tích sử dụng",
                             "Chi phí thuê",
@@ -44,20 +47,72 @@ public class FacilityView {
                     displayFacility();
                     System.out.println("-----------------------------");
                     displayFacilityMenu();
-                    break;
                 case 2:
                     selectService();
                     displayFacilityMenu();
-                    break;
                 case 3:
                     System.out.print("3. Display list facility maintenance");
                     displayFacilityMenu();
-                    break;
                 case 4:
                     FuramaView.displayMainMenu();
-                    break;
                 default:
                     System.out.println("No choice!");
+            }
+        } while (choice < 1 || choice > 4);
+    }
+
+    public static void selectService() {
+        for (String item : facilityServiceList) {
+            System.out.println(item);
+        }
+        do {
+            System.out.print("Chọn loại cơ sở Khu nghỉ dưỡng Furama cần thêm mới: ");
+            choice = Integer.parseInt(input.nextLine());
+            switch (choice) {
+                case 1:
+                    System.out.println("Mời bạn nhập thông tin Villa cần thêm mới: ");
+                    isAdd = true;
+                    while (isAdd) {
+                        Villa addVilla = inputInformationOfVilla();
+                        if (!Validate.isExistsFacility(addVilla.getIdService())) {
+                            facilityController.save(addVilla, "INSERT");
+                            isAdd = false;
+                            System.out.println("=> Thêm mới Villa thành công! <=");
+                        } else {
+                            System.out.println("=> Mã dịch vụ đã tồn tại! Vui lòng nhập lại <=");
+                        }
+                    }
+                    displayFacilityMenu();
+                case 2:
+                    System.out.println("Mời bạn nhập thông tin House cần thêm mới: ");
+                    isAdd = true;
+                    while (isAdd) {
+                        House addHouse = inputInformationHouse();
+                        if (!Validate.isExistsFacility(addHouse.getIdService())) {
+                            facilityController.save(addHouse, "INSERT");
+                            isAdd = false;
+                            System.out.println("=> Thêm mới House thành công! <=");
+                        } else {
+                            System.out.println("=> Mã dịch vụ đã tồn tại! Vui lòng nhập lại <=");
+                        }
+                    }
+                    displayFacilityMenu();
+                case 3:
+                    System.out.println("Mời bạn nhập thông tin Room cần thêm mới: ");
+                    isAdd = true;
+                    while (isAdd) {
+                        Room addRoom = inputInformationRoom();
+                        if (!Validate.isExistsFacility(addRoom.getIdService())) {
+                            facilityController.save(addRoom, "INSERT");
+                            isAdd = false;
+                            System.out.println("=> Thêm mới Room thành công! <=");
+                        } else {
+                            System.out.println("=> Mã dịch vụ đã tồn tại! Vui lòng nhập lại <=");
+                        }
+                    }
+                    displayFacilityMenu();
+                case 4:
+                    displayFacilityMenu();
             }
         } while (choice < 1 || choice > 4);
     }
@@ -84,7 +139,8 @@ public class FacilityView {
                 Room room = (Room) facilityList.get(i);
                 freeService = room.getFreeService();
             }
-            System.out.printf("%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%s",
+            System.out.printf("%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%-30s%s",
+                    facilityList.get(i).getIdService(),
                     facilityList.get(i).getNameService(),
                     facilityList.get(i).getUsableArea(),
                     facilityList.get(i).getCost(),
@@ -97,38 +153,11 @@ public class FacilityView {
         }
     }
 
-    public static void selectService() {
-        for (String item : facilityServiceList) {
-            System.out.println(item);
-        }
-        do {
-            System.out.print("Chọn loại cơ sở Khu nghỉ dưỡng Furama cần thêm mới: ");
-            choice = Integer.parseInt(input.nextLine());
-            switch (choice) {
-                case 1:
-                    System.out.println("Mời bạn nhập thông tin Villa cần thêm mới: ");
-                    Villa addVilla = inputInformationOfVilla();
-                    facilityController.add(addVilla);
-                    break;
-                case 2:
-                    System.out.println("Mời bạn nhập thông tin House cần thêm mới: ");
-                    House addHouse = inputInformationHouse();
-                    facilityController.add(addHouse);
-                    break;
-                case 3:
-                    System.out.println("Mời bạn nhập thông tin Room cần thêm mới: ");
-                    Room addRoom = inputInformationRoom();
-                    facilityController.add(addRoom);
-                    break;
-                case 4:
-                    displayFacilityMenu();
-                    break;
-            }
-        } while (choice < 1 || choice > 4);
-    }
-
     public static Villa inputInformationOfVilla() {
         System.out.println("-----------------------------");
+        System.out.print("Mã dịch vụ: ");
+        String idService = input.nextLine();
+        idService = "V" + idService;
         System.out.print("Tên dịch vụ: ");
         String nameService = input.nextLine();
         System.out.print("Diện tích sử dụng: ");
@@ -145,12 +174,15 @@ public class FacilityView {
         double poolArea = Double.parseDouble(input.nextLine());
         System.out.print("Số tầng: ");
         int numberOfFloors = Integer.parseInt(input.nextLine());
-        Villa villa = new Villa(nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, poolArea, numberOfFloors);
+        Villa villa = new Villa(idService, nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, poolArea, numberOfFloors);
         return villa;
     }
 
     public static House inputInformationHouse() {
         System.out.println("-----------------------------");
+        System.out.print("Mã dịch vụ: ");
+        String idService = input.nextLine();
+        idService = "H" + idService;
         System.out.print("Tên dịch vụ: ");
         String nameService = input.nextLine();
         System.out.print("Diện tích sử dụng: ");
@@ -165,12 +197,15 @@ public class FacilityView {
         String roomStandard = input.nextLine();
         System.out.print("Số tầng: ");
         int numberOfFloors = Integer.parseInt(input.nextLine());
-        House house = new House(nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, numberOfFloors);
+        House house = new House(idService, nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, numberOfFloors);
         return house;
     }
 
     public static Room inputInformationRoom() {
         System.out.println("-----------------------------");
+        System.out.print("Mã dịch vụ: ");
+        String idService = input.nextLine();
+        idService = "R" + idService;
         System.out.print("Tên dịch vụ: ");
         String nameService = input.nextLine();
         System.out.print("Diện tích sử dụng: ");
@@ -183,8 +218,8 @@ public class FacilityView {
         String rentalType = input.nextLine();
         System.out.print("Dịch vụ miễn phí đi kèm: ");
         String freeService = input.nextLine();
-        Room room = new Room(nameService, usableArea, cost, maximumPeople, rentalType, freeService);
+
+        Room room = new Room(idService, nameService, usableArea, cost, maximumPeople, rentalType, freeService);
         return room;
     }
-
 }
