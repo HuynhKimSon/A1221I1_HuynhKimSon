@@ -2,15 +2,17 @@ package FuramaResort.views;
 
 import FuramaResort.controllers.CustomerController;
 import FuramaResort.models.customer.Customer;
+import FuramaResort.utils.Validate;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class CustomerView {
     private static final String[] customerMenuList = {"1. Display list customers", "2. Add new customer", "3. Edit customer", "4. Return main menu"};
-    static Scanner input = new Scanner(System.in);
     private static int choice;
     private static String type;
+    private static boolean isAdd;
+    static Scanner input = new Scanner(System.in);
 
     private static CustomerController customerController = new CustomerController();
 
@@ -43,15 +45,33 @@ public class CustomerView {
                     displayCustomerMenu();
                 case 2:
                     System.out.println("Mời bạn thông tin khách hàng cần thêm mới: ");
-                    Customer customerAdd = inputInformationOfCustomer();
-                    type = "INSERT";
-                    customerController.save(customerAdd, type);
+                    isAdd = true;
+                    while (isAdd) {
+                        Customer customerAdd = inputInformationOfCustomer();
+                        type = "INSERT";
+                        if (!Validate.isExistsCustomer(customerAdd.getId())) {
+                            customerController.save(customerAdd, type);
+                            isAdd = false;
+                            System.out.println("=> Thêm mới Khách hàng thành công! <=");
+                        } else {
+                            System.out.println("=> Mã Khách hàng đã tồn tại! Vui lòng nhập lại <=");
+                        }
+                    }
                     displayCustomerMenu();
                 case 3:
                     System.out.println("Mời bạn thông tin khách hàng cần chỉnh sửa: ");
-                    Customer customerEdit = inputInformationOfCustomer();
-                    type = "EDIT";
-                    customerController.save(customerEdit, type);
+                    isAdd = true;
+                    while (isAdd) {
+                        Customer customerAdd = inputInformationOfCustomer();
+                        type = "EDIT";
+                        if (Validate.isExistsCustomer(customerAdd.getId())) {
+                            customerController.save(customerAdd, type);
+                            isAdd = false;
+                            System.out.println("=> Chỉnh sửa Khách hàng thành công! <=");
+                        } else {
+                            System.out.println("=> Chỉnh sửa thất bại. Mã Khách hàng không tồn tại! Vui lòng nhập lại <=");
+                        }
+                    }
                     displayCustomerMenu();
                 case 4:
                     FuramaView.displayMainMenu();

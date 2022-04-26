@@ -16,7 +16,7 @@ public class FileCSVHelper<T> {
                 res.add(line);
             }
         } catch (IOException e) {
-            System.out.println("Error(read txt) Message :  " + e.getMessage());
+            System.out.println("Error(read csv) Message :  " + e.getMessage());
         }
 
         return res;
@@ -30,7 +30,30 @@ public class FileCSVHelper<T> {
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Error(write txt) Message :  " + e.getMessage());
+            System.out.println("Error(write csv) Message :  " + e.getMessage());
+        }
+    }
+
+    public void edit(List<T> tList, String path, boolean isAppend) {
+        createIfNotExists(path);
+        try {
+            BufferedReader BufferedReader = new BufferedReader(new FileReader(path));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, isAppend));
+            String lineData, putData, data = "";
+
+            for (T t : tList) {
+                data += t.toString();
+            }
+
+            while ((lineData = BufferedReader.readLine()) != null) {
+                if (lineData != null && data.charAt(0) == lineData.charAt(0)) {
+                    putData = lineData.replace(lineData, data);
+                    bufferedWriter.write(putData);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error(edit csv) Message :  " + e.getMessage());
         }
     }
 

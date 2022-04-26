@@ -2,15 +2,17 @@ package FuramaResort.views;
 
 import FuramaResort.controllers.EmployeeController;
 import FuramaResort.models.employee.Employee;
+import FuramaResort.utils.Validate;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeView {
     private static final String[] employeeMenuList = {"1. Display list employees", "2. Add new employee", "3. Edit employee", "4. Remove employee", "5. Return main menu"};
-    static Scanner input = new Scanner(System.in);
     private static int choice;
     private static String type;
+    private static boolean isAdd;
+    static Scanner input = new Scanner(System.in);
 
 
     private static EmployeeController employeeController = new EmployeeController();
@@ -45,15 +47,33 @@ public class EmployeeView {
                     displayEmployeeMenu();
                 case 2:
                     System.out.println("Mời bạn thông tin nhân viên cần thêm mới: ");
-                    Employee employeeAdd = inputInformationOfEmployee();
-                    type = "INSERT";
-                    employeeController.save(employeeAdd, type);
+                    isAdd = true;
+                    while (isAdd) {
+                        Employee employeeAdd = inputInformationOfEmployee();
+                        type = "INSERT";
+                        if (!Validate.isExistsEmployee(employeeAdd.getId())) {
+                            employeeController.save(employeeAdd, type);
+                            isAdd = false;
+                            System.out.println("=> Thêm mới Nhân viên thành công! <=");
+                        } else {
+                            System.out.println("=> Mã Nhân viên đã tồn tại! Vui lòng nhập lại <=");
+                        }
+                    }
                     displayEmployeeMenu();
                 case 3:
                     System.out.println("Mời bạn thông tin nhân viên cần chỉnh sửa: ");
-                    Employee employeeEdit = inputInformationOfEmployee();
-                    type = "EDIT";
-                    employeeController.save(employeeEdit, type);
+                    isAdd = true;
+                    while (isAdd) {
+                        Employee employeeAdd = inputInformationOfEmployee();
+                        type = "EDIT";
+                        if (Validate.isExistsEmployee(employeeAdd.getId())) {
+                            employeeController.save(employeeAdd, type);
+                            isAdd = false;
+                            System.out.println("=> Chỉnh sửa Nhân viên thành công! <=");
+                        } else {
+                            System.out.println("=> Chỉnh sửa thất bại. Mã Nhân viên đã tồn tại! Vui lòng nhập lại <=");
+                        }
+                    }
                     displayEmployeeMenu();
                 case 4:
                     System.out.println("Mời bạn thông tin nhân viên cần xóa: ");

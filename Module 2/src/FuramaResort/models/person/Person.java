@@ -80,12 +80,12 @@ public class Person {
 
     @Override
     public String toString() {
-        return +id + ", "
-                + name + ", "
-                + dateOfBirth + ", "
-                + idCard + ", "
-                + gender + ", "
-                + phone + ", "
-                + email + ", ";
+        return +id + ","
+                + name + ","
+                + dateOfBirth + ","
+                + idCard + ","
+                + gender + ","
+                + phone + ","
+                + email + ",";
     }
 }
