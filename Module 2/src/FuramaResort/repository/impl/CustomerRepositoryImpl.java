@@ -43,14 +43,14 @@ public class CustomerRepositoryImpl implements ICustomerRepository {
                 break;
             case "EDIT":
                 customerList.add(customer);
-                customerFileCSVHelper.edit(customerList, ConstantUtil.PATH.CUSTOMER, true);
+                customerFileCSVHelper.edit(customerList, ConstantUtil.PATH.CUSTOMER, false);
                 customerList.clear();
                 break;
         }
     }
 
-    @Override
-    public void remove(String index) {
-
-    }
+//    @Override
+//    public void remove(String index) {
+//
+//    }
 }

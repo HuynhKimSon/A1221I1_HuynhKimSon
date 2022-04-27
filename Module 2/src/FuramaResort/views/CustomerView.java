@@ -48,8 +48,8 @@ public class CustomerView {
                     System.out.println("Mời bạn thông tin khách hàng cần thêm mới: ");
                     isAdd = true;
                     while (isAdd) {
-                        Customer customerAdd = inputInformationOfCustomer();
                         type = "INSERT";
+                        Customer customerAdd = inputInformationOfCustomer(type);
                         if (!Validate.isExistsCustomer(customerAdd.getId())) {
                             customerController.save(customerAdd, type);
                             isAdd = false;
@@ -63,8 +63,8 @@ public class CustomerView {
                     System.out.println("Mời bạn thông tin khách hàng cần chỉnh sửa: ");
                     isAdd = true;
                     while (isAdd) {
-                        Customer customerAdd = inputInformationOfCustomer();
                         type = "EDIT";
+                        Customer customerAdd = inputInformationOfCustomer(type);
                         if (Validate.isExistsCustomer(customerAdd.getId())) {
                             customerController.save(customerAdd, type);
                             isAdd = false;
@@ -99,9 +99,15 @@ public class CustomerView {
         }
     }
 
-    public static Customer inputInformationOfCustomer() {
+    public static Customer inputInformationOfCustomer(String type) {
         System.out.println("-----------------------------");
-        int id = customerList.size() + 1;
+        int id;
+        if (type == "EDIT") {
+            System.out.print("Nhập mã khách hàng: ");
+            id = Integer.parseInt(input.nextLine());
+        } else {
+            id = customerList.size() + 1;
+        }
         System.out.print("Họ và tên: ");
         String name = input.nextLine();
         System.out.print("Ngày sinh: ");

@@ -21,8 +21,8 @@ public class CustomerServiceImpl implements ICustomerService {
         iSCustomerRepository.save(customer, type);
     }
 
-    @Override
-    public void remove(String index) {
-
-    }
+//    @Override
+//    public void remove(String index) {
+//
+//    }
 }

@@ -28,6 +28,7 @@ public class FileCSVHelper<T> {
             for (T t : tList) {
                 bufferedWriter.write(t.toString());
                 bufferedWriter.newLine();
+                bufferedWriter.close();
             }
         } catch (IOException e) {
             System.out.println("Error(write csv) Message :  " + e.getMessage());
@@ -36,22 +37,29 @@ public class FileCSVHelper<T> {
 
     public void edit(List<T> tList, String path, boolean isAppend) {
         createIfNotExists(path);
-        try {
-            BufferedReader BufferedReader = new BufferedReader(new FileReader(path));
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, isAppend));
-            String lineData, putData, data = "";
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, isAppend))) {
+            List<String> oldDataList = read(path);
+            String data = "";
 
+            // CHUYEN THANH CHUOI DU LIEU
             for (T t : tList) {
                 data += t.toString();
             }
-
-            while ((lineData = BufferedReader.readLine()) != null) {
-                if (lineData != null && data.charAt(0) == lineData.charAt(0)) {
-                    putData = lineData.replace(lineData, data);
-                    bufferedWriter.write(putData);
+            // GAN DU LIEU MOI NEU TIM TON TAI
+            for (int i = 0; i < oldDataList.size(); i++) {
+                if (oldDataList.get(i).charAt(0) == data.charAt(0)) {
+                    oldDataList.set(i, data);
                     break;
                 }
             }
+            // GHI DE DU LIEU VAO FILE
+            for (int i = 0; i < oldDataList.size(); i++) {
+                bufferedWriter.write(oldDataList.get(i));
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+            }
+
+
         } catch (IOException e) {
             System.out.println("Error(edit csv) Message :  " + e.getMessage());
         }

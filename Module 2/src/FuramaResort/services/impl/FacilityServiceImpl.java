@@ -26,8 +26,8 @@ public class FacilityServiceImpl implements IFacilityService {
         facilityRepository.save(facility, type);
     }
 
-    @Override
-    public void remove(String index) {
-
-    }
+//    @Override
+//    public void remove(String index) {
+//
+//    }
 }
