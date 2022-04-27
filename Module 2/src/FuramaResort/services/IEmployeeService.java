@@ -11,4 +11,5 @@ public interface IEmployeeService extends BaseService<Employee> {
 
     @Override
     void save(Employee employee, String type);
+
 }

@@ -11,4 +11,6 @@ public interface IFacilityRepository extends BaseRepository<Facility> {
 
     @Override
     void save(Facility facility, String type);
+
+    int getSize(String type);
 }

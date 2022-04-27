@@ -22,9 +22,33 @@ public class FacilityRepositoryImpl implements IFacilityRepository {
     }
 
     @Override
+    public int getSize(String type) {
+        List<String> stringList = null;
+        if (type == "V") {
+            stringList = facilityFileCSVHelper.read(ConstantUtil.PATH.VILLA);
+        }
+        if (type == "R") {
+            stringList = facilityFileCSVHelper.read(ConstantUtil.PATH.ROOM);
+        }
+        if (type == "H") {
+            stringList = facilityFileCSVHelper.read(ConstantUtil.PATH.HOUSE);
+        }
+        return stringList.size();
+    }
+
+    @Override
     public void save(Facility facility, String type) {
         if (type.equals("INSERT")) {
             facilities.add(facility);
+            if (facility instanceof Villa) {
+                facilityFileCSVHelper.write(facilities, ConstantUtil.PATH.VILLA, true);
+            }
+            if (facility instanceof Room) {
+                facilityFileCSVHelper.write(facilities, ConstantUtil.PATH.ROOM, true);
+            }
+            if (facility instanceof House) {
+                facilityFileCSVHelper.write(facilities, ConstantUtil.PATH.HOUSE, true);
+            }
             facilityFileCSVHelper.write(facilities, ConstantUtil.PATH.FACILITY, true);
             facilities.clear();
         }

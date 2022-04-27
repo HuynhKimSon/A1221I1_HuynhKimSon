@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeView {
-    private static final String[] employeeMenuList = {"1. Display list employees", "2. Add new employee", "3. Edit employee", "4. Remove employee", "5. Return main menu"};
+    private static final String[] employeeMenuList = {"1. Display list employees", "2. Add new employee", "3. Edit employee", "4. Return main menu"};
     private static int choice;
     private static String type;
     private static boolean isAdd;
@@ -16,6 +16,7 @@ public class EmployeeView {
 
 
     private static EmployeeController employeeController = new EmployeeController();
+    private static List<Employee> employeeList = employeeController.display();
 
     public static void displayEmployeeMenu() {
         System.out.println("--Menu Employee Management-- ");
@@ -76,19 +77,14 @@ public class EmployeeView {
                     }
                     displayEmployeeMenu();
                 case 4:
-                    System.out.println("Mời bạn thông tin nhân viên cần xóa: ");
-                    int id = removeEmployee();
-                    displayEmployeeMenu();
-                case 5:
                     FuramaView.displayMainMenu();
                 default:
                     System.out.println("No choice!");
             }
-        } while (choice < 1 || choice > 5);
+        } while (choice < 1 || choice > 4);
     }
 
     public static void displayEmployee() {
-        List<Employee> employeeList = employeeController.display();
         for (int i = 0; i < employeeList.size(); i++) {
             System.out.printf("%-20s%-30s%-30s%-50s%-30s%-30s%-30s%-30s%-30s%s",
                     employeeList.get(i).getId(),
@@ -107,8 +103,7 @@ public class EmployeeView {
 
     public static Employee inputInformationOfEmployee() {
         System.out.println("-----------------------------");
-        System.out.print("Mã nhân viên: ");
-        int id = Integer.parseInt(input.nextLine());
+        int id = employeeList.size() + 1;
         System.out.print("Họ và tên: ");
         String name = input.nextLine();
         System.out.print("Ngày sinh: ");
@@ -129,11 +124,5 @@ public class EmployeeView {
         double salary = Double.parseDouble(input.nextLine());
         Employee employee = new Employee(id, name, dateOfBirth, idCard, gender, phone, email, level, position, salary);
         return employee;
-    }
-
-    public static int removeEmployee() {
-        System.out.print("Nhập Mã nhân viên cần xóa: ");
-        int id = Integer.parseInt(input.nextLine());
-        return id;
     }
 }

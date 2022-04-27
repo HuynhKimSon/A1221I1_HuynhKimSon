@@ -155,9 +155,8 @@ public class FacilityView {
 
     public static Villa inputInformationOfVilla() {
         System.out.println("-----------------------------");
-        System.out.print("Mã dịch vụ: ");
-        String idService = input.nextLine();
-        idService = "V" + idService;
+        int size = facilityController.getSize("V");
+        String idService = "V" + (size + 1);
         System.out.print("Tên dịch vụ: ");
         String nameService = input.nextLine();
         System.out.print("Diện tích sử dụng: ");
@@ -180,9 +179,8 @@ public class FacilityView {
 
     public static House inputInformationHouse() {
         System.out.println("-----------------------------");
-        System.out.print("Mã dịch vụ: ");
-        String idService = input.nextLine();
-        idService = "H" + idService;
+        int size = facilityController.getSize("V");
+        String idService = "H" + (size + 1);
         System.out.print("Tên dịch vụ: ");
         String nameService = input.nextLine();
         System.out.print("Diện tích sử dụng: ");
@@ -203,9 +201,8 @@ public class FacilityView {
 
     public static Room inputInformationRoom() {
         System.out.println("-----------------------------");
-        System.out.print("Mã dịch vụ: ");
-        String idService = input.nextLine();
-        idService = "R" + idService;
+        int size = facilityController.getSize("R");
+        String idService = "R" + (size + 1);
         System.out.print("Tên dịch vụ: ");
         String nameService = input.nextLine();
         System.out.print("Diện tích sử dụng: ");

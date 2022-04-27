@@ -15,9 +15,19 @@ public class FacilityServiceImpl implements IFacilityService {
     public List<Facility> getAll() {
         return facilityRepository.getAll();
     }
-    
+
+    @Override
+    public int getSize(String type) {
+        return facilityRepository.getSize(type);
+    }
+
     @Override
     public void save(Facility facility, String type) {
         facilityRepository.save(facility, type);
+    }
+
+    @Override
+    public void remove(String index) {
+
     }
 }

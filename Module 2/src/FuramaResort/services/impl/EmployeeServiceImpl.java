@@ -18,6 +18,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public void save(Employee employee, String type) {
-        iSEmployeeRepository.save(employee,type);
+        iSEmployeeRepository.save(employee, type);
     }
 }

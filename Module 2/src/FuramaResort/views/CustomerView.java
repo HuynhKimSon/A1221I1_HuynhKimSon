@@ -15,6 +15,7 @@ public class CustomerView {
     static Scanner input = new Scanner(System.in);
 
     private static CustomerController customerController = new CustomerController();
+    private static List<Customer> customerList = customerController.display();
 
     public static void displayCustomerMenu() {
         System.out.println("--Menu Customer Management--");
@@ -82,7 +83,7 @@ public class CustomerView {
     }
 
     public static void displayCustomer() {
-        List<Customer> customerList = customerController.display();
+
         for (int i = 0; i < customerList.size(); i++) {
             System.out.printf("%-30s%-30s%-30s%-50s%-30s%-30s%-30s%-30s%s",
                     customerList.get(i).getId(),
@@ -100,8 +101,7 @@ public class CustomerView {
 
     public static Customer inputInformationOfCustomer() {
         System.out.println("-----------------------------");
-        System.out.print("Mã khách hàng: ");
-        int id = Integer.parseInt(input.nextLine());
+        int id = customerList.size() + 1;
         System.out.print("Họ và tên: ");
         String name = input.nextLine();
         System.out.print("Ngày sinh: ");

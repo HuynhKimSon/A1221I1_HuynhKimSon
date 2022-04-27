@@ -1,6 +1,5 @@
 package FuramaResort.repository.impl;
 
-import FuramaResort.models.customer.Customer;
 import FuramaResort.repository.IEmployeeRepository;
 import FuramaResort.models.employee.Employee;
 import FuramaResort.utils.ConstantUtil;
@@ -50,5 +49,4 @@ public class EmployeeRepositoryImpl implements IEmployeeRepository {
                 break;
         }
     }
-
 }

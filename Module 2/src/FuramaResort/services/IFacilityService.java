@@ -12,4 +12,5 @@ public interface IFacilityService extends BaseService<Facility> {
     @Override
     void save(Facility facility, String type);
 
+    int getSize(String type);
 }

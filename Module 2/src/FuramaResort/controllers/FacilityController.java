@@ -17,4 +17,8 @@ public class FacilityController {
     public void save(Facility facility, String type) {
         iFacilityServiceImpl.save(facility, type);
     }
+
+    public int getSize(String type){
+        return iFacilityServiceImpl.getSize(type);
+    }
 }

@@ -48,4 +48,9 @@ public class CustomerRepositoryImpl implements ICustomerRepository {
                 break;
         }
     }
+
+    @Override
+    public void remove(String index) {
+
+    }
 }
