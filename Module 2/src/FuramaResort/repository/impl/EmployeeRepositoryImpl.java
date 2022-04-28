@@ -44,7 +44,7 @@ public class EmployeeRepositoryImpl implements IEmployeeRepository {
                 break;
             case "EDIT":
                 employeeList.add(employee);
-                employeeFileCSVHelper.edit(employeeList, ConstantUtil.PATH.EMPLOYEE, true);
+                employeeFileCSVHelper.edit(employeeList, ConstantUtil.PATH.EMPLOYEE, false);
                 employeeList.clear();
                 break;
         }

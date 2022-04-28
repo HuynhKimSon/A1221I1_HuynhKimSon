@@ -5,17 +5,16 @@ import FuramaResort.models.facility.Facility;
 import FuramaResort.models.facility.House;
 import FuramaResort.models.facility.Room;
 import FuramaResort.models.facility.Villa;
+import FuramaResort.utils.CommonUtil;
 import FuramaResort.utils.Validate;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class FacilityView {
     private static final String[] facilityMenuList = {"1. Display list facility", "2. Add new facility", "3. Display list facility maintenance", "4. Return main menu"};
     private static final String[] facilityServiceList = {"1. Add New Villa", "2. Add New House", "3. Add New Room", "4. Back to menu"};
     private static int choice;
     private static boolean isAdd;
-    static Scanner input = new Scanner(System.in);
 
     private static FacilityController facilityController = new FacilityController();
 
@@ -26,7 +25,7 @@ public class FacilityView {
         }
         do {
             System.out.print("Enter your choice customer Menu : ");
-            choice = Integer.parseInt(input.nextLine());
+            choice = CommonUtil.choice();
             switch (choice) {
                 case 1:
                     System.out.println("-----------------------------");
@@ -56,7 +55,7 @@ public class FacilityView {
                 case 4:
                     FuramaView.displayMainMenu();
                 default:
-                    System.out.println("No choice!");
+                    System.out.println("---> Please just input number from 1 to 4: ");
             }
         } while (choice < 1 || choice > 4);
     }
@@ -67,7 +66,7 @@ public class FacilityView {
         }
         do {
             System.out.print("Chọn loại cơ sở Khu nghỉ dưỡng Furama cần thêm mới: ");
-            choice = Integer.parseInt(input.nextLine());
+            choice = CommonUtil.choice();
             switch (choice) {
                 case 1:
                     System.out.println("Mời bạn nhập thông tin Villa cần thêm mới: ");
@@ -113,6 +112,8 @@ public class FacilityView {
                     displayFacilityMenu();
                 case 4:
                     displayFacilityMenu();
+                default:
+                    System.out.println("---> Please just input number from 1 to 4: ");
             }
         } while (choice < 1 || choice > 4);
     }
@@ -158,21 +159,21 @@ public class FacilityView {
         int size = facilityController.getSize("V");
         String idService = "V" + (size + 1);
         System.out.print("Tên dịch vụ: ");
-        String nameService = input.nextLine();
+        String nameService = CommonUtil.getScanner();
         System.out.print("Diện tích sử dụng: ");
-        double usableArea = Double.parseDouble(input.nextLine());
+        double usableArea = Double.parseDouble(CommonUtil.getScanner());
         System.out.print("Chi phí thuê: ");
-        double cost = Double.parseDouble(input.nextLine());
+        double cost = Double.parseDouble(CommonUtil.getScanner());
         System.out.print("Số người tối đa: ");
-        int maximumPeople = Integer.parseInt(input.nextLine());
+        int maximumPeople = Integer.parseInt(CommonUtil.getScanner());
         System.out.print("Kiểu thuê: ");
-        String rentalType = input.nextLine();
+        String rentalType = CommonUtil.getScanner();
         System.out.print("Tiêu chuẩn phòng: ");
-        String roomStandard = input.nextLine();
+        String roomStandard = CommonUtil.getScanner();
         System.out.print("Diện tích hồ bơi: ");
-        double poolArea = Double.parseDouble(input.nextLine());
+        double poolArea = Double.parseDouble(CommonUtil.getScanner());
         System.out.print("Số tầng: ");
-        int numberOfFloors = Integer.parseInt(input.nextLine());
+        int numberOfFloors = Integer.parseInt(CommonUtil.getScanner());
         Villa villa = new Villa(idService, nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, poolArea, numberOfFloors);
         return villa;
     }
@@ -182,19 +183,19 @@ public class FacilityView {
         int size = facilityController.getSize("V");
         String idService = "H" + (size + 1);
         System.out.print("Tên dịch vụ: ");
-        String nameService = input.nextLine();
+        String nameService = CommonUtil.getScanner();
         System.out.print("Diện tích sử dụng: ");
-        double usableArea = Double.parseDouble(input.nextLine());
+        double usableArea = Double.parseDouble(CommonUtil.getScanner());
         System.out.print("Chi phí thuê: ");
-        double cost = Double.parseDouble(input.nextLine());
+        double cost = Double.parseDouble(CommonUtil.getScanner());
         System.out.print("Số người tối đa: ");
-        int maximumPeople = Integer.parseInt(input.nextLine());
+        int maximumPeople = Integer.parseInt(CommonUtil.getScanner());
         System.out.print("Kiểu thuê: ");
-        String rentalType = input.nextLine();
+        String rentalType = CommonUtil.getScanner();
         System.out.print("Tiêu chuẩn phòng: ");
-        String roomStandard = input.nextLine();
+        String roomStandard = CommonUtil.getScanner();
         System.out.print("Số tầng: ");
-        int numberOfFloors = Integer.parseInt(input.nextLine());
+        int numberOfFloors = Integer.parseInt(CommonUtil.getScanner());
         House house = new House(idService, nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, numberOfFloors);
         return house;
     }
@@ -204,17 +205,17 @@ public class FacilityView {
         int size = facilityController.getSize("R");
         String idService = "R" + (size + 1);
         System.out.print("Tên dịch vụ: ");
-        String nameService = input.nextLine();
+        String nameService = CommonUtil.getScanner();
         System.out.print("Diện tích sử dụng: ");
-        double usableArea = Double.parseDouble(input.nextLine());
+        double usableArea = Double.parseDouble(CommonUtil.getScanner());
         System.out.print("Chi phí thuê: ");
-        double cost = Double.parseDouble(input.nextLine());
+        double cost = Double.parseDouble(CommonUtil.getScanner());
         System.out.print("Số người tối đa: ");
-        int maximumPeople = Integer.parseInt(input.nextLine());
+        int maximumPeople = Integer.parseInt(CommonUtil.getScanner());
         System.out.print("Kiểu thuê: ");
-        String rentalType = input.nextLine();
+        String rentalType = CommonUtil.getScanner();
         System.out.print("Dịch vụ miễn phí đi kèm: ");
-        String freeService = input.nextLine();
+        String freeService = CommonUtil.getScanner();
 
         Room room = new Room(idService, nameService, usableArea, cost, maximumPeople, rentalType, freeService);
         return room;

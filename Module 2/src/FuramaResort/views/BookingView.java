@@ -1,11 +1,10 @@
 package FuramaResort.views;
 
-import java.util.Scanner;
+import FuramaResort.utils.CommonUtil;
 
 public class BookingView {
     private static final String[] bookingMenuList = {"1. Add new booking", "2. Display list booking", "3. Create new contracts", "4. Display list contracts", "5. Edit contracts", "6. Return main menu"};
     private static int choice;
-    static Scanner input = new Scanner(System.in);
 
     public static void displayBookingMenu() {
         System.out.println("--Menu Booking Management--");
@@ -14,7 +13,7 @@ public class BookingView {
         }
         do {
             System.out.print("Enter your choice employees Menu : ");
-            choice = Integer.parseInt(input.nextLine());
+            choice = CommonUtil.choice();
             switch (choice) {
                 case 1:
                     System.out.print("1. Add new booking");
@@ -29,7 +28,7 @@ public class BookingView {
                 case 6:
                     FuramaView.displayMainMenu();
                 default:
-                    System.out.println("No choice!");
+                    System.out.println("---> Please just input number from 1 to 6: ");
             }
         } while (choice < 1 || choice > 6);
     }

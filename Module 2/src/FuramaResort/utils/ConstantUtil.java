@@ -8,5 +8,8 @@ public interface ConstantUtil {
         String VILLA = "src/FuramaResort/data/villa.csv";
         String ROOM = "src/FuramaResort/data/room.csv";
         String HOUSE = "src/FuramaResort/data/house.csv";
+        String BOOKING = "src/FuramaResort/data/booking.csv";
+        String CONTACT = "src/FuramaResort/data/contact.csv";
+        String MAINTENANCE = "src/FuramaResort/data/maintenance.csv";
     }
 }

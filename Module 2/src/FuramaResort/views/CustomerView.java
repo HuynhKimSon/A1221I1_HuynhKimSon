@@ -2,20 +2,18 @@ package FuramaResort.views;
 
 import FuramaResort.controllers.CustomerController;
 import FuramaResort.models.customer.Customer;
+import FuramaResort.utils.CommonUtil;
 import FuramaResort.utils.Validate;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class CustomerView {
     private static final String[] customerMenuList = {"1. Display list customers", "2. Add new customer", "3. Edit customer", "4. Return main menu"};
     private static int choice;
     private static String type;
     private static boolean isAdd;
-    static Scanner input = new Scanner(System.in);
 
     private static CustomerController customerController = new CustomerController();
-    private static List<Customer> customerList = customerController.display();
 
     public static void displayCustomerMenu() {
         System.out.println("--Menu Customer Management--");
@@ -24,7 +22,7 @@ public class CustomerView {
         }
         do {
             System.out.print("Enter your choice customer Menu : ");
-            choice = Integer.parseInt(input.nextLine());
+            choice = CommonUtil.choice();
             switch (choice) {
                 case 1:
                     System.out.println("-----------------------------");
@@ -77,13 +75,13 @@ public class CustomerView {
                 case 4:
                     FuramaView.displayMainMenu();
                 default:
-                    System.out.println("No choice!");
+                    System.out.println("---> Please just input number from 1 to 4: ");
             }
         } while (choice < 1 || choice > 4);
     }
 
     public static void displayCustomer() {
-
+        List<Customer> customerList = customerController.display();
         for (int i = 0; i < customerList.size(); i++) {
             System.out.printf("%-30s%-30s%-30s%-50s%-30s%-30s%-30s%-30s%s",
                     customerList.get(i).getId(),
@@ -100,30 +98,31 @@ public class CustomerView {
     }
 
     public static Customer inputInformationOfCustomer(String type) {
+        List<Customer> customerList = customerController.display();
         System.out.println("-----------------------------");
         int id;
         if (type == "EDIT") {
             System.out.print("Nhập mã khách hàng: ");
-            id = Integer.parseInt(input.nextLine());
+            id = Integer.parseInt(CommonUtil.getScanner());
         } else {
             id = customerList.size() + 1;
         }
         System.out.print("Họ và tên: ");
-        String name = input.nextLine();
+        String name = CommonUtil.getScanner();
         System.out.print("Ngày sinh: ");
-        String dateOfBirth = input.nextLine();
+        String dateOfBirth = CommonUtil.getScanner();
         System.out.print("Chứng minh nhân dân: ");
-        int idCard = Integer.parseInt(input.nextLine());
+        int idCard = Integer.parseInt(CommonUtil.getScanner());
         System.out.print("Giới tính (Nam/ Nữ): ");
-        String gender = input.nextLine();
+        String gender = CommonUtil.getScanner();
         System.out.print("Số điện thoại: ");
-        int phone = Integer.parseInt(input.nextLine());
+        int phone = Integer.parseInt(CommonUtil.getScanner());
         System.out.print("Email: ");
-        String email = input.nextLine();
+        String email = CommonUtil.getScanner();
         System.out.print("Loại khách(Diamond, Platinium, Gold, Silver, Member): ");
-        String typeCustomer = input.nextLine();
+        String typeCustomer = CommonUtil.getScanner();
         System.out.print("Địa chỉ: ");
-        String address = input.nextLine();
+        String address = CommonUtil.getScanner();
         Customer customer = new Customer(id, name, dateOfBirth, idCard, gender, phone, email, typeCustomer, address);
         return customer;
     }
