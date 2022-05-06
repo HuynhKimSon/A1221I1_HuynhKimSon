@@ -5,9 +5,9 @@ import VehicleManagement.models.Vehicle;
 import java.util.List;
 
 public interface IVehicleService extends BasicService<Vehicle> {
-    List<Vehicle> getAll();
+    List<Vehicle> getAll(String type);
 
-    boolean save(Vehicle vehicle);
+    String save(Vehicle vehicle);
 
-    boolean remove(Integer numberVehicle);
+    String remove(Integer numberVehicle);
 }

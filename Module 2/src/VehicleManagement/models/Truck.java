@@ -1,14 +1,16 @@
 package VehicleManagement.models;
 
-public class Truck {
+public class Truck extends Vehicle{
     private int weight;
 
     public Truck() {
     }
 
-    public Truck(int weight) {
+    public Truck(String numberVehicle, String manufacturer, int yearManufacturer, String owner, int weight) {
+        super(numberVehicle, manufacturer, yearManufacturer, owner);
         this.weight = weight;
     }
+
 
     public int getWeight() {
         return weight;

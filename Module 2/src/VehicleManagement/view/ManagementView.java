@@ -26,9 +26,9 @@ public class ManagementView {
             choice = CommonUtil.choice();
             switch (choice) {
                 case 1:
-                    VehicleView.choiceVehicleType();
+                    VehicleView.choiceVehicleTypeAdd();
                 case 2:
-                    VehicleView.choiceVehicleType();
+                    VehicleView.choiceVehicleTypeDisplay();
                 case 3:
                     VehicleView.removeVehicle();
                 case 4:

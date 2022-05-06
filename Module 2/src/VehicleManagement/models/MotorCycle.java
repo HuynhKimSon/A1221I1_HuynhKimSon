@@ -1,12 +1,13 @@
 package VehicleManagement.models;
 
-public class MotorCycle {
+public class MotorCycle extends Vehicle {
     private int wattage;
 
     public MotorCycle() {
     }
 
-    public MotorCycle(int wattage) {
+    public MotorCycle(String numberVehicle, String manufacturer, int yearManufacturer, String owner, int wattage) {
+        super(numberVehicle, manufacturer, yearManufacturer, owner);
         this.wattage = wattage;
     }
 
