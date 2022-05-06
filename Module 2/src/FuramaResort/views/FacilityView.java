@@ -156,62 +156,110 @@ public class FacilityView {
 
     public static Villa inputInformationOfVilla() {
         System.out.println("-----------------------------");
-        int size = facilityController.getSize("V");
-        String idService = "V" + (size + 1);
+        int size = facilityController.getSize("VL");
+        String idService = "VL" + (size + 1);
         System.out.print("Tên dịch vụ: ");
         String nameService = CommonUtil.getScanner();
         System.out.print("Diện tích sử dụng: ");
         double usableArea = Double.parseDouble(CommonUtil.getScanner());
+        while (usableArea < 30.0) {
+            System.out.print("Diện tích sử dụng phải lớn hơn 30m2: ");
+            usableArea = Double.parseDouble(CommonUtil.getScanner());
+        }
         System.out.print("Chi phí thuê: ");
         double cost = Double.parseDouble(CommonUtil.getScanner());
+        while (cost <= 0.0) {
+            System.out.print("Chi phí thuê phải lớn hơn 0: ");
+            cost = Double.parseDouble(CommonUtil.getScanner());
+        }
         System.out.print("Số người tối đa: ");
         int maximumPeople = Integer.parseInt(CommonUtil.getScanner());
+        while (maximumPeople < 0 && maximumPeople > 20) {
+            System.out.print("Số người tối đa phải > 0 và < 20: ");
+            maximumPeople = Integer.parseInt(CommonUtil.getScanner());
+        }
         System.out.print("Kiểu thuê: ");
         String rentalType = CommonUtil.getScanner();
         System.out.print("Tiêu chuẩn phòng: ");
         String roomStandard = CommonUtil.getScanner();
         System.out.print("Diện tích hồ bơi: ");
         double poolArea = Double.parseDouble(CommonUtil.getScanner());
+        while (poolArea < 30.0) {
+            System.out.print("Diện tích hồ bơi phải lớn hơn 30m2: ");
+            poolArea = Double.parseDouble(CommonUtil.getScanner());
+        }
         System.out.print("Số tầng: ");
         int numberOfFloors = Integer.parseInt(CommonUtil.getScanner());
+        while (numberOfFloors < 0) {
+            System.out.print("Số tầng phải lớn hơn 0: ");
+            numberOfFloors = Integer.parseInt(CommonUtil.getScanner());
+        }
         Villa villa = new Villa(idService, nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, poolArea, numberOfFloors);
         return villa;
     }
 
     public static House inputInformationHouse() {
         System.out.println("-----------------------------");
-        int size = facilityController.getSize("V");
-        String idService = "H" + (size + 1);
+        int size = facilityController.getSize("HO");
+        String idService = "HO" + (size + 1);
         System.out.print("Tên dịch vụ: ");
         String nameService = CommonUtil.getScanner();
         System.out.print("Diện tích sử dụng: ");
         double usableArea = Double.parseDouble(CommonUtil.getScanner());
+        while (usableArea < 30.0) {
+            System.out.print("Diện tích sử dụng phải lớn hơn 30m2: ");
+            usableArea = Double.parseDouble(CommonUtil.getScanner());
+        }
         System.out.print("Chi phí thuê: ");
         double cost = Double.parseDouble(CommonUtil.getScanner());
+        while (cost <= 0.0) {
+            System.out.print("Chi phí thuê phải lớn hơn 0: ");
+            cost = Double.parseDouble(CommonUtil.getScanner());
+        }
         System.out.print("Số người tối đa: ");
         int maximumPeople = Integer.parseInt(CommonUtil.getScanner());
+        while (maximumPeople < 0 && maximumPeople > 20) {
+            System.out.print("Số người tối đa phải > 0 và < 20: ");
+            maximumPeople = Integer.parseInt(CommonUtil.getScanner());
+        }
         System.out.print("Kiểu thuê: ");
         String rentalType = CommonUtil.getScanner();
         System.out.print("Tiêu chuẩn phòng: ");
         String roomStandard = CommonUtil.getScanner();
         System.out.print("Số tầng: ");
         int numberOfFloors = Integer.parseInt(CommonUtil.getScanner());
+        while (numberOfFloors < 0) {
+            System.out.print("Số tầng phải lớn hơn 0: ");
+            numberOfFloors = Integer.parseInt(CommonUtil.getScanner());
+        }
         House house = new House(idService, nameService, usableArea, cost, maximumPeople, rentalType, roomStandard, numberOfFloors);
         return house;
     }
 
     public static Room inputInformationRoom() {
         System.out.println("-----------------------------");
-        int size = facilityController.getSize("R");
-        String idService = "R" + (size + 1);
+        int size = facilityController.getSize("RO");
+        String idService = "RO" + (size + 1);
         System.out.print("Tên dịch vụ: ");
         String nameService = CommonUtil.getScanner();
         System.out.print("Diện tích sử dụng: ");
         double usableArea = Double.parseDouble(CommonUtil.getScanner());
+        while (usableArea < 30.0) {
+            System.out.print("Diện tích sử dụng phải lớn hơn 30m2: ");
+            usableArea = Double.parseDouble(CommonUtil.getScanner());
+        }
         System.out.print("Chi phí thuê: ");
         double cost = Double.parseDouble(CommonUtil.getScanner());
+        while (cost <= 0.0) {
+            System.out.print("Chi phí thuê phải lớn hơn 0: ");
+            cost = Double.parseDouble(CommonUtil.getScanner());
+        }
         System.out.print("Số người tối đa: ");
         int maximumPeople = Integer.parseInt(CommonUtil.getScanner());
+        while (maximumPeople < 0 && maximumPeople > 20) {
+            System.out.print("Số người tối đa phải > 0 và < 20: ");
+            maximumPeople = Integer.parseInt(CommonUtil.getScanner());
+        }
         System.out.print("Kiểu thuê: ");
         String rentalType = CommonUtil.getScanner();
         System.out.print("Dịch vụ miễn phí đi kèm: ");

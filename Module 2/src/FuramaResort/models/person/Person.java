@@ -80,7 +80,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return +id + ","
+        return id + ","
                 + name + ","
                 + dateOfBirth + ","
                 + idCard + ","

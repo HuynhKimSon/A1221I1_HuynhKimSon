@@ -47,7 +47,6 @@ public class FileCSVHelper<T> {
             String line = mList.toString().replace("{", "").replace("}", "").replace("=", ",");
             bufferedWriter.write(line);
             bufferedWriter.newLine();
-
             bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("--->ERROR(write csv) Message :  " + e.getMessage());
@@ -70,6 +69,7 @@ public class FileCSVHelper<T> {
             for (int i = 0; i < oldDataList.size(); i++) {
                 if (oldDataList.get(i).charAt(0) == data.charAt(0)) {
                     oldDataList.set(i, data);
+                    //oldDataList.remove(i);
                     break;
                 }
             }

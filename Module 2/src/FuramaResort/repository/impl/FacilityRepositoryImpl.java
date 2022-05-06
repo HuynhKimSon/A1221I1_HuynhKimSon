@@ -74,13 +74,13 @@ public class FacilityRepositoryImpl implements IFacilityRepository {
     @Override
     public int getSize(String type) {
         List<String> stringList = null;
-        if (type.equals("V")) {
+        if (type.equals("VL")) {
             stringList = facilityFileCSVHelper.read(ConstantUtil.PATH.VILLA);
         }
-        if (type.equals("R")) {
+        if (type.equals("RO")) {
             stringList = facilityFileCSVHelper.read(ConstantUtil.PATH.ROOM);
         }
-        if (type.equals("H")) {
+        if (type.equals("HO")) {
             stringList = facilityFileCSVHelper.read(ConstantUtil.PATH.HOUSE);
         }
         return stringList.size();
