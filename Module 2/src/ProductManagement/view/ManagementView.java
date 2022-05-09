@@ -1,7 +1,6 @@
-package VehicleManagement.view;
+package ProductManagement.view;
 
-
-import VehicleManagement.utils.CommonUtil;
+import ProductManagement.utils.CommonUtil;
 
 public class ManagementView {
     private static final String[] mainMenuList = {
@@ -27,14 +26,14 @@ public class ManagementView {
             choice = CommonUtil.choice();
             switch (choice) {
                 case 1:
-                    VehicleView.choiceVehicleTypeAdd();
+                    ProductView.choiceVehicleTypeAdd();
                 case 2:
-                    VehicleView.choiceVehicleTypeDisplay();
+                    ProductView.choiceVehicleTypeDisplay();
                 case 3:
-                    VehicleView.removeVehicle();
+                    ProductView.removeVehicle();
                     displayMainMenu();
                 case 4:
-                    VehicleView.searchVehicle();
+                    ProductView.searchVehicle();
                     displayMainMenu();
                 case 5:
                     System.exit(4);
@@ -43,4 +42,5 @@ public class ManagementView {
             }
         } while (choice < 1 || choice > 5);
     }
+
 }

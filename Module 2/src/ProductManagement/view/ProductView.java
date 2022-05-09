@@ -10,20 +10,10 @@ import VehicleManagement.utils.Validate;
 
 import java.util.List;
 
-import static VehicleManagement.view.ManagementView.displayMainMenu;
-
-public class VehicleView {
+public class ProductView {
     private static final String[] mainMenuListAdd = {
-            "1. Thêm xe tải",
-            "2. Thêm ô tô",
-            "3. Thêm xe máy",
-            "4. Quay lại"
-    };
-    private static final String[] mainMenuListDisplay = {
-            "1. Hiển thị xe tải.",
-            "2. Hiển thị ô tô",
-            "3. Hiển thị xe máy",
-            "4. Quay lại"
+            "1. Thêm chính hãng",
+            "2. Thêm xách tay",
     };
     private static int choice;
     private static boolean isAdd;
@@ -35,7 +25,7 @@ public class VehicleView {
             for (String item : mainMenuListAdd) {
                 System.out.println(item);
             }
-            System.out.print("Chọn loại xe: ");
+            System.out.print("Chọn loại hàng: ");
             choice = CommonUtil.choice();
             switch (choice) {
                 case 1:
@@ -44,7 +34,7 @@ public class VehicleView {
                         Truck truckAdd = inputVehicleTruck();
                         String resTruck = vehicleController.save(truckAdd);
                         if (resTruck != "") {
-                            System.out.println("Thêm mới thành công phương tiện có BKS " + resTruck);
+                            System.out.println("Thêm mới thành công hàng chính hãng " + resTruck);
                             isAdd = false;
                         } else {
                             System.out.println("Thêm mới thất bại. Biển số xe đã tồn tại !");
@@ -57,20 +47,8 @@ public class VehicleView {
                         Car carAdd = inputVehicleCar();
                         String resCar = vehicleController.save(carAdd);
                         if (resCar != "") {
-                            System.out.println("Thêm mới thành công phương tiện có BKS " + resCar);
+                            System.out.println("Thêm mới thành công hàng xách tay " + resCar);
                             isAdd = false;
-                        } else {
-                            System.out.println("Thêm mới thất bại. Biển số xe đã tồn tại !");
-                        }
-                    }
-                    choiceVehicleTypeAdd();
-                case 3:
-                    isAdd = true;
-                    while (isAdd) {
-                        MotorCycle motorCycleAdd = inputVehicleMotorCycle();
-                        String resMotorCycle = vehicleController.save(motorCycleAdd);
-                        if (resMotorCycle != "") {
-                            System.out.println("Thêm mới thành công phương tiện có BKS " + resMotorCycle);
                         } else {
                             System.out.println("Thêm mới thất bại. Biển số xe đã tồn tại !");
                         }
@@ -84,7 +62,7 @@ public class VehicleView {
         } while (choice < 1 || choice > 6);
     }
 
-    public static Truck inputVehicleTruck() {
+    public static Truck inputProductHandCarry() {
         System.out.println("-----------------------------");
         System.out.print("Biển số xe: ");
         String numberVehicle = CommonUtil.getScanner();
@@ -100,25 +78,7 @@ public class VehicleView {
         return truck;
     }
 
-    public static Car inputVehicleCar() {
-        System.out.println("-----------------------------");
-        System.out.print("Biển số xe: ");
-        String numberVehicle = CommonUtil.getScanner();
-        System.out.print("Hãng sản xuất: ");
-        String manufacturer = CommonUtil.getScanner();
-        System.out.print("Năm sản xuất: ");
-        int yearManufacturer = Integer.parseInt(CommonUtil.getScanner());
-        System.out.print("Chủ sở hữu: ");
-        String owner = CommonUtil.getScanner();
-        System.out.print("Số chỗ ngồi: ");
-        int numberOfSeats = Integer.parseInt(CommonUtil.getScanner());
-        System.out.print("Kiểu xe: ");
-        String typeVehicle = CommonUtil.getScanner();
-        Car car = new Car(numberVehicle, manufacturer, yearManufacturer, owner, numberOfSeats, typeVehicle);
-        return car;
-    }
-
-    public static MotorCycle inputVehicleMotorCycle() {
+    public static MotorCycle inputProductAuthentic() {
         System.out.println("-----------------------------");
         System.out.print("Biển số xe: ");
         String numberVehicle = CommonUtil.getScanner();
@@ -132,40 +92,6 @@ public class VehicleView {
         int wattage = Integer.parseInt(CommonUtil.getScanner());
         MotorCycle motorCycle = new MotorCycle(numberVehicle, manufacturer, yearManufacturer, owner, wattage);
         return motorCycle;
-    }
-
-    public static void choiceVehicleTypeDisplay() {
-        do {
-            for (String item : mainMenuListDisplay) {
-                System.out.println(item);
-            }
-            System.out.print("Chọn loại xe: ");
-            choice = CommonUtil.choice();
-            switch (choice) {
-                case 1:
-                    System.out.println("-----------------------------");
-                    System.out.println("--DANH SÁCH XE TẢI--");
-                    displayVehicle("TRUCK");
-                    System.out.println("-----------------------------");
-                    choiceVehicleTypeDisplay();
-                case 2:
-                    System.out.println("-----------------------------");
-                    System.out.println("--DANH SÁCH XE Ô TÔ--");
-                    displayVehicle("CAR");
-                    System.out.println("-----------------------------");
-                    choiceVehicleTypeDisplay();
-                case 3:
-                    System.out.println("-----------------------------");
-                    System.out.println("--DANH SÁCH XE MÁY--");
-                    displayVehicle("MOTORCYCLE");
-                    System.out.println("-----------------------------");
-                    choiceVehicleTypeDisplay();
-                case 4:
-                    displayMainMenu();
-                default:
-                    System.out.println("---> Vui lòng chọn từ 1 đến 4: ");
-            }
-        } while (choice < 1 || choice > 4);
     }
 
     public static void displayVehicle(String type) {

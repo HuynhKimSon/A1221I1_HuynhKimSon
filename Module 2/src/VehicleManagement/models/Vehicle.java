@@ -1,6 +1,6 @@
 package VehicleManagement.models;
 
-public class Vehicle {
+public abstract class Vehicle {
     private String numberVehicle;
     private String manufacturer;
     private int yearManufacturer;

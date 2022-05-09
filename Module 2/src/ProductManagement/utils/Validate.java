@@ -1,4 +1,4 @@
-package VehicleManagement.utils;
+package ProductManagement.utils;
 
 import VehicleManagement.services.IVehicleService;
 import VehicleManagement.services.impl.VehicleServiceImpl;
