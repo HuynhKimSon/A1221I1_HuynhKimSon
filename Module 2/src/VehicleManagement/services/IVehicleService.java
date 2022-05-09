@@ -12,4 +12,7 @@ public interface IVehicleService extends BasicService<Vehicle> {
     String save(Vehicle vehicle);
 
     boolean remove(String numberVehicle);
+
+    List<Vehicle> search(String numberVehicle);
+
 }

@@ -11,4 +11,6 @@ public interface BasicService<T> {
 
     boolean remove(String numberVehicle);
 
+    List<T> search(String numberVehicle);
+
 }

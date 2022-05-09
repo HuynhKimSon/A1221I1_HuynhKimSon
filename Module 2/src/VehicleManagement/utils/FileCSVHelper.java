@@ -40,8 +40,22 @@ public class FileCSVHelper<T> {
         }
     }
 
+    public List<String> search(String numberVehicle, String path) {
+        List<String> res = new ArrayList<>();
+        createIfNotExists(path);
 
-    public void remove(String vehicleNumber, String path, boolean isAppend) {
+        List<String> oldDataList = read(path);
+        for (int i = 0; i < oldDataList.size(); i++) {
+            String[] strings = oldDataList.get(i).split(",");
+            if (numberVehicle.equals(strings[0])) {
+                res.add(oldDataList.get(i));
+                break;
+            }
+        }
+        return res;
+    }
+
+    public void remove(String numberVehicle, String path, boolean isAppend) {
         createIfNotExists(path);
 
         try {
@@ -51,7 +65,7 @@ public class FileCSVHelper<T> {
             // XOA DU LIEU
             for (int i = 0; i < oldDataList.size(); i++) {
                 String[] strings = oldDataList.get(i).split(",");
-                if (vehicleNumber.equals(strings[0])) {
+                if (numberVehicle.equals(strings[0])) {
                     oldDataList.remove(i);
                     break;
                 }
@@ -64,7 +78,7 @@ public class FileCSVHelper<T> {
             }
             bufferedWriter.close();
         } catch (IOException e) {
-            System.out.println("--->ERROR(edit csv) Message :  " + e.getMessage());
+            System.out.println("--->ERROR(remove csv) Message :  " + e.getMessage());
         }
     }
 

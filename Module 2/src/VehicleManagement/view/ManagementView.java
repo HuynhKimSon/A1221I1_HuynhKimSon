@@ -8,7 +8,8 @@ public class ManagementView {
             "1. Thêm mới phương tiện.",
             "2. Hiển thị phương tiện",
             "3. Xóa phương tiện",
-            "4. Thoát"
+            "4. Tìm kiếm phương tiện",
+            "5. Thoát"
     };
     private static int choice;
 
@@ -32,10 +33,12 @@ public class ManagementView {
                 case 3:
                     VehicleView.removeVehicle();
                 case 4:
+                    VehicleView.searchVehicle();
+                case 5:
                     System.exit(4);
                 default:
-                    System.out.println("---> Vui lòng chọn từ 1 đến 4: ");
+                    System.out.println("---> Vui lòng chọn từ 1 đến 5: ");
             }
-        } while (choice < 1 || choice > 6);
+        } while (choice < 1 || choice > 5);
     }
 }

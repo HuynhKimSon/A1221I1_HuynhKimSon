@@ -165,7 +165,7 @@ public class VehicleView {
                 default:
                     System.out.println("---> Vui lòng chọn từ 1 đến 4: ");
             }
-        } while (choice < 1 || choice > 6);
+        } while (choice < 1 || choice > 4);
     }
 
     public static void displayVehicle(String type) {
@@ -242,6 +242,19 @@ public class VehicleView {
             }
             System.out.print("Nhập lại Biển số xe: ");
             numberVehicle = CommonUtil.getScanner();
+        }
+    }
+
+    public static void searchVehicle() {
+        System.out.println("-----------------------------");
+        System.out.print("Nhập Biển số xe: ");
+        String numberVehicle = CommonUtil.getScanner();
+        List<Vehicle> vehicleList = vehicleController.search(numberVehicle);
+        System.out.println(vehicleList);
+        if (vehicleList.isEmpty()) {
+            System.out.println("Không tìm thấy phương tiện " + numberVehicle);
+        } else {
+
         }
     }
 }

@@ -19,4 +19,9 @@ public class VehicleController {
     public boolean remove(String numberVehicle) {
         return iVehicleServiceImpl.remove(numberVehicle);
     }
+
+    public List<Vehicle> search(String numberVehicle){
+        return iVehicleServiceImpl.search(numberVehicle);
+    }
+
 }

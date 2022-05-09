@@ -139,19 +139,67 @@ public class VehicleServiceImpl implements IVehicleService {
     }
 
     @Override
-    public boolean remove(String vehicleNumber) {
+    public boolean remove(String numberVehicle) {
         try {
-            String keyType = String.valueOf(vehicleNumber.charAt(2));
+            String keyType = String.valueOf(numberVehicle.charAt(2));
             if (keyType.equals("C")) {
-                vehicleFileCSVHelper.remove(vehicleNumber, ConstantUtil.PATH.TRUCK, false);
+                vehicleFileCSVHelper.remove(numberVehicle, ConstantUtil.PATH.TRUCK, false);
             } else if (keyType.equals("A") || keyType.equals("B")) {
-                vehicleFileCSVHelper.remove(vehicleNumber, ConstantUtil.PATH.CAR, false);
+                vehicleFileCSVHelper.remove(numberVehicle, ConstantUtil.PATH.CAR, false);
             } else {
-                vehicleFileCSVHelper.remove(vehicleNumber, ConstantUtil.PATH.MOTORCYCLE, false);
+                vehicleFileCSVHelper.remove(numberVehicle, ConstantUtil.PATH.MOTORCYCLE, false);
             }
         } catch (Exception e) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Vehicle> search(String numberVehicle) {
+        List<Vehicle> res = new ArrayList<>();
+        String keyType = String.valueOf(numberVehicle.charAt(2));
+        if (keyType.equals("C")) {
+            List<String> vehicle = vehicleFileCSVHelper.search(numberVehicle, ConstantUtil.PATH.TRUCK);
+            // Get list data Truck
+            for (int i = 0; i < vehicle.size(); i++) {
+                String[] strings = vehicle.get(i).split(",");
+                String numberVehicleParse = strings[0];
+                String manufacturer = strings[1];
+                int yearManufacturer = Integer.parseInt(strings[2]);
+                String owner = strings[3];
+                int weight = Integer.parseInt(strings[4]);
+                Truck truck = new Truck(numberVehicleParse, manufacturer, yearManufacturer, owner, weight);
+                res.add(truck);
+            }
+        } else if (keyType.equals("A") || keyType.equals("B")) {
+            List<String> vehicle = vehicleFileCSVHelper.search(numberVehicle, ConstantUtil.PATH.CAR);
+            // Get list data Car
+            for (int i = 0; i < vehicle.size(); i++) {
+                String[] strings = vehicle.get(i).split(",");
+                String numberVehicleParse = strings[0];
+                String manufacturer = strings[1];
+                int yearManufacturer = Integer.parseInt(strings[2]);
+                String owner = strings[3];
+                int numberOfSeats = Integer.parseInt(strings[4]);
+                String typeVehicle = strings[5];
+                Car car = new Car(numberVehicleParse, manufacturer, yearManufacturer, owner, numberOfSeats, typeVehicle);
+                res.add(car);
+            }
+        } else {
+            List<String> vehicle = vehicleFileCSVHelper.search(numberVehicle, ConstantUtil.PATH.MOTORCYCLE);
+            // Get list data MotorCycle
+            for (int i = 0; i < vehicle.size(); i++) {
+                String[] strings = vehicle.get(i).split(",");
+                String numberVehicleParse = strings[0];
+                String manufacturer = strings[1];
+                int yearManufacturer = Integer.parseInt(strings[2]);
+                String owner = strings[3];
+                int wattage = Integer.parseInt(strings[4]);
+                MotorCycle motorCycle = new MotorCycle(numberVehicleParse, manufacturer, yearManufacturer, owner, wattage);
+                res.add(motorCycle);
+            }
+        }
+        return res;
     }
 }
