@@ -6,14 +6,23 @@ import VehicleManagement.models.MotorCycle;
 import VehicleManagement.models.Truck;
 import VehicleManagement.models.Vehicle;
 import VehicleManagement.utils.CommonUtil;
+import VehicleManagement.utils.Validate;
 
 import java.util.List;
 
+import static VehicleManagement.view.ManagementView.displayMainMenu;
+
 public class VehicleView {
-    private static final String[] mainMenuList = {
+    private static final String[] mainMenuListAdd = {
             "1. Thêm xe tải.",
             "2. Thêm ô tô",
             "3. Thêm xe máy",
+            "4. Quay lại"
+    };
+    private static final String[] mainMenuListDisplay = {
+            "1. Hiển thị xe tải.",
+            "2. Hiển thị ô tô",
+            "3. Hiển thị xe máy",
             "4. Quay lại"
     };
     private static int choice;
@@ -23,7 +32,7 @@ public class VehicleView {
 
     public static void choiceVehicleTypeAdd() {
         do {
-            for (String item : mainMenuList) {
+            for (String item : mainMenuListAdd) {
                 System.out.println(item);
             }
             System.out.print("Chọn loại xe: ");
@@ -68,7 +77,7 @@ public class VehicleView {
                     }
                     choiceVehicleTypeAdd();
                 case 4:
-                    ManagementView.displayMainMenu();
+                    displayMainMenu();
                 default:
                     System.out.println("---> Vui lòng chọn từ 1 đến 4: ");
             }
@@ -127,7 +136,7 @@ public class VehicleView {
 
     public static void choiceVehicleTypeDisplay() {
         do {
-            for (String item : mainMenuList) {
+            for (String item : mainMenuListDisplay) {
                 System.out.println(item);
             }
             System.out.print("Chọn loại xe: ");
@@ -152,7 +161,7 @@ public class VehicleView {
                     System.out.println("-----------------------------");
                     choiceVehicleTypeDisplay();
                 case 4:
-                    ManagementView.displayMainMenu();
+                    displayMainMenu();
                 default:
                     System.out.println("---> Vui lòng chọn từ 1 đến 4: ");
             }
@@ -173,21 +182,22 @@ public class VehicleView {
                 "Công suất\n"
         );
         for (int i = 0; i < vehicleList.size(); i++) {
-            int weight = 0;
+            int weight = -1;
             String typeVehicle = "-";
-            int numberOfSeats = 0;
-            int wattage = 0;
+            int numberOfSeats = -1;
+            int wattage = -1;
             if (type == "TRUCK") {
                 Truck truck = (Truck) vehicleList.get(i);
-                weight =
+                weight = truck.getWeight();
             }
             if (type == "CAR") {
                 Car car = (Car) vehicleList.get(i);
-
+                numberOfSeats = car.getNumberOfSeats();
+                typeVehicle = car.getTypeVehicle();
             }
             if (type == "MOTORCYCLE") {
                 MotorCycle motorCycle = (MotorCycle) vehicleList.get(i);
-
+                wattage = motorCycle.getWattage();
             }
             System.out.printf(
                     "%-30s%-30s%-30s%-30s%-30s%-30s%-30s%s",
@@ -204,7 +214,34 @@ public class VehicleView {
     }
 
     public static void removeVehicle() {
+        System.out.println("-----------------------------");
+        System.out.print("Nhập Biển số xe: ");
+        String numberVehicle = CommonUtil.getScanner();
+        boolean isExitsVehicle = true;
+        while (isExitsVehicle) {
+            if (Validate.isExitsVehicle(numberVehicle)) {
+                System.out.println("Xã nhận xóa phương tiện " + numberVehicle);
+                System.out.println("1. Có");
+                System.out.println("2. Không");
+                choice = CommonUtil.choice();
+                switch (choice) {
+                    case 1:
+                        boolean isRemove = vehicleController.remove(numberVehicle);
+                        if (isRemove) {
+                            System.out.println("Xóa thành công phương tiện " + numberVehicle);
+                        } else {
+                            System.out.println("Xóa thất bại phương tiện " + numberVehicle);
+                        }
+                        isExitsVehicle = false;
+                    case 2:
+                        displayMainMenu();
+                    default:
+                        System.out.println("---> Vui lòng chọn từ 1 đến 2: ");
+                }
 
+            }
+            System.out.print("Nhập lại Biển số xe: ");
+            numberVehicle = CommonUtil.getScanner();
+        }
     }
-
 }

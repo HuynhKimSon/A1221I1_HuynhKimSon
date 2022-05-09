@@ -3,10 +3,12 @@ package VehicleManagement.services;
 import java.util.List;
 
 public interface BasicService<T> {
-    List<T> getAll(String type);
+    List<T> getVehicles(String type);
+
+    List<T> getAll();
 
     String save(T t);
 
-    String remove(Integer numberVehicle);
+    boolean remove(String numberVehicle);
 
 }

@@ -6,7 +6,7 @@ import VehicleManagement.utils.CommonUtil;
 public class ManagementView {
     private static final String[] mainMenuList = {
             "1. Thêm mới phương tiện.",
-            "2. Hiện thị phương tiện",
+            "2. Hiển thị phương tiện",
             "3. Xóa phương tiện",
             "4. Thoát"
     };

@@ -41,26 +41,22 @@ public class FileCSVHelper<T> {
     }
 
 
-    public void edit(List<T> tList, String path, boolean isAppend) {
+    public void remove(String vehicleNumber, String path, boolean isAppend) {
         createIfNotExists(path);
 
         try {
             List<String> oldDataList = read(path);
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, isAppend));
-            String data = "";
 
-            // CHUYEN THANH CHUOI DU LIEU
-            for (T t : tList) {
-                data += t.toString();
-            }
-            // GAN DU LIEU MOI NEU TON TAI DU LIEU CAN SUA
+            // XOA DU LIEU
             for (int i = 0; i < oldDataList.size(); i++) {
-                if (oldDataList.get(i).charAt(0) == data.charAt(0)) {
-                    oldDataList.set(i, data);
-                    //oldDataList.remove(i);
+                String[] strings = oldDataList.get(i).split(",");
+                if (vehicleNumber.equals(strings[0])) {
+                    oldDataList.remove(i);
                     break;
                 }
             }
+
             // GHI DE DU LIEU VAO FILE
             for (int i = 0; i < oldDataList.size(); i++) {
                 bufferedWriter.write(oldDataList.get(i));
@@ -72,7 +68,7 @@ public class FileCSVHelper<T> {
         }
     }
 
-    public void remove(List<T> tList, String path, boolean isAppend) {
+    public void edit(List<T> tList, String path, boolean isAppend) {
         createIfNotExists(path);
 
         try {
@@ -87,8 +83,7 @@ public class FileCSVHelper<T> {
             // GAN DU LIEU MOI NEU TON TAI DU LIEU CAN XOA
             for (int i = 0; i < oldDataList.size(); i++) {
                 if (oldDataList.get(i).charAt(0) == data.charAt(0)) {
-                    //oldDataList.set(i, data);
-                    oldDataList.remove(i);
+                    oldDataList.set(i, data);
                     break;
                 }
             }
