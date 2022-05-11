@@ -31,7 +31,7 @@ public class BankService {
 
     public boolean delete(int code) {
         for (int i = 0; i < accounts.size(); i++) {
-            if (accounts.get(i).getId() == code) {
+            if (accounts.get(i).getCode() == code) {
                 accounts.remove(i);
                 fileCSVHelper.write(accounts, ConstantUtil.PATH.BANK_ACCOUNT, false);
                 return true;
