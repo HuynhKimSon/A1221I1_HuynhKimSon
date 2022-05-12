@@ -5,6 +5,7 @@ import Bank.model.Account;
 import Bank.model.PaymentAccount;
 import Bank.model.SavingAccount;
 import Bank.service.BankService;
+import Bank.utils.ConstantUtil;
 import Bank.utils.Validation;
 import Bank.utils.CommonUtil;
 
@@ -51,7 +52,7 @@ public class BankView {
 
     private static void searchByCode() {
         System.out.println("--TÌM KIẾM TÀI KHOẢN---");
-        int code = Integer.parseInt(CommonUtil.inputWithoutEmpty("Mã tài khoản"));
+        int code = Integer.parseInt(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.CODE));
         List<Account> findList = bankService.searchByCode(code);
         if (Validation.isExitsAccount(code)) {
             display(findList);
@@ -64,7 +65,7 @@ public class BankView {
         List<Account> accounts = bankService.findAll();
         display(accounts);
         System.out.println("---XÓA TÀI KHOẢN---");
-        int code = Integer.parseInt(CommonUtil.inputWithoutEmpty("Mã tài khoản"));
+        int  code = Integer.parseInt(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.CODE));
         do {
             System.out.println("1. Có");
             System.out.println("2. Không");
@@ -140,22 +141,22 @@ public class BankView {
             String name = "";
             String createDate = "";
             if (choice == 1 || choice == 2) {
-                code = Integer.parseInt(CommonUtil.inputWithoutEmpty("Mã tài khoản"));
-                name = CommonUtil.inputWithoutEmpty("Tên chủ tài khoản");
-                createDate = CommonUtil.inputWithoutEmpty("Ngày tạo tài khoản");
+                code = Integer.parseInt(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.CODE));
+                name = CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.NAME);
+                createDate = CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.CREATE_DATE);
             }
             switch (choice) {
                 case 1:
-                    double savingMoney = Double.parseDouble(CommonUtil.inputWithoutEmpty("Số tiền gửi tiết kiệm"));
-                    String sentDate = CommonUtil.inputWithoutEmpty("Ngày gửi tiết kiệm");
-                    double interestRate = Double.parseDouble(CommonUtil.inputWithoutEmpty("Lãi xuất"));
-                    int month = Integer.parseInt(CommonUtil.inputWithoutEmpty("Kỳ hạn(số tháng)"));
+                    double savingMoney = Double.parseDouble(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.SAVING_MONEY));
+                    String sentDate = CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.SENT_DATE);
+                    double interestRate = Double.parseDouble(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.INTEREST_RATE));
+                    int month = Integer.parseInt(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.MONTH));
                     account = new SavingAccount(0, code, name, createDate, savingMoney, sentDate, interestRate, month);
                     bankService.create(account);
                     break;
                 case 2:
-                    int cardNumber = Integer.parseInt(CommonUtil.inputWithoutEmpty("Số thẻ"));
-                    double moneyAccount = Double.parseDouble(CommonUtil.inputWithoutEmpty("Số tiền trong tài khoản"));
+                    int cardNumber = Integer.parseInt(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.CARD_NUMBER));
+                    double moneyAccount = Double.parseDouble(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.MONEY_ACCOUNT));
                     account = new PaymentAccount(0, code, name, createDate, cardNumber, moneyAccount);
                     bankService.create(account);
                     break;

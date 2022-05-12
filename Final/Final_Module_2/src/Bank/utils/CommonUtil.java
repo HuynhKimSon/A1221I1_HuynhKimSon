@@ -29,12 +29,12 @@ public class CommonUtil {
             } else {
                 // Check format number
                 if (
-                        fieldName.equals("Mã tài khoản") ||
-                                fieldName.equals("Số tiền gửi tiết kiệm") ||
-                                fieldName.equals("Lãi xuất") ||
-                                fieldName.equals("Kỳ hạn(số tháng)") ||
-                                fieldName.equals("Số thẻ") ||
-                                fieldName.equals("Số tiền trong tài khoản")
+                        fieldName.equals(ConstantUtil.PROPERTIES.CODE) ||
+                                fieldName.equals(ConstantUtil.PROPERTIES.SAVING_MONEY) ||
+                                fieldName.equals(ConstantUtil.PROPERTIES.INTEREST_RATE) ||
+                                fieldName.equals(ConstantUtil.PROPERTIES.MONTH) ||
+                                fieldName.equals(ConstantUtil.PROPERTIES.CARD_NUMBER) ||
+                                fieldName.equals(ConstantUtil.PROPERTIES.MONEY_ACCOUNT)
                 ) {
                     try {
                         if (Integer.parseInt(value) <= 0) {
@@ -47,8 +47,8 @@ public class CommonUtil {
                     }
                 }
                 // Check format datetime
-                if (fieldName.equals("Ngày tạo tài khoản") ||
-                        fieldName.equals("Ngày gửi tiết kiệm")) {
+                if (fieldName.equals(ConstantUtil.PROPERTIES.CREATE_DATE) ||
+                        fieldName.equals(ConstantUtil.PROPERTIES.SENT_DATE)) {
                     if (!Validation.isValidFormat("dd/MM/yyyy", value)) {
                         value = "";
                         System.out.println(fieldName + " phải đúng format dd/MM/yyyy. Vui lòng nhập lại!");
