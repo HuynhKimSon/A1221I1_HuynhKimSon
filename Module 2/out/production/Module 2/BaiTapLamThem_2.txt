@@ -1,0 +1,18 @@
+- Chuong trinh Quan Ly Dien Thoai:
+
+- Dien thoai bao gom: id, ten, gia, nha san xuat
+Dien thoai chia thanh 2 loai: 
++ chinh hang: thoi gian bao hanh, ma so bao hanh
++ xach tay: quoc gia, trang thai
+
+- Menu: them moi, hien thi, xoa, tim kiem theo ten
+
+- Chuc nang: 
++ them moi: tuy chon them xach tay hoac chinh hang, id tu tang
++ hien thi: thong tin cua ca chinh hang va xach tay
++ xoa: yeu cau nhap id de xoa, neu id ko co thi throw ra NotFoundException va yeu cau nhap lai
++ tim kiem: tim kiem theo ten
+
+- Validate:
++ tat ca cac truong bat buoc nhap
++ gia > 50

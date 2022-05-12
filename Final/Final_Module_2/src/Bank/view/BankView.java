@@ -1,19 +1,18 @@
 package Bank.view;
 
+import Bank.exception.NotFoundException;
 import Bank.model.Account;
 import Bank.model.PaymentAccount;
 import Bank.model.SavingAccount;
 import Bank.service.BankService;
-import Bank.util.Validate;
-import Bank.util.CommonUtil;
+import Bank.utils.Validation;
+import Bank.utils.CommonUtil;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class BankView {
     private static BankService bankService = new BankService();
     private static int choice;
-    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         while (true) {
@@ -34,7 +33,8 @@ public class BankView {
                     delete();
                     break;
                 case 3:
-                    display();
+                    List<Account> accounts = bankService.findAll();
+                    display(accounts);
                     break;
                 case 4:
                     searchByCode();
@@ -51,82 +51,52 @@ public class BankView {
 
     private static void searchByCode() {
         System.out.println("--TÌM KIẾM TÀI KHOẢN---");
-        System.out.print("Nhập Mã tài khoản: ");
-        int code = Integer.parseInt(scanner.nextLine());
-        List<Account> accounts = bankService.searchByCode(code);
-        if (Validate.isExitsAccount(code)) {
-            System.out.println("--TÀI KHOẢN CỦA BẠN---");
-            if (accounts.size() > 0) {
-                for (Account a : accounts) {
-                    if (a instanceof SavingAccount) {
-                        System.out.printf(
-                                "Tài khoản tiết kiệm: id = %s, " +
-                                        "Mã tài khoản = %s, " +
-                                        "Tên chủ tài khoản = %s,  " +
-                                        "Ngày tạo tài khoản = %s, " +
-                                        "Số tiền gửi tiết kiệm = %s, " +
-                                        "Ngày gửi tiết kiệm = %s, " +
-                                        "Lãi suất = %s, " +
-                                        "Kì hạn = %s\n"
-                                , a.getId(), a.getCode(), a.getName(), a.getCreateDate(),
-                                ((SavingAccount) a).getSavingMoney(), ((SavingAccount) a).getSentDate(),
-                                ((SavingAccount) a).getInterestRate(), ((SavingAccount) a).getMonth());
-                    } else {
-                        System.out.printf("Tài khoản thanh toán: id = %s, " +
-                                        "Mã tài khoản = %s, " +
-                                        "Tên chủ tài khoản = %s,  " +
-                                        "Ngày tạo tài khoản = %s, " +
-                                        "Số thẻ = %s, " +
-                                        "Số tiền trong tài khoản = %s\n"
-                                , a.getId(), a.getCode(), a.getName(), a.getCreateDate(),
-                                ((PaymentAccount) a).getCardNumber(), ((PaymentAccount) a).getMoneyAccount());
-                    }
-                }
-            } else {
-                System.out.println("Danh sách trống!");
-            }
+        int code = Integer.parseInt(CommonUtil.inputWithoutEmpty("Mã tài khoản"));
+        List<Account> findList = bankService.searchByCode(code);
+        if (Validation.isExitsAccount(code)) {
+            display(findList);
         } else {
             System.out.println("Không tìm thấy Mã tài khoản " + code);
         }
     }
 
     private static void delete() {
-        display();
-        System.out.println("--XÓA TÀI KHOẢN---");
-        System.out.print("Nhập Mã tài khoản: ");
-        int code = Integer.parseInt(scanner.nextLine());
-        if (Validate.isExitsAccount(code)) {
-            do {
-                System.out.println("1. Có");
-                System.out.println("2. Không");
-                System.out.print("Chọn: ");
-                choice = CommonUtil.choice();
-                switch (choice) {
-                    case 1:
-                        boolean isDelete = bankService.delete(code);
-                        if (isDelete) {
+        List<Account> accounts = bankService.findAll();
+        display(accounts);
+        System.out.println("---XÓA TÀI KHOẢN---");
+        int code = Integer.parseInt(CommonUtil.inputWithoutEmpty("Mã tài khoản"));
+        do {
+            System.out.println("1. Có");
+            System.out.println("2. Không");
+            System.out.print("Chọn: ");
+            choice = CommonUtil.choice();
+            switch (choice) {
+                case 1:
+                    boolean isExists;
+                    do {
+                        try {
+                            bankService.delete(code);
                             System.out.println("Xóa thành công mã tài khoản " + code);
-                        } else {
-                            System.out.println("Xóa thất bại. Không tìm thấy mã tài khoản " + code);
+                            isExists = false;
+                        } catch (NotFoundException e) {
+                            System.out.print(e.getMessage() + " Vui lòng nhập lại: ");
+                            code = Integer.parseInt(CommonUtil.getScanner());
+                            isExists = true;
                         }
-                        break;
-                    case 2:
-                        return;
-                    default:
-                        System.out.println("Vui lòng xác nhận");
-                        break;
-                }
-            } while (choice < 1 || choice > 2);
-
-        } else {
-            System.out.println("Không tìm thấy Mã tài khoản " + code);
-        }
-        display();
+                    } while (isExists);
+                    break;
+                case 2:
+                    return;
+                default:
+                    System.out.println("Vui lòng xác nhận");
+                    break;
+            }
+        } while (choice < 1 || choice > 2);
+        display(accounts);
     }
 
-    private static void display() {
-        List<Account> accounts = bankService.findAll();
-        System.out.println("--DANH SÁCH TÀI KHOẢN---");
+    private static void display(List<Account> accounts) {
+        System.out.println("---DANH SÁCH TÀI KHOẢN---");
         if (accounts.size() > 0) {
             for (Account a : accounts) {
                 if (a instanceof SavingAccount) {
@@ -161,7 +131,7 @@ public class BankView {
     public static void create() {
         Account account;
         do {
-            System.out.println("--THÊM MỚI TÀI KHOẢN---");
+            System.out.println("---THÊM MỚI TÀI KHOẢN---");
             System.out.println("1. Tài khoản tiết kiệm");
             System.out.println("2. Tài khoản thanh toán");
             System.out.print("Chọn : ");
@@ -170,31 +140,22 @@ public class BankView {
             String name = "";
             String createDate = "";
             if (choice == 1 || choice == 2) {
-                System.out.print("Mã tài khoản: ");
-                code = Integer.parseInt(scanner.nextLine());
-                System.out.print("Tên chủ tài khoản: ");
-                name = scanner.nextLine();
-                System.out.print("Ngày tạo tài khoản: ");
-                createDate = scanner.nextLine();
+                code = Integer.parseInt(CommonUtil.inputWithoutEmpty("Mã tài khoản"));
+                name = CommonUtil.inputWithoutEmpty("Tên chủ tài khoản");
+                createDate = CommonUtil.inputWithoutEmpty("Ngày tạo tài khoản");
             }
             switch (choice) {
                 case 1:
-                    System.out.print("Số tiền gửi tiết kiệm: ");
-                    double savingMoney = Integer.parseInt(scanner.nextLine());
-                    System.out.print("Ngày gửi tiết kiệm: ");
-                    String sentDate = scanner.nextLine();
-                    System.out.print("Lãi xuất: ");
-                    double interestRate = Double.parseDouble(scanner.nextLine());
-                    System.out.print("Kỳ hạn(số tháng): ");
-                    int month = Integer.parseInt(scanner.nextLine());
+                    double savingMoney = Double.parseDouble(CommonUtil.inputWithoutEmpty("Số tiền gửi tiết kiệm"));
+                    String sentDate = CommonUtil.inputWithoutEmpty("Ngày gửi tiết kiệm");
+                    double interestRate = Double.parseDouble(CommonUtil.inputWithoutEmpty("Lãi xuất"));
+                    int month = Integer.parseInt(CommonUtil.inputWithoutEmpty("Kỳ hạn(số tháng)"));
                     account = new SavingAccount(0, code, name, createDate, savingMoney, sentDate, interestRate, month);
                     bankService.create(account);
                     break;
                 case 2:
-                    System.out.print("Số thẻ: ");
-                    int cardNumber = Integer.parseInt(scanner.nextLine());
-                    System.out.print("Số tiền trong tài khoản: ");
-                    double moneyAccount = Double.parseDouble(scanner.nextLine());
+                    int cardNumber = Integer.parseInt(CommonUtil.inputWithoutEmpty("Số thẻ"));
+                    double moneyAccount = Double.parseDouble(CommonUtil.inputWithoutEmpty("Số tiền trong tài khoản"));
                     account = new PaymentAccount(0, code, name, createDate, cardNumber, moneyAccount);
                     bankService.create(account);
                     break;

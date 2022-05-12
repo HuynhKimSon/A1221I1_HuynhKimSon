@@ -1,10 +1,11 @@
 package Bank.service;
 
+import Bank.exception.NotFoundException;
 import Bank.model.Account;
 import Bank.model.PaymentAccount;
 import Bank.model.SavingAccount;
-import Bank.util.ConstantUtil;
-import Bank.util.FileCSVHelper;
+import Bank.utils.ConstantUtil;
+import Bank.utils.FileCSVHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,16 +30,12 @@ public class BankService {
         fileCSVHelper.write(Collections.singletonList(account), ConstantUtil.PATH.BANK_ACCOUNT, true);
     }
 
-    public boolean delete(int code) {
-        for (int i = 0; i < accounts.size(); i++) {
-            if (accounts.get(i).getCode() == code) {
-                accounts.remove(i);
-                fileCSVHelper.write(accounts, ConstantUtil.PATH.BANK_ACCOUNT, false);
-                return true;
-            }
+    public void delete(int code) throws NotFoundException {
+        if (accounts.removeIf(e -> e.getCode() == code)) {
+            fileCSVHelper.write(accounts, ConstantUtil.PATH.BANK_ACCOUNT, false);
+        } else {
+            throw new NotFoundException("Mã tài khoản " + code + " không tồn tại!");
         }
-
-        return false;
     }
 
     public List<Account> findAll() {
