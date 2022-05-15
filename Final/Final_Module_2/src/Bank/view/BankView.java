@@ -51,7 +51,7 @@ public class BankView {
     }
 
     private static void searchByCode() {
-        System.out.println("--TÌM KIẾM TÀI KHOẢN---");
+        System.out.println("---TÌM KIẾM TÀI KHOẢN---");
         int code = Integer.parseInt(CommonUtil.inputWithoutEmpty(ConstantUtil.PROPERTIES.CODE));
         List<Account> findList = bankService.searchByCode(code);
         if (Validation.isExitsAccount(code)) {
