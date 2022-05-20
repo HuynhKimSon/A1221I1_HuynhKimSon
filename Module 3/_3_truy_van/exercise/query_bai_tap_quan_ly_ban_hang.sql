@@ -51,7 +51,5 @@ select o.order_id as invoice_code, o.order_date as invoice_date, sum( od.order_q
 from
 order_product o join order_detail od on o.order_id = od.order_id
 join product p on od.product_id = p.product_id
-group by o.order_id;
-
-select * from product;
-select * from order_datil;
+group by o.order_id
+having invoice_total > 10;
