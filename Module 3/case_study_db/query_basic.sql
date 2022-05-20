@@ -35,22 +35,21 @@ khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).*/
 SELECT 	kh.ma_khach_hang, kh.ho_ten, lk.ten_loai_khach, 
 		hd.ma_hop_dong, dv.ten_dich_vu, hd.ngay_lam_hop_dong, 
         hd.ngay_ket_thuc, (SUM(hdct.so_luong * dvdk.gia) + dv.chi_phi_thue) AS tong_tien
-FROM hop_dong hd 
-LEFT JOIN khach_hang kh ON hd.ma_khach_hang = kh.ma_khach_hang
+FROM khach_hang kh 
+LEFT JOIN hop_dong hd ON kh.ma_khach_hang = hd.ma_khach_hang
 LEFT JOIN loai_khach lk ON kh.ma_loai_khach = lk.ma_loai_khach
 LEFT JOIN dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu
 LEFT JOIN loai_dich_vu ldv ON dv.ma_dich_vu = ldv.ma_loai_dich_vu  
 LEFT JOIN hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct.ma_hop_dong
 LEFT JOIN dich_vu_di_kem dvdk ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
-GROUP BY hd.ma_khach_hang
-ORDER BY hd.ma_khach_hang;
-
-SELECT DISTINCT ma_khach_hang FROM hop_dong;
-
+GROUP BY kh.ma_khach_hang
+ORDER BY kh.ma_khach_hang;
 
 /* Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue,
 ten_loai_dich_vu của tất cả các loại dịch vụ chưa từng được khách hàng
 thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).*/
+
+
 
 /* Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich,
 so_nguoi_toi_da, chi_phi_thue, ten_loai_dich_vu của tất cả các loại
