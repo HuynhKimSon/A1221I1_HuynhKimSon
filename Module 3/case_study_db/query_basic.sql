@@ -11,7 +11,7 @@ có địa chỉ ở “Đà Nẵng” hoặc “Quảng Trị”.*/
 
 SELECT * FROM khach_hang WHERE
 ROUND(DATEDIFF(CURDATE(), ngay_sinh) / 365, 0) BETWEEN 18 AND 50
-AND dia_chi REGEXP '[Đà Nẵng|Quảng Trị]$';
+AND dia_chi REGEXP '(Đà Nẵng|Quảng Trị)$';
 
 /* 4.Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu
 lần. Kết quả hiển thị được sắp xếp tăng dần theo số lần đặt phòng của
@@ -95,13 +95,24 @@ ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc,
 so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở
 dich_vu_di_kem).*/
 
-
-
-
+SELECT hd.ma_hop_dong, hd.ngay_lam_hop_dong, hd.ngay_ket_thuc, hd.tien_dat_coc, SUM(hdct.so_luong) AS so_luong_dich_vu_di_kem
+FROM hop_dong hd
+	JOIN hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct.ma_hop_dong
+GROUP BY hd.ma_hop_dong;
 
 /* 11.Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách
 hàng có ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc
 “Quảng Ngãi”.*/
+
+SELECT dvdk.ma_dich_vu_di_kem, ten_dich_vu_di_kem, gia, don_vi, trang_thai
+FROM dich_vu_di_kem dvdk 
+	JOIN hop_dong_chi_tiet hdct ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+	JOIN hop_dong hd ON hdct.ma_hop_dong = hd.ma_hop_dong
+WHERE hd.ma_khach_hang IN  (
+		SELECT kh.ma_khach_hang
+		FROM khach_hang kh
+		JOIN loai_khach lk ON kh.ma_loai_khach = lk.ma_loai_khach
+		WHERE dia_chi REGEXP '(Đà Nẵng|Vinh)$' AND lk.ten_loai_khach = 'Diamond');     
 
 /* 12.Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách
 hàng), so_dien_thoai (khách hàng), ten_dich_vu,
@@ -109,6 +120,15 @@ so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở
 dich_vu_di_kem), tien_dat_coc của tất cả các dịch vụ đã từng được
 khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được
 khách hàng đặt vào 6 tháng đầu năm 2021.*/
+
+SELECT *
+FROM hop_dong hd 
+	JOIN khach_hang kh ON hd.ma_khach_hang = kh.ma_khach_hang
+WHERE ngay_lam_hop_dong BETWEEN '2020-10-01' AND '2020-12-31' AND kh.ma_khach_hang 
+	NOT IN
+		(SELECT ma_khach_hang
+		 FROM hop_dong
+		 WHERE ngay_lam_hop_dong BETWEEN '2021-01-01' AND '2021-06-01');
 
 /* 13.Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các
 Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử
