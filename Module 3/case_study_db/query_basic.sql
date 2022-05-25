@@ -210,6 +210,12 @@ ORDER BY nv.ma_nhan_vien;
 /* 16.Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019
 đến năm 2021.*/
 
+DELETE FROM nhan_vien
+WHERE ma_nhan_vien IN 
+	(SELECT ma_nhan_vien
+	 FROM hop_dong
+	 WHERE NOT ngay_lam_hop_dong BETWEEN '2019-01-01' AND '2021-12-31');
+
 /* 17.Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum
 lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với
 Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ.*/
@@ -225,3 +231,14 @@ năm 2020 lên gấp đôi. */
 /* 20.Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ
 thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang),
 ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.*/
+
+--
+SELECT AVG(hd.ma_hop_dong)
+FROM hop_dong hd 
+	JOIN khach_hang kh ON hd.ma_khach_hang = kh.ma_khach_hang
+    WHERE kh.ma_loai_khach = 3;
+    
+SELECT *
+FROM hop_dong hd 
+	JOIN khach_hang kh ON hd.ma_khach_hang = kh.ma_khach_hang
+    WHERE kh.ma_khach_hang IN ( SELECT ma_khach_hang FROM khach_hang where ma_loai_khach = 3) 
