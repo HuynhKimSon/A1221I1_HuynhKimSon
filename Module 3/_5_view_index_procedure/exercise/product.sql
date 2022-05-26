@@ -42,9 +42,47 @@ DROP VIEW tmp;
 
 -- STORE PROCEDURE
 -- Tạo store procedure lấy tất cả thông tin của tất cả các sản phẩm trong bảng product
+DELIMITER //
+CREATE PROCEDURE findAllProducts()
+BEGIN
+  SELECT * FROM product;
+END //
+DELIMITER ;
+CALL findAllProducts();
 
 -- Tạo store procedure thêm một sản phẩm mới
+DELIMITER //
+CREATE PROCEDURE addProduct()
+BEGIN
+  INSERT INTO product(product_code,product_name,product_price,product_amount,product_description,product_status)
+values	(119,'Bánh 1',1200,1400,"bánh abc 1", 0);
+END //
+DELIMITER ;
+CALL addProduct();
 
 -- Tạo store procedure sửa thông tin sản phẩm theo id
+DELIMITER //
+CREATE PROCEDURE editProduct(IN in_id INT)
+BEGIN
+	UPDATE product
+    SET product_name = "Kẹo 12344567"
+    WHERE id = in_id;
+END //
+DELIMITER ;
+
+CALL editProduct(3);
 
 -- Tạo store procedure xoá sản phẩm theo id
+DELIMITER //
+CREATE PROCEDURE deleteProduct(IN in_id INT)
+BEGIN
+	DELETE FROM product
+    WHERE id = in_id;
+END //
+DELIMITER ;
+
+CALL deleteProduct(2);
+
+
+
+
