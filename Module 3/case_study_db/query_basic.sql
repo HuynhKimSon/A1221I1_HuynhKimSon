@@ -209,7 +209,7 @@ ORDER BY nv.ma_nhan_vien;
 
 /* 16.Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019
 đến năm 2021.*/
-SET FOREIGN_KEY_CHECKS=0;
+/*SET FOREIGN_KEY_CHECKS=0;
 
 DELETE FROM nhan_vien
 WHERE ma_nhan_vien IN 
@@ -217,7 +217,7 @@ WHERE ma_nhan_vien IN
 	 FROM hop_dong
 	 WHERE NOT ngay_lam_hop_dong BETWEEN '2019-01-01' AND '2021-12-31');
      
-SET FOREIGN_KEY_CHECKS=1;
+SET FOREIGN_KEY_CHECKS=1;*/
 
 DELETE FROM nhan_vien
 WHERE NOT EXISTS (
@@ -237,6 +237,24 @@ Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ.*/
 /* 18.Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc
 giữa các bảng).*/
 
+/*SET FOREIGN_KEY_CHECKS=0;
+DELETE FROM khach_hang
+WHERE ma_khach_hang IN (
+	SELECT ma_khach_hang
+	FROM hop_dong
+		WHERE YEAR(ngay_lam_hop_dong) < 2021
+	GROUP BY ma_khach_hang);
+SET FOREIGN_KEY_CHECKS=1;*/
+
+DELETE FROM khach_hang
+WHERE EXISTS (
+		SELECT
+			*
+		FROM
+			hop_dong
+		WHERE
+			 hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+			 AND YEAR(ngay_lam_hop_dong) < 2021);
 
 /* 19.Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong
 năm 2020 lên gấp đôi. */
@@ -246,7 +264,9 @@ năm 2020 lên gấp đôi. */
 thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang),
 ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.*/
 
---
+
+
+-- 
 SELECT AVG(hd.ma_hop_dong)
 FROM hop_dong hd 
 	JOIN khach_hang kh ON hd.ma_khach_hang = kh.ma_khach_hang
@@ -255,4 +275,9 @@ FROM hop_dong hd
 SELECT *
 FROM hop_dong hd 
 	JOIN khach_hang kh ON hd.ma_khach_hang = kh.ma_khach_hang
-    WHERE kh.ma_khach_hang IN ( SELECT ma_khach_hang FROM khach_hang where ma_loai_khach = 3) 
+    WHERE kh.ma_khach_hang IN ( SELECT ma_khach_hang FROM khach_hang where ma_loai_khach = 3);
+    
+SELECT ma_nhan_vien, ho_ten, year(ngay_sinh) FROM nhan_vien
+GROUP BY YEAR(ngay_sinh)
+ORDER BY YEAR(ngay_sinh) DESC
+LIMIT 1,1;
