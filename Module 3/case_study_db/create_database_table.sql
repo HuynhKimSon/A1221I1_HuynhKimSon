@@ -125,6 +125,12 @@ VALUES	("Sale-Marketing"),
 		("Phục vụ"),
         ("Quản lý");
         
+/*INSERT INTO nhan_vien(ho_ten, ngay_sinh, so_cmnd, luong, so_dien_thoai, email, dia_chi, ma_vi_tri, ma_trinh_do, ma_bo_phan)
+VALUES	
+		('Lê Văn Bình','1997-04-09','654231234',7000000,'0934212314','binhlv@gmail.com','22 Yên Bái, Đà Nẵng',1,2,1),
+        ('Hồ Thị Yến','1995-12-12','999231723',14000000,'0412352315','thiyen@gmail.com','29315 Nguyễn Tất Thành, Đà Nẵng',1,3,1),
+        ('Võ Công Toản','1980-04-04','123231365',17000000,'0374443232','toan0404@gmail.com','29125 Nguyễn Tất Thành, Đà Nẵng',2,1,4);*/
+
 INSERT INTO nhan_vien(ho_ten, ngay_sinh, so_cmnd, luong, so_dien_thoai, email, dia_chi, ma_vi_tri, ma_trinh_do, ma_bo_phan)
 VALUES	('Nguyễn Văn An','1970-11-07','456231786',10000000,'0901234121','annguyen@gmail.com','295 Nguyễn Tất Thành, Đà Nẵng',1,3,1),
 		('Lê Văn Bình','1997-04-09','654231234',7000000,'0934212314','binhlv@gmail.com','22 Yên Bái, Đà Nẵng',1,2,1),

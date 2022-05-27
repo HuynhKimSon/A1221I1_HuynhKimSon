@@ -162,7 +162,7 @@ ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính
 dựa trên việc count các ma_dich_vu_di_kem).*/
 
 -- CACH 1
- CREATE VIEW tmp AS 
+CREATE VIEW tmp AS 
 SELECT ma_dich_vu_di_kem, COUNT(ma_dich_vu_di_kem) as so_lan_su_dung
 FROM hop_dong_chi_tiet
 GROUP BY ma_dich_vu_di_kem;
@@ -209,15 +209,25 @@ ORDER BY nv.ma_nhan_vien;
 
 /* 16.Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019
 đến năm 2021.*/
-
-SET ma_nhan_vien = 0;
+SET FOREIGN_KEY_CHECKS=0;
 
 DELETE FROM nhan_vien
 WHERE ma_nhan_vien IN 
 	(SELECT ma_nhan_vien
 	 FROM hop_dong
 	 WHERE NOT ngay_lam_hop_dong BETWEEN '2019-01-01' AND '2021-12-31');
-SET ma_nhan_vien = 1;
+     
+SET FOREIGN_KEY_CHECKS=1;
+
+DELETE FROM nhan_vien
+WHERE NOT EXISTS (
+		SELECT
+			*
+		FROM
+			hop_dong
+		WHERE
+			hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
+			AND ngay_lam_hop_dong BETWEEN '2019-01-01' AND '2021-12-31');
 
 /* 17.Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum
 lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với
