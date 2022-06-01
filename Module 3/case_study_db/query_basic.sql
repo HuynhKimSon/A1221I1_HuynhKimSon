@@ -145,6 +145,9 @@ FROM hop_dong_chi_tiet
 GROUP BY ma_dich_vu_di_kem;
 
 SELECT * 
+FROM  tmp; 
+
+SELECT * 
 FROM  dich_vu_di_kem 
 WHERE ma_dich_vu_di_kem IN 
 	(SELECT ma_dich_vu_di_kem 
@@ -209,25 +212,27 @@ ORDER BY nv.ma_nhan_vien;
 
 /* 16.Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019
 đến năm 2021.*/
-/*SET FOREIGN_KEY_CHECKS=0;
 
-DELETE FROM nhan_vien
-WHERE ma_nhan_vien IN 
-	(SELECT ma_nhan_vien
-	 FROM hop_dong
-	 WHERE NOT ngay_lam_hop_dong BETWEEN '2019-01-01' AND '2021-12-31');
-     
-SET FOREIGN_KEY_CHECKS=1;*/
+/*DELIMITER //
+DROP TRIGGER IF EXISTS BEFORE_DELETE_NHAN_VIEN //
+CREATE TRIGGER BEFORE_DELETE_NHAN_VIEN
+BEFORE DELETE
+ON nhan_vien FOR EACH ROW
+BEGIN
+	DELETE FROM hop_dong
+    WHERE ma_nhan_vien = OLD.ma_nhan_vien;
+    
+END //
+DELIMITER ;*/
 
-DELETE FROM nhan_vien
+DELETE FROM nhan_vien 
 WHERE NOT EXISTS (
-		SELECT
-			*
+		SELECT *
 		FROM
 			hop_dong
 		WHERE
-			hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
-			AND ngay_lam_hop_dong BETWEEN '2019-01-01' AND '2021-12-31');
+			hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien AND 
+            ngay_lam_hop_dong BETWEEN '2019-01-01' AND '2021-12-31');
 
 /* 17.Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum
 lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với
@@ -246,7 +251,7 @@ WHERE ma_khach_hang IN (
 	GROUP BY ma_khach_hang);
 SET FOREIGN_KEY_CHECKS=1;*/
 
-DELETE FROM khach_hang
+/*DELETE FROM khach_hang
 WHERE EXISTS (
 		SELECT
 			*
@@ -254,17 +259,21 @@ WHERE EXISTS (
 			hop_dong
 		WHERE
 			 hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
-			 AND YEAR(ngay_lam_hop_dong) < 2021);
+			 AND YEAR(ngay_lam_hop_dong) < 2021);*/
+
 
 /* 19.Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong
 năm 2020 lên gấp đôi. */
+
 
 
 /* 20.Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ
 thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang),
 ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.*/
 
-
+SELECT ma_nhan_vien, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi, 'nhan_vien' as 'type' FROM nhan_vien
+UNION ALL
+SELECT ma_khach_hang, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi, 'khach_hang' as 'type' FROM khach_hang;
 
 -- 
 SELECT AVG(hd.ma_hop_dong)
@@ -276,8 +285,11 @@ SELECT *
 FROM hop_dong hd 
 	JOIN khach_hang kh ON hd.ma_khach_hang = kh.ma_khach_hang
     WHERE kh.ma_khach_hang IN ( SELECT ma_khach_hang FROM khach_hang where ma_loai_khach = 3);
-    
+
+-- Lon thu 2
 SELECT ma_nhan_vien, ho_ten, year(ngay_sinh) FROM nhan_vien
-GROUP BY YEAR(ngay_sinh)
-ORDER BY YEAR(ngay_sinh) DESC
-LIMIT 1,1;
+WHERE year(ngay_sinh) = (SELECT year(ngay_sinh) 
+						 FROM nhan_vien
+							GROUP BY YEAR(ngay_sinh)
+							ORDER BY YEAR(ngay_sinh) DESC
+							LIMIT 1,1);
