@@ -139,6 +139,7 @@ GROUP BY hd.ma_hop_dong;
 Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử
 dụng nhiều như nhau).*/
 
+DROP VIEW IF EXISTS tmp;
 CREATE VIEW tmp AS 
 SELECT ma_dich_vu_di_kem, COUNT(ma_dich_vu_di_kem) as so_lan_su_dung
 FROM hop_dong_chi_tiet
@@ -165,6 +166,7 @@ ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính
 dựa trên việc count các ma_dich_vu_di_kem).*/
 
 -- CACH 1
+DROP VIEW IF EXISTS tmp;
 CREATE VIEW tmp AS 
 SELECT ma_dich_vu_di_kem, COUNT(ma_dich_vu_di_kem) as so_lan_su_dung
 FROM hop_dong_chi_tiet
@@ -238,6 +240,25 @@ WHERE NOT EXISTS (
 lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với
 Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ.*/
 
+DROP VIEW IF EXISTS tmp;
+CREATE VIEW tmp AS 
+SELECT DISTINCT
+			kh.ma_khach_hang, sum(dv.chi_phi_thue + dvdk.gia * hdct.so_luong) AS tong_thanh_toan FROM khach_hang kh
+			JOIN hop_dong hd ON kh.ma_khach_hang = hd.ma_khach_hang
+			JOIN dich_vu dv ON dv.ma_dich_vu = hd.ma_dich_vu
+			JOIN hop_dong_chi_tiet hdct ON hdct.ma_hop_dong = hd.ma_hop_dong
+			JOIN dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+WHERE
+			kh.ma_loai_khach = 2
+			AND YEAR(hd.ngay_lam_hop_dong) = 2021
+GROUP BY hd.ma_hop_dong
+HAVING tong_thanh_toan > 100000;
+
+UPDATE khach_hang
+SET ma_loai_khach = 1
+WHERE ma_khach_hang IN (SELECT ma_khach_hang FROM tmp);
+
+DROP VIEW tmp;
 
 /* 18.Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc
 giữa các bảng).*/
@@ -265,7 +286,21 @@ WHERE EXISTS (
 /* 19.Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong
 năm 2020 lên gấp đôi. */
 
+DROP VIEW IF EXISTS tmp;
+CREATE VIEW tmp AS 
+SELECT DISTINCT hdct.ma_dich_vu_di_kem
+								FROM hop_dong hd  
+									 JOIN hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct. ma_hop_dong
+									 JOIN dich_vu_di_kem dvdk ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+								WHERE YEAR(hd.ngay_lam_hop_dong)  = 2020
+								GROUP BY hdct.ma_dich_vu_di_kem
+								HAVING COUNT(hdct.ma_dich_vu_di_kem) >=3;
 
+UPDATE dich_vu_di_kem
+SET gia = gia * 2
+WHERE ma_dich_vu_di_kem IN (SELECT ma_dich_vu_di_kem FROM tmp);
+
+DROP VIEW tmp;
 
 /* 20.Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ
 thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang),
