@@ -9,14 +9,13 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
 <form action="/login">
-    <button class="btn btn-primary">Login</button>
+    <button class="btn btn-outline-primary">Login</button>
 </form>
-<%--<script src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>--%>
-<%--<script src="webjars/jquery/3.6.0/dist/jquery.slim.min.js"></script>--%>
-<%--<script src="webjars/popper.js/2.9.3/umd/popper.js"></script>--%>
+<script src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script src="webjars/popper.js/2.9.3/umd/popper.js"></script>
 </body>
 </html>
