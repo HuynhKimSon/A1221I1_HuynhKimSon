@@ -6,12 +6,13 @@
     <title>JSP - Hello World</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
     <style>
-            tr{
-                height: 70px;
-            }
-            td{
-                line-height: 70px;
-            }
+        tr {
+            height: 70px;
+        }
+
+        td {
+            line-height: 70px;
+        }
     </style>
 
 </head>
@@ -29,17 +30,24 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${customers}" var="cus" varStatus="index">
+        <c:if test="${not empty customers}">
+            <c:forEach items="${customers}" var="cus" varStatus="index">
+                <tr>
+                    <td style="font-weight: bold">${index.count}</td>
+                    <td>${cus.name}</td>
+                    <td>${cus.dateOfBirth}</td>
+                    <td>${cus.address}</td>
+                    <td>
+                        <img src="${cus.img}" class="img-thumbnail" width="60" height="60">
+                    </td>
+                </tr>
+            </c:forEach>
+        </c:if>
+        <c:if test="${empty customers}">
             <tr>
-                <td style="font-weight: bold">${index.count}</td>
-                <td>${cus.name}</td>
-                <td>${cus.dateOfBirth}</td>
-                <td>${cus.address}</td>
-                <td>
-                    <img src="${cus.img}" class="img-thumbnail" width="60" height="60">
-                </td>
+                <td colspan="5"><p style="text-align: center; color: red">Không có dữ liệu</p></td>
             </tr>
-        </c:forEach>
+        </c:if>
         </tbody>
     </table>
 </div>
