@@ -3,23 +3,15 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
-    <script src="/org/webjars/jquery/dist/jquery.min.js"></script>
-    <script src="/org/webjars/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/org/webjars/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+
 </head>
 <body>
-<form class="row g-3">
-    <div class="col-auto">
-        <label for="staticEmail2" class="visually-hidden">Email</label>
-        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
-    </div>
-    <div class="col-auto">
-        <label for="inputPassword2" class="visually-hidden">Password</label>
-        <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
-    </div>
-</form>
+<div class="btn-group">
+    <button type="button" class="btn btn-success">This is a success button</button>
+    <button type="button" class="btn btn-warning">This is a warning button</button>
+    <button type="button" class="btn btn-danger">This is a danger button</button>
+</div>
 </body>
 </html>
