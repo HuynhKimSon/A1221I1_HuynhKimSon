@@ -1,25 +1,28 @@
 package vn.codegym.Service;
 
 import vn.codegym.Model.Product;
-import vn.codegym.Reponsitory.IRepositoryProduct;
+import vn.codegym.Reponsitory.IProductRepository;
+import vn.codegym.Reponsitory.ProductRepositoryImpl;
 
 import java.util.List;
 
-public class ServiceProductImpl implements IServiceProduct {
+public class ProductServiceImpl implements IProductService {
+
+    private IProductRepository productRepository = new ProductRepositoryImpl();
 
     @Override
     public List<Product> findAll() {
-        return null;
+        return productRepository.findAll();
     }
 
     @Override
     public void delete(int id) {
-
+        productRepository.delete(id);
     }
 
     @Override
-    public void edit(Product product) {
-
+    public void save(Product product) {
+        productRepository.save(product);
     }
 
     @Override
