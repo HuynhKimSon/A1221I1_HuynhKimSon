@@ -3,6 +3,7 @@ package vn.codegym.Reponsitory;
 import vn.codegym.Model.Product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductRepositoryImpl implements IProductRepository {
@@ -19,6 +20,8 @@ public class ProductRepositoryImpl implements IProductRepository {
         products.add(new Product(6, "Bánh 6", 65000, "Bánh 1", "UK", "/mau-banh-kem-socola-dep-2.jpg"));
         products.add(new Product(7, "Bánh 7", 75000, "Bánh 1", "USA", "/mau-banh-kem-socola-dep-2.jpg"));
         products.add(new Product(8, "Bánh 8", 85000, "Bánh 1", "UK", "/mau-banh-kem-socola-dep-2.jpg"));
+        products.add(new Product(9, "Bánh 9", 75000, "Bánh 1", "USA", "/mau-banh-kem-socola-dep-2.jpg"));
+        products.add(new Product(10, "Bánh 10", 85000, "Bánh 1", "UK", "/mau-banh-kem-socola-dep-2.jpg"));
     }
 
     @Override
@@ -27,13 +30,9 @@ public class ProductRepositoryImpl implements IProductRepository {
     }
 
     @Override
-    public void delete(int id) {
-        for (Product product : products) {
-            if (product.getId() == id) {
-                products.remove(product);
-                break;
-            }
-        }
+    public void delete(String IDs) {
+        String[] list = IDs.split(",");
+        Arrays.stream(list).forEach(e -> products.removeIf(f -> f.getId() == Integer.parseInt(e)));
     }
 
     @Override

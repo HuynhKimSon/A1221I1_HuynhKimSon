@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,10 @@
         td {
             line-height: 70px;
         }
+
+        .file_id {
+            margin-top: 28px;
+        }
     </style>
 
 </head>
@@ -23,9 +27,17 @@
         <h1 style="margin: 40px 0; text-align: center">Danh sách sản phẩm</h1>
         <a type="button" class="btn btn-success" data-bs-toggle="modal"
            data-bs-target="#addProductModal">Thêm mới</a>
+        <a class="btn btn-danger btn-delete" style="margin-left: 15px" data-bs-toggle="modal"
+           data-bs-target="#deleteProductModal">Xóa</a>
         <thead>
         <tr>
-            <th scope="col">ID</th>
+            <th scope="col">
+                <div class="form-check">
+                    <input style="margin-top: 5px" class="form-check-input" type="checkbox"
+                           id="checkAll">
+                </div>
+            </th>
+            <th scope="col">STT</th>
             <th scope="col">Tên sản phẩm</th>
             <th scope="col">Giá sản phẩm</th>
             <th scope="col">Mô tả</th>
@@ -38,7 +50,12 @@
         <c:if test="${not empty products}">
             <c:forEach items="${products}" var="productItem" varStatus="index">
                 <tr>
-                    <td class="id">${productItem.id}</td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input file_id" value="${productItem.id}" type="checkbox">
+                        </div>
+                    </td>
+                    <td class="id">${index.count}</td>
                     <td class="nameProduct">${productItem.nameProduct}</td>
                     <td class="priceProduct">${productItem.priceProduct}</td>
                     <td class="descriptionProduct">${productItem.descriptionProduct}</td>
@@ -57,7 +74,7 @@
         </c:if>
         <c:if test="${empty products}">
             <tr>
-                <td colspan="5"><p style="text-align: center; color: red">Không có dữ liệu</p></td>
+                <td colspan="8"><p style="text-align: center; color: red">Không có dữ liệu</p></td>
             </tr>
         </c:if>
         </tbody>
@@ -96,7 +113,7 @@
                     </div>
                     <div class="form-group">
                         <label>Hình ảnh</label>
-                        <input type="file" class="form-control imgProduct" name="imgProduct" value="">
+                        <input type="file" class="form-control imgProduct" name="imgProduct" value="" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -111,7 +128,7 @@
 <!-- Delete Modal HTML -->
 <div id="deleteProductModal" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content" id="form-confirm-delete">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Xóa sản phẩm</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
