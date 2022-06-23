@@ -35,5 +35,4 @@ $(document).ready(function () {
         $('td input:checkbox', checkbox).prop('checked', this.checked);
         event.preventDefault();
     });
-
 });

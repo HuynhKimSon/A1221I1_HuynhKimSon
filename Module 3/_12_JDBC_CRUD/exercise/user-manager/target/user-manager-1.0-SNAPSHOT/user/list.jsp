@@ -1,9 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Quản lý User sử dụng</title>
+    <title>Title</title>
     <link rel="stylesheet" href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
     <script type="text/javascript" src="webjars/jquery/3.6.0/dist/jquery.min.js"></script>
     <style>
@@ -19,7 +18,6 @@
             margin-top: 28px;
         }
     </style>
-
 </head>
 <body>
 <div class="container">
@@ -37,8 +35,7 @@
                            id="checkAll">
                 </div>
             </th>
-            <th scope="col">No.</th>
-            <th scope="col">CMND</th>
+            <th scope="col">ID</th>
             <th scope="col">Email</th>
             <th scope="col">Country</th>
             <th scope="col">Action</th>
@@ -53,7 +50,6 @@
                             <input class="form-check-input file_id" value="${userItem.id}" type="checkbox">
                         </div>
                     </td>
-                    <td>${index.count}</td>
                     <td class="id">${userItem.id}</td>
                     <td class="name">${userItem.name}</td>
                     <td class="email">${userItem.email}</td>
@@ -69,7 +65,7 @@
         </c:if>
         <c:if test="${empty listUser}">
             <tr>
-                <td colspan="6"><p style="text-align: center; color: red">Không có dữ liệu</p></td>
+                <td colspan="5"><p style="text-align: center; color: red">Không có dữ liệu</p></td>
             </tr>
         </c:if>
         </tbody>
@@ -80,16 +76,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/user?action=create" method="post">
+                <input type="hidden" class="id" name="id" value="0">
                 <div class="modal-header">
                     <h4 class="modal-title">Thêm mới người dùng</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            onclick="this.form.reset()"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group mb-2">
-                        <label>CMND</label>
-                        <input type="number" class="form-control mt-2 id" name="id" value="" placeholder="CMND"
-                               autofocus required>
-                    </div>
                     <div class="form-group mb-2">
                         <label>Name</label>
                         <input type="text" class="form-control mt-2 name" name="name" value="" placeholder="Name"
@@ -108,14 +101,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Hủy">
+                    <input type="button" class="btn btn-default btn-cancel" data-bs-dismiss="modal" value="Hủy"
+                           onclick="this.form.reset()">
                     <input type="submit" class="btn btn-primary" value="Xác nhận">
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 <!-- Delete Modal HTML -->
 <div id="deleteModal" class="modal fade">
     <div class="modal-dialog">
@@ -135,8 +128,10 @@
     </div>
 </div>
 
+
 <script type="text/javascript" src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/popper.js/2.9.3/umd/popper.js"></script>
 <script type="text/javascript" src="/user/list.js"></script>
+s
 </body>
 </html>
