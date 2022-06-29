@@ -5,29 +5,31 @@ import vn.codegym.Reponsitory.IProductRepository;
 import vn.codegym.Reponsitory.ProductRepositoryImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements IProductService {
 
-    private IProductRepository userRepository = new ProductRepositoryImpl();
+    private IProductRepository productRepository = new ProductRepositoryImpl();
 
     @Override
     public List<Product> findAll() throws SQLException {
-        return userRepository.findAll();
+        return productRepository.findAll();
     }
 
     @Override
     public void delete(String IDs) throws SQLException {
-        userRepository.delete(IDs);
+        productRepository.delete(IDs);
     }
 
     @Override
     public void save(Product product) throws SQLException {
-        userRepository.save(product);
+        productRepository.save(product);
     }
 
     @Override
-    public List<Product> findByName(String name) {
-        return null;
+    public List<Product> findBy(String key, String value) throws SQLException {
+        return productRepository.findBy(key, value);
     }
+
 }

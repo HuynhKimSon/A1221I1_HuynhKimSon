@@ -11,11 +11,13 @@ public class ProductRepositoryImpl implements IProductRepository {
 
     private static final String INSERT_PRODUCTS_SQL = "INSERT INTO products" + "  (id_category, name, price, quantity, color, description) VALUES " +
             " (?, ?, ?, ?, ?, ?);";
-    private static final String SELECT_ALL_PRODUCTS = "select * from products;";
-    private static final String SELECT_CATEGORY = "select name_category from category where name_category = ?;";
-
+    private static final String SELECT_ALL_PRODUCTS = "select * from products p inner join category c on p.id_category = c.id_category;";
     private static final String DELETE_PRODUCTS_SQL = "delete from products where id = ?;";
     private static final String UPDATE_PRODUCTS_SQL = "update products set id_category = ?,name = ?, price = ?, quantity = ?,color = ?, description = ? where id = ?;";
+    private static final String SEARCH_BY_NAME = "select * from products p inner join category c on p.id_category = c.id_category where p.name LIKE concat('%',?,'%');";
+    private static final String SEARCH_BY_PRICE = "select * from products p inner join category c on p.id_category = c.id_category  where p.price LIKE concat(?,'%');";
+    private static final String SEARCH_BY_QUANTITY = "select * from products p inner join category c on p.id_category = c.id_category  where p.quantity LIKE concat(?,'%');";
+    private static final String SEARCH_BY_CATEGORY = "select * from products p inner join category c on p.id_category = c.id_category where c.name_category LIKE concat('%',?,'%');";
 
     @Override
     public List<Product> findAll() {
@@ -23,26 +25,21 @@ public class ProductRepositoryImpl implements IProductRepository {
         try (Connection connection = DbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PRODUCTS);) {
 
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet rs = statement.executeQuery();
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                double price = Double.parseDouble(resultSet.getString("price"));
-                int quantity = Integer.parseInt(resultSet.getString("quantity"));
-                String color = resultSet.getString("color");
-                String description = resultSet.getString("description");
-                String category = resultSet.getString("category");
+            while (rs.next()) {
+                // get info table product
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                double price = Double.parseDouble(rs.getString("price"));
+                int quantity = Integer.parseInt(rs.getString("quantity"));
+                String color = rs.getString("color");
+                String description = rs.getString("description");
+                String category = rs.getString("name_category");
 
-                // get name_category table category
-                PreparedStatement preparedStatementCategory = connection.prepareStatement(SELECT_CATEGORY);
-                preparedStatementCategory.setInt(1, Integer.parseInt(category));
-                ResultSet resultSetCategory = statement.executeQuery();
-                String getCategory = resultSet.getString("name_category");
-
-                products.add(new Product(id, name, price, quantity, color, description, getCategory));
-                System.out.println("Load data successfully!");
+                products.add(new Product(id, name, price, quantity, color, description, category));
             }
+            System.out.println("Load data successfully!");
         } catch (SQLException e) {
             printSQLException(e);
         }
@@ -54,7 +51,7 @@ public class ProductRepositoryImpl implements IProductRepository {
         String[] list = IDs.split(",");
         boolean rowDeleted = false;
         try (Connection connection = DbConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_PRODUCTS_SQL);) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_PRODUCTS_SQL)) {
 
             for (int i = 0; i < list.length; i++) {
                 statement.setString(1, list[i]);
@@ -65,37 +62,84 @@ public class ProductRepositoryImpl implements IProductRepository {
     }
 
     @Override
-    public void save(Product product) {
-        // try-with-resource statement will auto close the connection.
-        try (Connection connection = DbConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(product.getId() > 0 ? UPDATE_PRODUCTS_SQL : INSERT_PRODUCTS_SQL)) {
+    public void save(Product product) throws SQLException {
+        Connection connection = DbConnection.getConnection();
+        PreparedStatement st = connection.prepareStatement(product.getId() > 0 ? UPDATE_PRODUCTS_SQL : INSERT_PRODUCTS_SQL);
+        if (connection != null) {
+            try {
+                connection.setAutoCommit(false);
 
-            connection.setAutoCommit(false);
+                st.setInt(1, Integer.parseInt(product.getCategory()));
+                st.setString(2, product.getName());
+                st.setDouble(3, product.getPrice());
+                st.setInt(4, product.getQuantity());
+                st.setString(5, product.getColor());
+                st.setString(6, product.getDescription());
 
-            preparedStatement.setInt(1, Integer.parseInt(product.getCategory()));
-            preparedStatement.setString(2, product.getName());
-            preparedStatement.setDouble(3, product.getPrice());
-            preparedStatement.setInt(4, product.getQuantity());
-            preparedStatement.setString(5, product.getColor());
-            preparedStatement.setString(6, product.getDescription());
+                if (product.getId() > 0) {
+                    st.setInt(7, product.getId());
+                }
 
-            if (product.getId() > 0) {
-                preparedStatement.setInt(7, product.getId());
+                st.executeUpdate();
+                connection.commit();
+                System.out.println("Insert successfully!");
+            } catch (SQLException e) {
+                System.out.println("Insert/update failure!" + e.getMessage());
+                printSQLException(e);
+
+            } finally {
+                st.close();
+                connection.setAutoCommit(true);
+                DbConnection.close();
             }
-
-            preparedStatement.executeUpdate();
-            connection.commit();
-
-            System.out.println("Insert successfully!");
-        } catch (SQLException e) {
-            System.out.println("Insert/update failure!" + e.getMessage());
-            printSQLException(e);
         }
     }
 
     @Override
-    public List<Product> findByName(String name) {
-        return null;
+    public List<Product> findBy(String key, String value) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        Connection connection = DbConnection.getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        if (connection != null) {
+            try {
+                switch (key) {
+                    case "name":
+                        st = connection.prepareStatement(SEARCH_BY_NAME);
+                        break;
+                    case "price":
+                        st = connection.prepareStatement(SEARCH_BY_PRICE);
+                    case "quantity":
+                        st = connection.prepareStatement(SEARCH_BY_QUANTITY);
+                        break;
+                    default:
+                        st = connection.prepareStatement(SEARCH_BY_CATEGORY);
+
+                }
+                st.setString(1, value);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    // get info table product
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    double price = Double.parseDouble(rs.getString("price"));
+                    int quantity = Integer.parseInt(rs.getString("quantity"));
+                    String color = rs.getString("color");
+                    String description = rs.getString("description");
+                    String category = rs.getString("name_category");
+
+                    products.add(new Product(id, name, price, quantity, color, description, category));
+                }
+            } finally {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                DbConnection.close();
+            }
+        }
+        return products;
     }
 
     private void printSQLException(SQLException ex) {

@@ -30,33 +30,6 @@ public class ProductServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-            case "search":
-                break;
-            default:
-                try {
-                    show(request, response);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        System.err.println("doPost : " + action);
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "create":
-                try {
-                    create(request, response);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
             default:
                 try {
                     show(request, response);
@@ -73,7 +46,40 @@ public class ProductServlet extends HttpServlet {
         response.sendRedirect("/product");
     }
 
-    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        System.err.println("doPost : " + action);
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "create":
+                try {
+                    create(request, response);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "search":
+                try {
+                    findBy(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                try {
+                    show(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         double price = Double.parseDouble(request.getParameter("price"));
@@ -85,10 +91,24 @@ public class ProductServlet extends HttpServlet {
         Product product = new Product(id, name, price, quantity, color, description, category);
         productService.save(product);
 
-        response.sendRedirect("/product");
+        response.sendRedirect("/product?create=success");
+    }
+
+    private void findBy(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
+        String key = request.getParameter("key");
+        String value = request.getParameter("value");
+        request.setAttribute("key", key);
+        request.setAttribute("value", value);
+        request.setAttribute("listProduct", productService.findBy(key, value));
+        request.getRequestDispatcher("/product/list.jsp").forward(request, response);
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String status = request.getParameter("create");
+        if (status != null) {
+            request.setAttribute("create", status);
+        }
+
         request.setAttribute("listProduct", productService.findAll());
         request.getRequestDispatcher("/product/list.jsp").forward(request, response);
     }

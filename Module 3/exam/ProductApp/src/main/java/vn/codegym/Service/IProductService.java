@@ -13,5 +13,6 @@ public interface IProductService {
 
     void save(Product product) throws SQLException;
 
-    List<Product> findByName(String name);
+    List<Product> findBy(String key ,String value) throws SQLException;
+
 }

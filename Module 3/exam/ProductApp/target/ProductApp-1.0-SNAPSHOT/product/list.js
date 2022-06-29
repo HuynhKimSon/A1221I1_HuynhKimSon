@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var IDs = "";
-
     // Delete Modal
     $('.btn-delete').click(function () {
         let id = $(this).data('id');
@@ -17,22 +16,36 @@ $(document).ready(function () {
 
     // Fill input edit Modal
     $('.btn-edit').click(function () {
-        // let id = $(this).closest("tr").find('td.id').text();
-        // let name = $(this).closest("tr").find('td.name').text();
-        // let email = $(this).closest("tr").find('td.email').text();
-        // let country = $(this).closest("tr").find('td.country').text();
-        //
-        // $('.id').val(id);
-        // $('.name').val(name);
-        // $('.email').val(email);
-        // $('.country').val(country);
+        let id = $(this).data('id');
+        let name = $(this).closest("tr").find('td.name').text();
+        let price = $(this).closest("tr").find('td.price').text();
+        let quantity = $(this).closest("tr").find('td.quantity').text();
+        let color = $(this).closest("tr").find('td.color').text();
+        let description = $(this).closest("tr").find('td.description').text();
+        let category = $(this).closest("tr").find('td.category').text();
+
+        console.log("id-edit : " + id);
+        $('.id').val(id);
+        $('.name').val(name);
+        $('.price').val(price);
+        $('.quantity').val(quantity);
+        $('.color').val(color);
+        $('.description').val(description);
+        $('#dropdown-category option:contains("' + category + '")').attr('selected', 'selected');
 
     });
 
     // Check all, uncheck all
     $("#checkAll").change(function (event) {
-        var checkbox = $(event.target).closest('table');
+        let checkbox = $(event.target).closest('table');
         $('td input:checkbox', checkbox).prop('checked', this.checked);
         event.preventDefault();
     });
+
+    // Submit search
+    $('.btn-submit-search').click(function () {
+        let key = $('#select-sort option:selected').val();
+        let value = $('#input-search').val();
+        $('#form-search').attr('action', '/product?action=search&key=' + key + '' + '&value=' + value + '');
+    })
 });

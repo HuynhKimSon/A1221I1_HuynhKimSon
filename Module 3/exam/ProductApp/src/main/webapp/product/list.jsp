@@ -17,6 +17,10 @@
         .file_id {
             margin-top: 28px;
         }
+
+        .form-check {
+            padding-left: 30px;
+        }
     </style>
 </head>
 <body>
@@ -29,16 +33,22 @@
             <a class="btn btn-danger btn-delete" style="margin-left: 15px" data-bs-toggle="modal"
                data-bs-target="#deleteModal">Xóa</a>
         </div>
-        <div class="col-6 d-flex justify-content-between" style="line-height: 40px">
-            <select class="form-select" aria-label="Default select example" style="width: 200px">
-                <option selected>Tên sản phẩm</option>
-                <option value="1">Giá</option>
-                <option value="2">Số lượng</option>
-                <option value="3">Danh mục</option>
-            </select>
-            <form class="d-flex" style="width: 400px; margin-bottom: 0">
-                <input class="form-control me-4" type="search" placeholder="Search" aria-label="Search" autofocus>
-                <button class="btn btn-primary" type="submit">Search</button>
+        <div class="col-6" style="line-height: 40px">
+            <form action="" method="post" id="form-search" class="d-flex" style="margin-bottom: 0">
+                <div class="col-4">
+                    <select class="form-select" id="select-sort" aria-label="Default select example"
+                            style="width: 200px">
+                        <option value="name" selected>Tên sản phẩm</option>
+                        <option value="price">Giá</option>
+                        <option value="quantity">Số lượng</option>
+                        <option value="category">Danh mục</option>
+                    </select>
+                </div>
+                <div class="col-8 d-inline-flex">
+                    <input class="form-control me-3" id="input-search" type="search" placeholder="Search"
+                           aria-label="Search" autofocus>
+                    <button class="btn btn-primary btn-submit-search" href="" type="submit">Search</button>
+                </div>
             </form>
         </div>
     </div>
@@ -56,6 +66,7 @@
             <th scope="col">Giá</th>
             <th scope="col">Số lượng</th>
             <th scope="col">Màu</th>
+            <th scope="col">Mô tả</th>
             <th scope="col">Danh mục</th>
             <th scope="col">Hành động</th>
 
@@ -81,14 +92,14 @@
                         <a class="btn btn-danger btn-delete" data-bs-toggle="modal"
                            data-id="${item.id}" data-bs-target="#deleteModal">Xóa</a>
                         <a type="button" data-bs-toggle="modal" data-bs-target="#createModal"
-                           class="btn btn-warning btn-edit">Sửa</a>
+                           data-id="${item.id}" class="btn btn-warning btn-edit">Sửa</a>
                     </td>
                 </tr>
             </c:forEach>
         </c:if>
         <c:if test="${empty listProduct}">
             <tr>
-                <td colspan="8"><p style="text-align: center; color: red">Không có dữ liệu</p></td>
+                <td colspan="9"><p style="text-align: center; color: red">Không có dữ liệu</p></td>
             </tr>
         </c:if>
         </tbody>
@@ -98,7 +109,7 @@
 <div id="createModal" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="/product?action=create" method="post">
+            <form id="form-create" action="/product?action=create" method="post">
                 <input type="hidden" class="id" name="id" value="0">
                 <div class="modal-header">
                     <h4 class="modal-title">Thêm mới sản phẩm</h4>
@@ -115,7 +126,8 @@
                         <div class="col-4">
                             <div class="form-group mb-2">
                                 <label>Danh mục</label>
-                                <select class="form-select mt-2 category" aria-label="Default select example" name="category">
+                                <select class="form-select mt-2 category" aria-label="Default select example"
+                                        name="category" id="dropdown-category">
                                     <option value="1" selected>APPLE</option>
                                     <option value="2">SAMSUNG</option>
                                     <option value="3">SONY</option>
@@ -149,20 +161,21 @@
                             <div class="form-group mb-2">
                                 <label>Giá</label>
                                 <input type="number" class="form-control mt-2 price" name="price" value=""
-                                required>
+                                       required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-2">
                         <label>Mô tả</label>
                         <textarea type="text" class="form-control mt-2 description" name="description" value=""
-                               required></textarea >
+                                  style="height: 150px"
+                                  required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default btn-cancel" data-bs-dismiss="modal" value="Hủy"
                            onclick="this.form.reset()">
-                    <input type="submit" class="btn btn-primary" value="Xác nhận">
+                    <input type="submit" class="btn btn-primary btn-confirm-create" value="Xác nhận">
                 </div>
             </form>
         </div>
@@ -187,10 +200,30 @@
     </div>
 </div>
 
-
+<%--View toast notification --%>
+<div class="container mt-3">
+    <div class="toast-container mt-3">
+        <div id="bt" class="toast" style="position: absolute; top: 5%; left:70%; border-radius: 20px">
+            <div class="toast-body bg-primary text-light text-center" style="border-radius: 20px">
+                Thêm mới thành công!
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/popper.js/2.9.3/umd/popper.js"></script>
 <script type="text/javascript" src="/product/list.js"></script>
-s
+
+<c:if test="${not empty create}">
+    <script>
+        new bootstrap.Toast($('#bt'), {delay: 1200}).show();
+    </script>
+</c:if>
+<c:if test="${not empty key && not empty value}">
+    <script>
+        $(`#select-sort option[value='${key}']`).prop('selected', true);
+        $('#input-search').val(${value});
+    </script>
+</c:if>
 </body>
 </html>

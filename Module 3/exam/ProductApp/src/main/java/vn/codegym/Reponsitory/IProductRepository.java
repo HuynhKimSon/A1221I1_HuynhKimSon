@@ -12,5 +12,6 @@ public interface IProductRepository {
 
     void save(Product product) throws SQLException;
 
-    List<Product> findByName(String name) throws SQLException;
+    List<Product> findBy(String key, String value) throws SQLException;
+
 }
