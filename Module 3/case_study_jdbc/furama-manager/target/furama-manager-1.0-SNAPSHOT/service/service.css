@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+#col-navbar-menu {
+    height: 50px;
+    padding-left: 30px;
+}
+
+#nav-navbar-menu {
+    height: 50px;
+}
+
+#ul-navbar-dropdown {
+    color: #000000;
+    font-weight: bold;
+}
+
+#btn-sign {
+    width: 140px;
+    height: 35px;
+    margin-left: 50px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 500;
+    background-color: #00baff;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+#btn-sign:hover {
+    background: #ffffff;
+    color: #00baff;
+    border: 1px solid #00baff;
+}
+#navbarNavDropdown a:hover{
+    color: #00baff;
+}

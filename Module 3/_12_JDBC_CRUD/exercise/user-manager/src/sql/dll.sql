@@ -19,4 +19,4 @@ select * from users;
 
 select * from users where cmnd = 100200300;
 
-delete from users where id IN (1,2);
+delete from users where id Ima_loai_khachN (1,2);
