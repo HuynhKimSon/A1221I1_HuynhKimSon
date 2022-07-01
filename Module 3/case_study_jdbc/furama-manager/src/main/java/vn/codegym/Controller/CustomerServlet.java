@@ -98,11 +98,11 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void findBy(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
-//        String key = request.getParameter("key");
-//        String value = request.getParameter("value");
-//        request.setAttribute("key", key);
-//        request.setAttribute("value", value);
-//        request.setAttribute("listProduct", productService.findBy(key, value));
+        String key = request.getParameter("key");
+        String value = request.getParameter("value");
+        request.setAttribute("key", key);
+        request.setAttribute("value", value);
+        request.setAttribute("list", customerService.findBy(key, value));
         request.getRequestDispatcher("/customer/customer.jsp").forward(request, response);
     }
 

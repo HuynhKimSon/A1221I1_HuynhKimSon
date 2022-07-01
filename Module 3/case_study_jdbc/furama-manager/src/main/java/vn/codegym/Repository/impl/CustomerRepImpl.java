@@ -10,11 +10,16 @@ import java.util.List;
 
 public class CustomerRepImpl implements ICustomerRep {
 
-    private static final String INSERT_PRODUCTS_SQL = "INSERT INTO customer(customer_type_id, customer_name, customer_birthday, customer_gender, customer_id_card, customer_phone, customer_email, customer_address) VALUES " +
+    private static final String INSERT_PRODUCTS_SQL = "insert into customer(customer_type_id, customer_name, customer_birthday, customer_gender, customer_id_card, customer_phone, customer_email, customer_address) values " +
             " (?,?,?,?,?,?,?,?);";
     private static final String UPDATE_PRODUCTS_SQL = "update customer set customer_type_id = ?, customer_name = ?, customer_birthday = ?, customer_gender = ?, customer_id_card = ?,customer_phone = ?, customer_email = ?, customer_address = ? where customer_id = ?;";
     private static final String SELECT_ALL_CUSTOMERS = "select * from customer c inner join customer_type ct on c.customer_type_id = ct.customer_type_id;";
     private static final String DELETE_PRODUCTS_SQL = "delete from customer where customer_id = ?;";
+
+    private static final String SEARCH_BY_NAME = "select * from customer c inner join customer_type ct on c.customer_type_id = ct.customer_type_id where c.customer_name LIKE concat('%',?,'%');";
+    private static final String SEARCH_BY_ID_CARD = "select * from customer c inner join customer_type ct on c.customer_type_id = ct.customer_type_id  where c.customer_id_card LIKE concat('%',?,'%');";
+    private static final String SEARCH_BY_PHONE = "select * from customer c inner join customer_type ct on c.customer_type_id = ct.customer_type_id  where c.customer_phone LIKE concat('%',?,'%');";
+    private static final String SEARCH_BY_TYPE = "select * from customer c inner join customer_type ct on c.customer_type_id = ct.customer_type_id where ct.customer_type_name LIKE concat('%',?,'%');";
 
 
     @Override
@@ -104,7 +109,52 @@ public class CustomerRepImpl implements ICustomerRep {
 
     @Override
     public List<Customer> findBy(String key, String value) throws SQLException {
-        return null;
+        List<Customer> customers = new ArrayList<>();
+        Connection connection = DbConnection.getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        if (connection != null) {
+            try {
+                switch (key) {
+                    case "customer_name":
+                        st = connection.prepareStatement(SEARCH_BY_NAME);
+                        break;
+                    case "customer_id_card":
+                        st = connection.prepareStatement(SEARCH_BY_ID_CARD);
+                    case "customer_phone":
+                        st = connection.prepareStatement(SEARCH_BY_PHONE);
+                        break;
+                    default:
+                        st = connection.prepareStatement(SEARCH_BY_TYPE);
+
+                }
+                st.setString(1, value);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    // get info table product
+                    int customerId = rs.getInt("customer_id");
+                    String customerType = rs.getString("customer_type_name");
+                    String customerName = rs.getString("customer_name");
+                    String customerBirthday = rs.getString("customer_birthday");
+                    int customerGender = rs.getInt("customer_gender");
+                    int customerIdCard = rs.getInt("customer_id_card");
+                    int customerPhone = rs.getInt("customer_phone");
+                    String customerEmail = rs.getString("customer_email");
+                    String customerAddress = rs.getString("customer_address");
+
+                    customers.add(new Customer(customerId, customerType, customerName, customerBirthday, customerGender, customerIdCard, customerPhone, customerEmail, customerAddress));
+                }
+            } finally {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                DbConnection.close();
+            }
+        }
+        System.out.println("-----------------------------------------------!");
+        return customers;
     }
 
     private void printSQLException(SQLException ex) {

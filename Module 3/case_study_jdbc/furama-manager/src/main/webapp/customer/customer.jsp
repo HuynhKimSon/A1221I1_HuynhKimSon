@@ -8,6 +8,10 @@
     <style>
         <%@include file="/customer/customer.css" %>
     </style>
+    <script>
+        <%@include file="/static/index.js" %>
+    </script>
+
 </head>
 <body>
 <!--header-->
@@ -61,7 +65,7 @@
                data-bs-target="#deleteModal">Xóa</a>
         </div>
         <div class="col-10" style="line-height: 40px">
-            <form action="" method="post" id="form-search" class="d-flex" style="margin-bottom: 0">
+            <form action="" method="post" id="form_search" class="d-flex" style="margin-bottom: 0">
                 <div class="col-7 d-inline-flex" style="padding-right: 80px">
                     <div class="input-group" style="width: 200px">
                         <label>Ngày sinh:</label>
@@ -93,7 +97,7 @@
             </form>
         </div>
     </div>
-    <table class="table table-hover table-striped">
+    <table id="example" class="table table-hover table-striped">
         <thead>
         <tr>
             <th scope="col" style="width: 50px">
@@ -179,7 +183,8 @@
                         </div>
                         <div class="col-5 form-group mb-2">
                             <label>Ngày Sinh</label>
-                            <input type="date" class="form-control mt-2 customer_birthday" name="customer_birthday" value=""
+                            <input type="date" class="form-control mt-2 customer_birthday" name="customer_birthday"
+                                   value=""
                                    required>
                         </div>
                     </div>
@@ -198,7 +203,8 @@
                         </div>
                         <div class="col-4 form-group mb-2">
                             <label>Chứng minh nhân dân</label>
-                            <input type="number" class="form-control mt-2 customer_id_card" name="customer_id_card" value=""
+                            <input type="number" class="form-control mt-2 customer_id_card" name="customer_id_card"
+                                   value=""
                                    required>
                         </div>
                         <div class="col-4 form-group mb-2">
@@ -225,7 +231,8 @@
                         <div class="col-6">
                             <div class="form-group mb-2">
                                 <label>Email</label>
-                                <input type="email" class="form-control mt-2 customer_email" name="customer_email" value=""
+                                <input type="email" class="form-control mt-2 customer_email" name="customer_email"
+                                       value=""
                                        required>
                             </div>
                         </div>
@@ -233,7 +240,8 @@
                     <div class="row">
                         <div class="form-group mb-2">
                             <label>Địa chỉ</label>
-                            <textarea type="text" class="form-control mt-2 customer_address" name="customer_address" value=""
+                            <textarea type="text" class="form-control mt-2 customer_address" name="customer_address"
+                                      value=""
                                       style="height: 100px"
                                       required></textarea>
                         </div>
@@ -273,17 +281,20 @@
             <c:if test="${not empty status}">
                 <c:choose>
                     <c:when test="${status == 'createSuccess'}">
-                        <div class="toast-body bg-primary text-light text-center" style="border-radius: 20px; font-weight: bold">
+                        <div class="toast-body bg-primary text-light text-center"
+                             style="border-radius: 20px; font-weight: bold">
                             Thêm mới thành công!
                         </div>
                     </c:when>
                     <c:when test="${status == 'editSuccess'}">
-                        <div class="toast-body bg-warning text-dark text-center" style="border-radius: 20px; font-weight: bold">
+                        <div class="toast-body bg-warning text-dark text-center"
+                             style="border-radius: 20px; font-weight: bold">
                             Chỉnh sửa thành công!
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="toast-body bg-danger text-light text-center" style="border-radius: 20px; font-weight: bold">
+                        <div class="toast-body bg-danger text-light text-center"
+                             style="border-radius: 20px; font-weight: bold">
                             Xoá thành công!
                         </div>
                     </c:otherwise>
@@ -296,14 +307,13 @@
 
 <script type="text/javascript" src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/popper.js/2.9.3/umd/popper.js"></script>
-<script type="text/javascript" src="/static/index.js"></script>
 
 <c:if test="${not empty status}">
     <script>
         new bootstrap.Toast($('#bt'), {delay: 1700}).show();
     </script>
 </c:if>
-<c:if test="${not empty key && not empty value}">
+<c:if test="${not empty key || not empty value}">
     <script>
         $(`#select_sort option[value='${key}']`).prop('selected', true);
         $('#input_search').val(${value});
