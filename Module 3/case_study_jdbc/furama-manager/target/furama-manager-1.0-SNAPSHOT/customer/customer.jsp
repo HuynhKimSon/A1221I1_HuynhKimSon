@@ -6,12 +6,11 @@
     <link rel="stylesheet" href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
     <script type="text/javascript" src="webjars/jquery/3.6.0/dist/jquery.min.js"></script>
     <style>
-        <%@include file="/customer/customer.css" %>
+        <%@include file="/static/index.css" %>
     </style>
     <script>
         <%@include file="/static/index.js" %>
     </script>
-    
 </head>
 <body>
 <!--header-->
@@ -54,10 +53,9 @@
     </div>
 </div>
 <!--main-->
-
-<div class="container-fluid" style="padding: 0 50px">
+<div class="container-fluid" style="padding: 0 50px; font-size: 15px">
     <h1 style="margin: 40px 0; text-align: center">QUẢN LÝ THÔNG TIN KHÁCH HÀNG</h1>
-    <div class="row" style="height: 40px">
+    <div class="row" style="height: 40px;">
         <div class="col-2">
             <a type="button" class="btn btn-success" data-bs-toggle="modal"
                data-bs-target="#createModal">Thêm mới</a>
@@ -97,7 +95,8 @@
             </form>
         </div>
     </div>
-    <table id="example" class="table table-hover table-striped">
+<%--Table--%>
+    <table class="table table-hover table-striped">
         <thead>
         <tr>
             <th scope="col" style="width: 50px">
@@ -107,15 +106,15 @@
                 </div>
             </th>
             <th scope="col" style="width: 50px">#</th>
-            <th scope="col" style="width: 200px">Tên</th>
-            <th scope="col" style="width: 150px">Ngày sinh</th>
-            <th scope="col" style="width: 170px">Giới tính</th>
-            <th scope="col" style="width: 170px">CMND</th>
-            <th scope="col" style="width: 170px">Số điện thoại</th>
+            <th scope="col" style="width: 170px">Tên</th>
+            <th scope="col" style="width: 100px">Ngày sinh</th>
+            <th scope="col" style="width: 100px">Giới tính</th>
+            <th scope="col" style="width: 120px">CMND</th>
+            <th scope="col" style="width: 120px">Số điện thoại</th>
             <th scope="col" style="width: 200px">Email</th>
-            <th scope="col" style="width: 150px">Loại khách</th>
+            <th scope="col" style="width: 100px">Loại khách</th>
             <th scope="col">Địa chỉ</th>
-            <th scope="col" style="width: 180px">Hành động</th>
+            <th scope="col" style="width: 130px">Hành động</th>
         </tr>
         </thead>
         <tbody>

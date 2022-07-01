@@ -12,12 +12,17 @@ public class ServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = request.getParameter("page");
-        if (page == null) {
-            page = "";
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
         }
-        switch (page) {
-            case "page":
+        switch (action) {
+            case "delete":
+//                try {
+//                    delete(request, response);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
                 break;
             default:
                 try {
@@ -37,8 +42,19 @@ public class ServiceServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
+//                try {
+//                    create(request, response);
+//
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
                 break;
             case "search":
+//                try {
+//                    findBy(request, response);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
                 break;
             default:
                 try {
@@ -51,11 +67,9 @@ public class ServiceServlet extends HttpServlet {
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        String status = request.getParameter("create");
-        if (status != null) {
-            request.setAttribute("create", status);
-        }
-
-        request.getRequestDispatcher("/employee/employee.jsp").forward(request, response);
+        String status = request.getParameter("status");
+        request.setAttribute("status", status);
+        //request.setAttribute("list", customerService.findAll());
+        request.getRequestDispatcher("/service/service.jsp").forward(request, response);
     }
 }
