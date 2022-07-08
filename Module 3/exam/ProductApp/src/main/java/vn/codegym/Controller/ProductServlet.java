@@ -43,7 +43,7 @@ public class ProductServlet extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         String IDs = request.getParameter("id");
         productService.delete(IDs);
-        response.sendRedirect("/product");
+        response.sendRedirect("/product?status=deleteSuccess");
     }
 
     @Override
@@ -90,8 +90,11 @@ public class ProductServlet extends HttpServlet {
 
         Product product = new Product(id, name, price, quantity, color, description, category);
         productService.save(product);
-
-        response.sendRedirect("/product?create=success");
+        if (id > 0) {
+            response.sendRedirect("/product?status=editSuccess");
+        } else {
+            response.sendRedirect("/product?status=createSuccess");
+        }
     }
 
     private void findBy(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
@@ -104,12 +107,12 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        String status = request.getParameter("create");
+        String status = request.getParameter("status");
         if (status != null) {
-            request.setAttribute("create", status);
+            request.setAttribute("status", status);
         }
-
         request.setAttribute("listProduct", productService.findAll());
+        request.setAttribute("listCategory", productService.findAllCategory());
         request.getRequestDispatcher("/product/list.jsp").forward(request, response);
     }
 }

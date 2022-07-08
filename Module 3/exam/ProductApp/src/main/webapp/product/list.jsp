@@ -128,13 +128,16 @@
                                 <label>Danh mục</label>
                                 <select class="form-select mt-2 category" aria-label="Default select example"
                                         name="category" id="dropdown-category">
-                                    <option value="1" selected>APPLE</option>
-                                    <option value="2">SAMSUNG</option>
-                                    <option value="3">SONY</option>
-                                    <option value="4">HTC</option>
-                                    <option value="5">LG</option>
-                                    <option value="6">ASUS</option>
-                                    <option value="7">LENOVO</option>
+                                    <option value="-1" selected>
+                                        All
+                                    </option>
+                                    <c:if test="${not empty listCategory}">
+                                        <c:forEach items="${listCategory}" var="itemCategory">
+                                            <option value="${itemCategory.key}">
+                                                    ${itemCategory.value}
+                                            </option>
+                                        </c:forEach>
+                                    </c:if>
                                 </select>
                             </div>
                         </div>
@@ -204,9 +207,28 @@
 <div class="container mt-3">
     <div class="toast-container mt-3">
         <div id="bt" class="toast" style="position: absolute; top: 5%; left:70%; border-radius: 20px">
-            <div class="toast-body bg-primary text-light text-center" style="border-radius: 20px">
-                Thêm mới thành công!
-            </div>
+            <c:if test="${not empty status}">
+                <c:choose>
+                    <c:when test="${status == 'createSuccess'}">
+                        <div class="toast-body bg-primary text-light text-center"
+                             style="border-radius: 20px; font-weight: bold">
+                            Thêm mới thành công!
+                        </div>
+                    </c:when>
+                    <c:when test="${status == 'editSuccess'}">
+                        <div class="toast-body bg-warning text-dark text-center"
+                             style="border-radius: 20px; font-weight: bold">
+                            Chỉnh sửa thành công!
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="toast-body bg-danger text-light text-center"
+                             style="border-radius: 20px; font-weight: bold">
+                            Xoá thành công!
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
         </div>
     </div>
 </div>
@@ -214,9 +236,9 @@
 <script type="text/javascript" src="webjars/popper.js/2.9.3/umd/popper.js"></script>
 <script type="text/javascript" src="/product/list.js"></script>
 
-<c:if test="${not empty create}">
+<c:if test="${not empty status}">
     <script>
-        new bootstrap.Toast($('#bt'), {delay: 1200}).show();
+        new bootstrap.Toast($('#bt'), {delay: 1700}).show();
     </script>
 </c:if>
 <c:if test="${not empty key && not empty value}">

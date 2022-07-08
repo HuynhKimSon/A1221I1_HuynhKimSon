@@ -4,6 +4,7 @@ package vn.codegym.Service;
 import vn.codegym.Model.Product;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 public interface IProductService {
@@ -15,4 +16,5 @@ public interface IProductService {
 
     List<Product> findBy(String key ,String value) throws SQLException;
 
+    HashMap<Integer, String> findAllCategory();
 }

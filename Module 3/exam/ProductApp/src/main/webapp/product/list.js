@@ -31,7 +31,8 @@ $(document).ready(function () {
         $('.quantity').val(quantity);
         $('.color').val(color);
         $('.description').val(description);
-        $('#dropdown-category option:contains("' + category + '")').attr('selected', 'selected');
+        $('#dropdown-category option:contains("' + category + '")').prop('selected', true);
+        console.log("selected-category : " + category);
 
     });
 

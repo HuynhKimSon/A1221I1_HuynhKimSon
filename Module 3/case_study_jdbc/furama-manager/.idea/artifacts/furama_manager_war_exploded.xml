@@ -21,6 +21,7 @@
           <element id="library" level="project" name="Maven: org.webjars.bower:jquery:3.6.0" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.29" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.19.4" />
+          <element id="library" level="project" name="Maven: org.webjars:bootstrap-datepicker:1.9.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

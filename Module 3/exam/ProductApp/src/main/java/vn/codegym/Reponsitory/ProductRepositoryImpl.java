@@ -4,6 +4,7 @@ import vn.codegym.Model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProductRepositoryImpl implements IProductRepository {
@@ -18,6 +19,7 @@ public class ProductRepositoryImpl implements IProductRepository {
     private static final String SEARCH_BY_PRICE = "select * from products p inner join category c on p.id_category = c.id_category  where p.price LIKE concat(?,'%');";
     private static final String SEARCH_BY_QUANTITY = "select * from products p inner join category c on p.id_category = c.id_category  where p.quantity LIKE concat(?,'%');";
     private static final String SEARCH_BY_CATEGORY = "select * from products p inner join category c on p.id_category = c.id_category where c.name_category LIKE concat('%',?,'%');";
+    private static final String SELECT_ALL_CATEGORY = "select * from category;";
 
     @Override
     public List<Product> findAll() {
@@ -39,12 +41,34 @@ public class ProductRepositoryImpl implements IProductRepository {
 
                 products.add(new Product(id, name, price, quantity, color, description, category));
             }
-            System.out.println("Load data successfully!");
+            System.out.println("Load data products successfully!");
         } catch (SQLException e) {
             printSQLException(e);
         }
         return products;
     }
+
+    @Override
+    public HashMap<Integer, String> findAllCategory() {
+        HashMap<Integer, String> hashMap = new HashMap<Integer, String>();
+        try (Connection connection = DbConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_CATEGORY);) {
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                // get info table product
+                int idCategory = rs.getInt("id_category");
+                String nameCategory = rs.getString("name_category");
+                hashMap.put(idCategory, nameCategory);
+            }
+            System.out.println("Load data category successfully!");
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return hashMap;
+    }
+
 
     @Override
     public boolean delete(String IDs) throws SQLException {

@@ -5,6 +5,7 @@
     <title>Ứng Dụng Quản Lý Khu Nghỉ Dưỡng Furama</title>
     <link rel="stylesheet" href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
     <script type="text/javascript" src="webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+    </script>
     <style>
         <%@include file="/static/index.css" %>
     </style>
@@ -95,7 +96,7 @@
             </form>
         </div>
     </div>
-<%--Table--%>
+    <%--Table--%>
     <table class="table table-hover table-striped">
         <thead>
         <tr>

@@ -6,7 +6,9 @@ import vn.codegym.Reponsitory.ProductRepositoryImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductServiceImpl implements IProductService {
 
@@ -30,6 +32,11 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public List<Product> findBy(String key, String value) throws SQLException {
         return productRepository.findBy(key, value);
+    }
+
+    @Override
+    public HashMap<Integer, String> findAllCategory() {
+        return productRepository.findAllCategory();
     }
 
 }
