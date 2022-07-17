@@ -7,7 +7,7 @@
 <form action="/" method="post">
     <input name="value" autofocus>
     <a href="">
-        <button>Quy đổi</button>
+        <button>Translate</button>
     </a>
     <p>${result}</p>
 </form>
