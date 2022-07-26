@@ -1,11 +1,11 @@
 package vn.codegym.repository;
 
-import vn.codegym.model.Music;
+import vn.codegym.model.Song;
 
 import java.util.List;
 
 public interface IMusicRepository {
-    List<Music> findAll();
+    List<Song> findAll();
 
-    void save(Music music);
+    void save(Song song);
 }

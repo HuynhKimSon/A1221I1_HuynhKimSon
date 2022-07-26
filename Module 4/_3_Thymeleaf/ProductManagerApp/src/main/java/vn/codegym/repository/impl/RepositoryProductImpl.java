@@ -1,6 +1,5 @@
 package vn.codegym.repository.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import vn.codegym.model.Product;
 import vn.codegym.repository.IRepositoryProduct;

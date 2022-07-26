@@ -2,7 +2,7 @@ package vn.codegym.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.codegym.model.Music;
+import vn.codegym.model.Song;
 import vn.codegym.repository.IMusicRepository;
 import vn.codegym.service.IMusicService;
 
@@ -15,12 +15,12 @@ public class MusicServiceImpl implements IMusicService {
     private IMusicRepository musicRepository;
 
     @Override
-    public List<Music> findAll() {
+    public List<Song> findAll() {
         return musicRepository.findAll();
     }
 
     @Override
-    public void save(Music music) {
-
+    public void save(Song song) {
+        musicRepository.save(song);
     }
 }
