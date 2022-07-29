@@ -1,29 +1,24 @@
 package vn.codegym.blogapp.model;
 
-import javax.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Entity
-public class Blog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BlogForm {
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
     private String title;
 
-    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String createTime;
 
     private String author;
 
-    private String image;
+    private MultipartFile image;
 
-    public Blog() {
+    public BlogForm() {
     }
 
-    public Blog(Long id, String title, String content, String createTime, String author, String image) {
+    public BlogForm(Long id, String title, String content, String createTime, String author, MultipartFile image) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -72,11 +67,11 @@ public class Blog {
         this.author = author;
     }
 
-    public String getImage() {
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 }

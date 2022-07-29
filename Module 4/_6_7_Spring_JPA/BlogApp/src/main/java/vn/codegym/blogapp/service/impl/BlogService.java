@@ -16,6 +16,7 @@ public class BlogService implements IBlogService {
 
     @Override
     public List<Blog> findAll() {
+        List<Blog> blogs = blogRepository.findAll();
         return blogRepository.findAll();
     }
 

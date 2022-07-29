@@ -6,23 +6,35 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
     <script type="text/javascript" src="/webjars/popper.js/2.9.3/umd/popper.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <style>
+
+        tbody tr {
+            height: 150px;
+        }
+
+        tbody td {
+            line-height: 150px;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h2 class="mt-5 mb-3 text-center">Blog List</h2>
     <div class="row mb-3">
         <div class="col-6">
-            <a type="button" class="btn btn-success" data-bs-toggle="modal"
+            <a type="button" class="btn btn-primary" data-bs-toggle="modal"
                data-bs-target="#createModal">Create</a>
         </div>
     </div>
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped text-center align-content-center">
         <thead>
         <tr>
             <th scope="col">No.</th>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Create time</th>
+            <th scope="col">Image</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -32,9 +44,12 @@
             <td th:text="${row.title}"></td>
             <td th:text="${row.author}"></td>
             <td th:text="${row.createTime}"></td>
+            <th><img th:src="@{'/image/' + ${row.image}}" height="150px"
+                     width="250px"/></th>
             <td>
-                <a th:href="@{/blog/{id}/edit(id=${row.id})}">edit</a>
-                <a th:href="@{/blog/{id}/delete(id=${row.id})}">delete</a>
+                <a class="btn btn-success" th:href="@{/blog/{id}/detail(id=${row.id})}">Detail</a>
+                <a class="btn btn-warning" th:href="@{/blog/{id}/edit(id=${row.id})}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/blog/{id}/delete(id=${row.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -43,8 +58,7 @@
     <div id="createModal" class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="post">
-                    <input type="hidden" class="id" name="id" value="0">
+                <form method="post" th:object="${blogForm}" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h4 class="modal-title">Create new blog</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
@@ -54,7 +68,7 @@
                         <div class="row">
                             <div class="col-12 form-group mb-2">
                                 <label>Title</label>
-                                <input type="text" class="form-control mt-2"
+                                <input type="text" class="form-control mt-2" name="title" th:field="*{title}"
                                        required>
                             </div>
                         </div>
@@ -63,32 +77,23 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Author</label>
-                                    <input type="text" class="form-control mt-2"
+                                    <input type="text" class="form-control mt-2" name="author" th:field="*{author}"
                                            required>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group mb-2">
-                                    <label>Create Time</label>
-                                    <input type="date" class="form-control mt-2"
-                                           required>
-                                </div>
+                            <div class="col-6 form-group mb-2">
+                                <label>Image</label>
+                                <input type="file" class="form-control mt-2" name="image" th:field="*{image}"
+                                       accept="image/png, image/jpg"
+                                       required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12 form-group mb-2">
                                 <label>Content</label>
-                                <textarea type="text" class="form-control mt-2"
-                                          required></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 form-group mb-2">
-                                <label>Image</label>
-                                <input type="file" class="form-control mt-2"
-                                       required>
+                                <textarea type="text" class="form-control mt-2" name="content" th:field="*{content}"
+                                          required style="height: 200px"></textarea>
                             </div>
                         </div>
 
