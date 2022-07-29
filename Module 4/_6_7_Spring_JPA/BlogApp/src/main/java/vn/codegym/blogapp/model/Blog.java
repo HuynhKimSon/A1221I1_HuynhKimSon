@@ -1,9 +1,6 @@
 package vn.codegym.blogapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Blog {
@@ -19,15 +16,20 @@ public class Blog {
 
     private String author;
 
+    @Lob
+    @Column(name = "image", length = Integer.MAX_VALUE, nullable = true)
+    private byte[] image;
+
     public Blog() {
     }
 
-    public Blog(Long id, String title, String content, String createTime, String author) {
+    public Blog(Long id, String title, String content, String createTime, String author, byte[] image) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createTime = createTime;
         this.author = author;
+        this.image = image;
     }
 
     public Long getId() {
@@ -68,5 +70,13 @@ public class Blog {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
