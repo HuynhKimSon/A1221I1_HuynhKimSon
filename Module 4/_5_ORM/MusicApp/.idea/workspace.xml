@@ -9,24 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55b2f428-a3ba-43c1-b1aa-ebfefefe9a72" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/ProjectCommon.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/ProjectCommon.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/src/main/java/vn/codegym/repository/impl/RepositoryProductImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../_3_Thymeleaf/ProductManagerApp/src/main/java/vn/codegym/repository/impl/RepositoryProductImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../_4_Data_Binding/ConfigEmailApp/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../_4_Data_Binding/ConfigEmailApp/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCommon.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCommon.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/codegym/config/AppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/codegym/config/AppConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/codegym/controller/MusicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/codegym/controller/MusicController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/codegym/model/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/codegym/model/Song.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/codegym/repository/IMusicRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/codegym/repository/IMusicRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/codegym/repository/impl/MusicRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/codegym/repository/impl/MusicRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/codegym/service/IMusicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/codegym/service/IMusicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/codegym/service/impl/MusicServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/codegym/service/impl/MusicServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="55b2f428-a3ba-43c1-b1aa-ebfefefe9a72" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,7 +45,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -180,6 +163,7 @@
       <workItem from="1658816772180" duration="41000" />
       <workItem from="1658816902724" duration="11000" />
       <workItem from="1658818385817" duration="9924000" />
+      <workItem from="1658926962574" duration="12000" />
     </task>
     <servers />
   </component>
