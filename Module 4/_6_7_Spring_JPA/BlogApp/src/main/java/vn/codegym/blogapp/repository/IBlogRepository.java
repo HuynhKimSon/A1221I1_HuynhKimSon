@@ -1,15 +1,17 @@
 package vn.codegym.blogapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 import vn.codegym.blogapp.model.Blog;
 
+import javax.transaction.Transactional;
 
-@Repository
 public interface IBlogRepository extends JpaRepository<Blog, Long> {
-
-    @Query(value = "select * from blog where id=:id", nativeQuery = true)
-    Blog searchById(@Param("id") Long id);
+    
+    @Modifying
+    @Transactional
+    @Query(value = " delete from blog where id = :id ; ", nativeQuery = true)
+    int deleteBlogById(@Param("id") Long id);
 }

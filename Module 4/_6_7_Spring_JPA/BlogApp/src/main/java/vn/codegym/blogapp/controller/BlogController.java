@@ -53,7 +53,13 @@ public class BlogController {
 
     @GetMapping("/list/detail/{id}")
     public String viewDetail(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("blogForm", blogService.searchById(id));
-        return "/list";
+        model.addAttribute("blog", blogService.findById(id));
+        return "detail";
+    }
+
+    @GetMapping("/list/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        blogService.deleteBlogById(id);
+        return "redirect:/blog/list";
     }
 }
