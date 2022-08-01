@@ -8,6 +8,8 @@ public interface IBlogService {
 
     List<Blog> findAll();
 
+    Blog searchById(Long id);
+
     void save(Blog blog);
 
 }

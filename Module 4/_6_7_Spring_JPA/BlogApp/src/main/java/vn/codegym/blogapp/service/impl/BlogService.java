@@ -16,12 +16,17 @@ public class BlogService implements IBlogService {
 
     @Override
     public List<Blog> findAll() {
-        List<Blog> blogs = blogRepository.findAll();
         return blogRepository.findAll();
+    }
+
+    @Override
+    public Blog searchById(Long id) {
+        return blogRepository.searchById(id);
     }
 
     @Override
     public void save(Blog blog) {
         blogRepository.save(blog);
     }
+
 }

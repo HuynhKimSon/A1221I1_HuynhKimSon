@@ -50,4 +50,10 @@ public class BlogController {
         blogService.save(blog);
         return "redirect:/blog/list";
     }
+
+    @GetMapping("/list/detail/{id}")
+    public String viewDetail(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("blogForm", blogService.searchById(id));
+        return "/list";
+    }
 }
