@@ -40,7 +40,8 @@
             <th><img th:src="@{'/image/' + ${row.image}}" height="150px"
                      width="250px"/></th>
             <td>
-                <a class="btn btn-success" id="btn-detail" th:data-detail-id="${row.id}">Detail</a>
+                <a class="btn btn-success" id="btn-detail" data-bs-toggle="modal"
+                   data-bs-target="#detailModal" th:data-detail-id="${row.id}">Detail</a>
 
                 <a class="btn btn-warning" id="btn-edit" data-bs-toggle="modal"
                    data-bs-target="#editModal">Edit</a>
@@ -55,7 +56,7 @@
     <div id="createModal" class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="post" th:object="${blogForm}" enctype="multipart/form-data">
+                <form method="post" th:action="@{/create}" th:object="${blogForm}" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h4 class="modal-title">Create new blog</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
@@ -200,7 +201,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/list.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
 <script type="text/javascript" th:inline="javascript">
     console.log([[${blog}]]);
 </script>

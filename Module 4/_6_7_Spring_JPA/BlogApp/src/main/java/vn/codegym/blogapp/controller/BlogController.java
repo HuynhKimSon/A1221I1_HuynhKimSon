@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/")
 public class BlogController {
 
     @Value("${file-upload}")
@@ -25,15 +25,15 @@ public class BlogController {
     @Autowired
     private IBlogService blogService;
 
-    @GetMapping("/list")
+    @GetMapping("")
     public String list(Model model) {
         model.addAttribute("blogList", blogService.findAll());
         model.addAttribute("blogForm", new BlogForm());
         model.addAttribute("blog", new Blog());
-        return "list";
+        return "index";
     }
 
-    @PostMapping("/list")
+    @PostMapping("/create")
     public String create(@ModelAttribute BlogForm blogForm) {
         MultipartFile multipartFile = blogForm.getImage();
         String fileName = multipartFile.getOriginalFilename();
@@ -49,19 +49,19 @@ public class BlogController {
         blog.setCreateTime(LocalDate.now().toString());
         blog.setImage(fileName);
         blogService.save(blog);
-        return "redirect:/blog/list";
+        return "redirect:/";
     }
 
-    @GetMapping("/list/detail/{id}")
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        blogService.deleteBlogById(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/detail/{id}")
     public String viewDetail(@PathVariable("id") Long id, Model model) {
         model.addAttribute("blogForm", new BlogForm());
         model.addAttribute("blog", blogService.findById(id));
-        return "list";
-    }
-
-    @GetMapping("/list/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        blogService.deleteBlogById(id);
-        return "redirect:/blog/list";
+        return "index";
     }
 }

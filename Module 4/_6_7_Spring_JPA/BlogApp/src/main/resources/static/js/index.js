@@ -6,7 +6,7 @@ $(document).ready(function () {
         $('.btn-confirm-delete').click(function () {
             $.ajax({
                 type: "GET",
-                url: "/blog/list/delete/" + id,
+                url: "/delete/" + id,
                 success: new bootstrap.Toast($('#toast-delete'), {delay: 2200}).show()
             });
 
@@ -18,7 +18,7 @@ $(document).ready(function () {
         let id = $(this).data('detail-id');
         $.ajax({
             type: "GET",
-            url: "/blog/list/detail/" + id,
+            url: "/detail/" + id,
         });
 
     });
