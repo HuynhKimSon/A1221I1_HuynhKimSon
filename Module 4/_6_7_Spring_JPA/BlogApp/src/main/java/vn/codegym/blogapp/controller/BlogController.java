@@ -29,6 +29,7 @@ public class BlogController {
     public String list(Model model) {
         model.addAttribute("blogList", blogService.findAll());
         model.addAttribute("blogForm", new BlogForm());
+        model.addAttribute("blog", new Blog());
         return "list";
     }
 
@@ -53,8 +54,9 @@ public class BlogController {
 
     @GetMapping("/list/detail/{id}")
     public String viewDetail(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("blogForm", new BlogForm());
         model.addAttribute("blog", blogService.findById(id));
-        return "detail";
+        return "list";
     }
 
     @GetMapping("/list/delete/{id}")

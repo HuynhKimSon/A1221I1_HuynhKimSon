@@ -20,7 +20,7 @@
                data-bs-target="#createModal">Create</a>
         </div>
     </div>
-    <table class="table table-hover table-striped text-center align-content-center">
+    <table class="table table-hover table-striped text-center align-content-center" id="blogTable">
         <thead>
         <tr>
             <th scope="col">No.</th>
@@ -40,9 +40,12 @@
             <th><img th:src="@{'/image/' + ${row.image}}" height="150px"
                      width="250px"/></th>
             <td>
-                <a class="btn btn-success btn-detail" th:data-detail-id="${row.id}">Detail</a>
-                <a class="btn btn-warning btn-edit" th:href="@{/blog/list/edit/{id}(id=${row.id})}">Edit</a>
-                <a class="btn btn-danger btn-delete" data-bs-toggle="modal"
+                <a class="btn btn-success" id="btn-detail" th:data-detail-id="${row.id}">Detail</a>
+
+                <a class="btn btn-warning" id="btn-edit" data-bs-toggle="modal"
+                   data-bs-target="#editModal">Edit</a>
+
+                <a class="btn btn-danger" id="btn-delete" data-bs-toggle="modal"
                    data-bs-target="#deleteModal" th:data-delete-id="${row.id}">Delete</a>
             </td>
         </tr>
@@ -102,6 +105,57 @@
         </div>
     </div>
 
+    <!-- Detail Modal HTML -->
+    <div id="detailModal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" th:object="${blog}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Detail blog</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 form-group mb-2">
+                            <label>Title</label>
+                            <pre readonly type="text" class="form-control mt-2" name="title"
+                                 th:field="*{title}"
+                                 required></pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-2">
+                                <label>Author</label>
+                                <input readonly type="text" class="form-control mt-2" name="author"
+                                       th:field="*{author}"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-2">
+                                <label>Create Time</label>
+                                <input readonly type="text" class="form-control mt-2" name="author"
+                                       th:field="*{createTime}"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 form-group mb-2">
+                            <label>Content</label>
+                            <pre readonly type="text" class="form-control mt-2" name="content"
+                                 th:field="*{content}"
+                                 required style="height: 200px"></pre>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Close">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Delete Modal HTML -->
     <div id="deleteModal" class="modal fade">
         <div class="modal-dialog">
@@ -115,13 +169,40 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Close">
-                    <a type="button" class="btn btn-danger btn-confirm-delete">Confirm</a>
+                    <input type="submit" data-bs-dismiss="modal" class="btn btn-danger btn-confirm-delete"
+                           value="Confirm">
                 </div>
             </div>
         </div>
     </div>
+
+</div>
+
+<!--View toast notification -->
+<div id="toast-create" class="toast align-items-center text-white bg-primary border-0"
+     style="position: absolute; top: 5%; left:70%;">
+    <div class="d-flex">
+        <div class="toast-body">
+            Your blog is created <strong>successfully!</strong>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+    </div>
+</div>
+<div id="toast-delete" class="toast align-items-center text-white bg-danger border-0"
+     style="position: absolute; top: 5%; left:70%;">
+    <div class="d-flex">
+        <div class="toast-body">
+            Your blog is delete <strong>successfully!</strong>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+    </div>
 </div>
 
 <script type="text/javascript" src="/js/list.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    console.log([[${blog}]]);
+</script>
 </body>
 </html>
