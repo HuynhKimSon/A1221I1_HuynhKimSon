@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ServiceController {
 
     @GetMapping("")
-    public String employee() {
+    public String list() {
         return "service/service";
     }
 

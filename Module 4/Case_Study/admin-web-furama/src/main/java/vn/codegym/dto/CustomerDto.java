@@ -1,13 +1,8 @@
-package vn.codegym.model.customer;
+package vn.codegym.dto;
 
-import javax.persistence.*;
-
-@Entity
-public class Customer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CustomerDto {
     private Long customerId;
+    private Long customerTypeId;
     private String customerName;
     private String customerBirthday;
     private int customerGender;
@@ -16,11 +11,19 @@ public class Customer {
     private String customerEmail;
     private String customerAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_type_id", referencedColumnName = "customerTypeId")
-    private CustomerType customerType;
+    public CustomerDto() {
+    }
 
-    public Customer() {
+    public CustomerDto(Long customerId, Long customerTypeId, String customerName, String customerBirthday, int customerGender, int customerIdCard, int customerPhone, String customerEmail, String customerAddress) {
+        this.customerId = customerId;
+        this.customerTypeId = customerTypeId;
+        this.customerName = customerName;
+        this.customerBirthday = customerBirthday;
+        this.customerGender = customerGender;
+        this.customerIdCard = customerIdCard;
+        this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.customerAddress = customerAddress;
     }
 
     public Long getCustomerId() {
@@ -29,6 +32,14 @@ public class Customer {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public Long getCustomerTypeId() {
+        return customerTypeId;
+    }
+
+    public void setCustomerTypeId(Long customerTypeId) {
+        this.customerTypeId = customerTypeId;
     }
 
     public String getCustomerName() {
@@ -85,13 +96,5 @@ public class Customer {
 
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
-    }
-
-    public CustomerType getCustomerType() {
-        return customerType;
-    }
-
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
     }
 }

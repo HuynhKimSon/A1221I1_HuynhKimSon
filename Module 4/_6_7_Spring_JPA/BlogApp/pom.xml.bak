@@ -51,6 +51,7 @@
         </dependency>
 
     
+
         <!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery -->
         <dependency>
             <groupId>org.webjars.bower</groupId>
