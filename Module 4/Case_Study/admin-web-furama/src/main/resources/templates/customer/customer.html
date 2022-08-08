@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
-    <script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/webjars/popper.js/2.9.3/umd/popper.js"></script>
-    <script type="text/javascript" src="webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+<head th:replace="layout :: head">
 </head>
 <body>
 <div th:replace="layout :: header"></div>
@@ -36,7 +30,7 @@
                 <td th:text="${row.customerType.customerTypeName}"></td>
                 <td th:text="${row.customerEmail}"></td>
                 <td>
-                    <a class="btn btn-success">Detail</a>
+                    <a class="btn btn-success" type="button" id="btn-detail" th:data-detail-id="${row.customerId}">Detail</a>
 
                     <a class="btn btn-warning">Edit</a>
 
@@ -48,8 +42,19 @@
     </div>
 </div>
 
-<div th:replace="create :: createModel"></div>
+<div th:replace="~{customer/create :: createModal( customerDto=${customerDto},customerTypeList=${customerTypeList})}"></div>
+<div th:replace="~{customer/detail :: detailModal(customerDto=${customerDto})}"></div>
 
-<script type="text/javascript" src="/js/customer/customer.js"></script>
+<script type="text/javascript" th:src="@{/js/customer/customer.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+
+    // Validate form create
+    if ([[${isError}]]) {
+        $(window).on('load', function () {
+            $('#createModal').modal('show');
+        });
+    }
+
+</script>
 </body>
 </html>

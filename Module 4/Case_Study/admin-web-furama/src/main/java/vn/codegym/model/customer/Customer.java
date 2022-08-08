@@ -11,8 +11,8 @@ public class Customer {
     private String customerName;
     private String customerBirthday;
     private int customerGender;
-    private int customerIdCard;
-    private int customerPhone;
+    private Integer customerIdCard;
+    private Integer customerPhone;
     private String customerEmail;
     private String customerAddress;
 
@@ -55,19 +55,19 @@ public class Customer {
         this.customerGender = customerGender;
     }
 
-    public int getCustomerIdCard() {
+    public Integer getCustomerIdCard() {
         return customerIdCard;
     }
 
-    public void setCustomerIdCard(int customerIdCard) {
+    public void setCustomerIdCard(Integer customerIdCard) {
         this.customerIdCard = customerIdCard;
     }
 
-    public int getCustomerPhone() {
+    public Integer getCustomerPhone() {
         return customerPhone;
     }
 
-    public void setCustomerPhone(int customerPhone) {
+    public void setCustomerPhone(Integer customerPhone) {
         this.customerPhone = customerPhone;
     }
 

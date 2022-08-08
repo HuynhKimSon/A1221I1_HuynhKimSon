@@ -20,6 +20,11 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    public Customer findById(Long id) {
+        return iCustomerRepository.findById(id).orElse(new Customer());
+    }
+
+    @Override
     public void save(Customer customer) {
         iCustomerRepository.save(customer);
     }

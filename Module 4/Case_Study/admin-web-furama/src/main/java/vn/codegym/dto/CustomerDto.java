@@ -1,20 +1,27 @@
 package vn.codegym.dto;
 
-public class CustomerDto {
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+import javax.validation.constraints.Email;
+
+public class CustomerDto implements Validator {
     private Long customerId;
     private Long customerTypeId;
     private String customerName;
     private String customerBirthday;
     private int customerGender;
-    private int customerIdCard;
-    private int customerPhone;
+    private Integer customerIdCard;
+    private Integer customerPhone;
+
+    @Email(regexp = "^(.+)@(.+)$", message = "{email.notFormat}")
     private String customerEmail;
     private String customerAddress;
 
     public CustomerDto() {
     }
 
-    public CustomerDto(Long customerId, Long customerTypeId, String customerName, String customerBirthday, int customerGender, int customerIdCard, int customerPhone, String customerEmail, String customerAddress) {
+    public CustomerDto(Long customerId, Long customerTypeId, String customerName, String customerBirthday, int customerGender, Integer customerIdCard, Integer customerPhone, String customerEmail, String customerAddress) {
         this.customerId = customerId;
         this.customerTypeId = customerTypeId;
         this.customerName = customerName;
@@ -66,19 +73,19 @@ public class CustomerDto {
         this.customerGender = customerGender;
     }
 
-    public int getCustomerIdCard() {
+    public Integer getCustomerIdCard() {
         return customerIdCard;
     }
 
-    public void setCustomerIdCard(int customerIdCard) {
+    public void setCustomerIdCard(Integer customerIdCard) {
         this.customerIdCard = customerIdCard;
     }
 
-    public int getCustomerPhone() {
+    public Integer getCustomerPhone() {
         return customerPhone;
     }
 
-    public void setCustomerPhone(int customerPhone) {
+    public void setCustomerPhone(Integer customerPhone) {
         this.customerPhone = customerPhone;
     }
 
@@ -96,5 +103,28 @@ public class CustomerDto {
 
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+
+        if (customerDto.getCustomerName().isBlank()){
+            errors.rejectValue("customerName","notBlank");
+        }
+
+        if (customerDto.getCustomerBirthday().isBlank()){
+            errors.rejectValue("customerBirthday","notBlank");
+        }
+
+        if (customerDto.getCustomerAddress().isBlank()){
+            errors.rejectValue("customerAddress","notBlank");
+        }
+
     }
 }
