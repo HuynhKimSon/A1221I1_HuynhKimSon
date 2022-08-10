@@ -23,4 +23,5 @@ public class CustomerTypeServiceImpl implements ICustomerTypeService {
     public CustomerType findById(Long id) {
         return customerTypeRepository.findById(id).orElse(new CustomerType());
     }
+
 }

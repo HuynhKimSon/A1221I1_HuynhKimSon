@@ -2,6 +2,9 @@ package vn.codegym.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,44 +27,67 @@ public class CustomerController {
     private ICustomerTypeService customerTypeService;
 
     @GetMapping("")
-    public String list(Model model, CustomerDto customerDto, BindingResult bindingResult) {
-        model.addAttribute("customer", customerService.findAll());
+    public String list(Model model, CustomerDto customerDto, boolean bindingResult, String action, @PageableDefault(value = 10) Pageable pageable) {
+
+        Page findPage = customerService.findPage(pageable);
+
+        model.addAttribute("customer", findPage);
+        model.addAttribute("customerTotalPage", findPage.getTotalPages());
+        model.addAttribute("customerPageSize", findPage.getSize());
+        model.addAttribute("customerTotal", customerService.findAll().size());
         model.addAttribute("customerDto", customerDto);
         model.addAttribute("customerTypeList", customerTypeService.findAll());
-        model.addAttribute("isError", bindingResult.hasFieldErrors());
-        model.addAttribute("isDetail", false);
+        model.addAttribute("isError", bindingResult);
+        model.addAttribute("action", action);
         return "customer/customer";
     }
 
     @PostMapping("")
-    public String create(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult, Model model) {
+        public String create(Model model, @ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult, @PageableDefault(value = 10) Pageable pageable) {
 
         new CustomerDto().validate(customerDto, bindingResult);
 
         if (bindingResult.hasFieldErrors()) {
-            return list(model, customerDto, bindingResult);
+            return list(model, customerDto, bindingResult.hasFieldErrors(), "", pageable);
         }
 
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        model.addAttribute("customerTypeList", customerTypeService.findAll());
-        return ("redirect:/customer");
+
+        CustomerType customerType = customerTypeService.findById(customerDto.getCustomerTypeId());
+        customer.setCustomerType(customerType);
+
+        customerService.save(customer);
+        return list(model, customerDto, false, "CREATE", pageable);
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(Model model, @PathVariable("id") Long id, @PageableDefault(value = 10) Pageable pageable) {
+        customerService.delete(id);
+        return list(model, new CustomerDto(), false, "DELETE", pageable);
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(Model model, @PathVariable("id") Long id, @PageableDefault(value = 10) Pageable pageable) {
 
         Customer customer = customerService.findById(id);
         String customerTypeName = customer.getCustomerType().getCustomerTypeName();
 
         CustomerDto customerDto = new CustomerDto();
+
         BeanUtils.copyProperties(customer, customerDto);
 
-        model.addAttribute("customer", customerService.findAll());
+        Page findPage = customerService.findPage(pageable);
+
+        model.addAttribute("customer", findPage);
+        model.addAttribute("customerTotalPage", findPage.getTotalPages());
+        model.addAttribute("customerPageSize", findPage.getSize());
+        model.addAttribute("customerTotal", customerService.findAll().size());
         model.addAttribute("customerDto", customerDto);
-        model.addAttribute("customerTypeList", customerTypeService.findAll());
         model.addAttribute("customerTypeName", customerTypeName);
         model.addAttribute("isError", false);
+        model.addAttribute("action", "DETAIL");
         return "customer/customer";
     }
+
 }

@@ -118,6 +118,14 @@ public class CustomerDto implements Validator {
             errors.rejectValue("customerName","notBlank");
         }
 
+        if (customerDto.getCustomerIdCard() ==  null ||customerDto.getCustomerIdCard().toString().isBlank()){
+            errors.rejectValue("customerIdCard","notBlank");
+        }
+
+        if (customerDto.getCustomerIdCard() ==  null || customerDto.getCustomerPhone().toString().isBlank()){
+            errors.rejectValue("customerPhone","notBlank");
+        }
+
         if (customerDto.getCustomerBirthday().isBlank()){
             errors.rejectValue("customerBirthday","notBlank");
         }

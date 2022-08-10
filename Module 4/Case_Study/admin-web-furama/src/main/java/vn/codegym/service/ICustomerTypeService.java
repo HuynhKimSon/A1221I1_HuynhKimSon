@@ -8,5 +8,4 @@ public interface ICustomerTypeService {
     List<CustomerType> findAll();
 
     CustomerType findById(Long id);
-
 }

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book App</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/popper.js/2.9.3/umd/popper.js"></script>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+    <style>
+        i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row mt-4 mb-2" style="font-size: 14px">
+        <h2 class="text-center">Library Book App</h2>
+        <table class="table table-hover table-striped text-center align-content-center mt-2">
+            <thead>
+            <th>#</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Quantity</th>
+            <th>Type</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+            <tr th:each="row,rowStat : ${books}">
+                <td th:text="${rowStat.count}"></td>
+                <td th:text="${row.name}"></td>
+                <td th:text="${row.author}"></td>
+                <td th:text="${row.quantity}"></td>
+                <td th:text="${row.bookType.bookTypeName}"></td>
+                <td>
+                    <a class="btn-pay" th:data-pay-id="${row.id}" th:data-pay-name="${row.name}"
+                       th:data-pay-author="${row.author}"><i class="bi bi-bag-check-fill"></i></a>
+
+                    <a class="btn-borrow" th:data-borrow-id="${row.id}" th:data-borrow-name="${row.name}"
+                       th:data-borrow-author="${row.author}" style="color: red"><i
+                            class="bi bi-basket3-fill"></i></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--Modal borrow-->
+<div id="modalBorrowBook" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/borrow" th:object="${book}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Borrow Book</h4>
+                    <button type="button" class="btn-close btn-close-form" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" id="borrowId" th:field="*{id}"/>
+                    <p><strong>Name: </strong><span id="borrowName"></span></p>
+                    <p><strong>Author: </strong><span id="borrowAuthor"></span></p>
+                    <!--                    <p><strong>Quantity borrow: </strong><span><input type="number"/></span></p>-->
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-secondary btn-close-form" data-bs-dismiss="modal" value="Close">
+                    <input type="submit" data-bs-dismiss="modal" class="btn btn-primary"
+                           value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Modal pay-->
+<div id="modalPayBook" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/pay" th:object="${book}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Pay Book</h4>
+                    <button type="button" class="btn-close btn-close-form" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" id="payId" th:field="*{id}"/>
+                    <p><strong>Name: </strong><span id="payName"></span></p>
+                    <p><strong>Author: </strong><span id="payAuthor"></span></p>
+                    <!--                    <p><strong>Quantity pay: </strong><span><input type="number"/></span></p>-->
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-secondary btn-close-form" data-bs-dismiss="modal" value="Close">
+                    <input type="submit" data-bs-dismiss="modal" class="btn btn-primary"
+                           value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalResult" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Result</h4>
+                <button type="button" class="btn-close btn-close-form" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="result"></p>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-secondary btn-close-form" data-bs-dismiss="modal" value="Close">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+
+    // Close Modal
+    $('.btn-close-form').click(function () {
+        location.replace("/")
+    });
+
+    // Borrow Modal
+    $('.btn-borrow').click(function () {
+        let id = $(this).data('borrow-id');
+        let name = $(this).data('borrow-name');
+        let author = $(this).data('borrow-author');
+
+        $("#borrowId").val(id);
+        $("#borrowName").text(name);
+        $("#borrowAuthor").text(author);
+
+        $("#modalBorrowBook").modal('show');
+    });
+
+    // Pay Modal
+    $('.btn-pay').click(function () {
+        let id = $(this).data('pay-id');
+        let name = $(this).data('pay-name');
+        let author = $(this).data('pay-author');
+
+        $("#payId").val(id);
+        $("#payName").text(name);
+        $("#payAuthor").text(author);
+
+        $("#modalPayBook").modal('show');
+    });
+
+    // Open modal result fail
+    if ([[${isError}]]) {
+        $(window).on('load', function () {
+            let msgError = [[${msgError}]];
+            $("#result").text(msgError);
+            $("#result").css("color", "red");
+            $('#modalResult').modal('show');
+        });
+    }
+
+    // Open modal result success
+    if ([[${isSuccess}]]) {
+        $(window).on('load', function () {
+            let msgError = [[${msgError}]];
+            $("#result").text(msgError);
+            $("#result").css("color", "green");
+            $('#modalResult').modal('show');
+        });
+    }
+
+</script>
+</body>
+</html>
