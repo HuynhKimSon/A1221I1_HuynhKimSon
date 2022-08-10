@@ -43,12 +43,12 @@ public class CustomerController {
     }
 
     @PostMapping("")
-        public String create(Model model, @ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult, @PageableDefault(value = 10) Pageable pageable) {
+    public String create(Model model, @ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult, @PageableDefault(value = 10) Pageable pageable) {
 
         new CustomerDto().validate(customerDto, bindingResult);
 
         if (bindingResult.hasFieldErrors()) {
-            return list(model, customerDto, bindingResult.hasFieldErrors(), "", pageable);
+            return list(model, customerDto, bindingResult.hasFieldErrors(), "CREATE", pageable);
         }
 
         Customer customer = new Customer();
@@ -58,13 +58,14 @@ public class CustomerController {
         customer.setCustomerType(customerType);
 
         customerService.save(customer);
-        return list(model, customerDto, false, "CREATE", pageable);
+        return list(model, customerDto, false, "", pageable);
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable("id") Long id, @PageableDefault(value = 10) Pageable pageable) {
+    @PostMapping("/delete")
+    public String delete(Model model, @RequestBody Long id, @PageableDefault(value = 10) Pageable pageable) {
         customerService.delete(id);
-        return list(model, new CustomerDto(), false, "DELETE", pageable);
+//        return list(model, new CustomerDto(), false, "DELETE", pageable);
+        return "redirect:/customer";
     }
 
     @GetMapping("/detail/{id}")

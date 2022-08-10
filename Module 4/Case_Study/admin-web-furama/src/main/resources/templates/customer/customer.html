@@ -22,6 +22,7 @@
             <th>Action</th>
             </thead>
             <tbody>
+
             <tr th:each="row,rowStat : ${customer}">
                 <td th:text="${rowStat.count}"></td>
                 <td th:text="${row.customerName}"></td>
@@ -99,12 +100,16 @@
 
     // Delete Modal
     $('.btn-delete').click(function () {
-        let id = $(this).data('delete-id');
+        var id = {}
+        id["id"] = $(this).data('delete-id');
         $("#deleteModal").modal('show');
         $('.btn-confirm-delete').click(function () {
             $.ajax({
-                type: "GET",
-                url: "customer/delete/" + id,
+                contentType: "application/json",
+                type: "POST",
+                url: "customer/delete",
+                data: JSON.stringify(id),
+                dataType: 'json',
                 success: new bootstrap.Toast($('#toast-delete'), {delay: 2200}).show()
             });
         });
@@ -136,7 +141,6 @@
             document.getElementById("otherGender").checked = true;
             break
     }
-
 </script>
 </body>
 </html>
