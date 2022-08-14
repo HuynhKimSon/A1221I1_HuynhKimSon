@@ -25,14 +25,17 @@ public class ProductController {
     }
 
     @GetMapping()
-    public String list(Model model, CartDto cartDto) {
-        model.addAttribute("totalQuantity", cartDto.totalQuantity());
+    public String list(Model model, @SessionAttribute(name = "cart", required = false) CartDto cart) {
+        if (cart == null) {
+            cart = new CartDto();
+        }
+        model.addAttribute("totalQuantity", cart.totalQuantity());
         model.addAttribute("productList", productService.findAll());
-        return  "product";
+        return "product";
     }
 
     @GetMapping("/add/{id}")
-    public String addToCart(@PathVariable Long id, @SessionAttribute("cart") CartDto cartDto, Model model) {
+    public String addToCart(@PathVariable Long id, @SessionAttribute("cart") CartDto cartDto) {
         Product product = productService.findById(id);
 
         if (product != null) {
@@ -44,6 +47,6 @@ public class ProductController {
             // them san pham vao productDto vao gio hang
             cartDto.addProduct(productDto);
         }
-        return list(model, cartDto);
+        return "redirect:/shop";
     }
 }

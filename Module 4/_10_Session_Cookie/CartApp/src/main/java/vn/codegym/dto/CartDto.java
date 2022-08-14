@@ -44,4 +44,18 @@ public class CartDto {
 
         return result;
     }
+
+    public double totalAmount() {
+        double result = 0.0;
+        Set set = productMap.entrySet();
+        Iterator i = set.iterator();
+        while (i.hasNext()) {
+            Map.Entry item = (Map.Entry) i.next();
+            ProductDto productDto = (ProductDto) item.getKey();
+            double price = productDto.getPrice();
+            int quantity = Integer.parseInt(item.getValue().toString());
+            result += price * quantity;
+        }
+        return result;
+    }
 }
