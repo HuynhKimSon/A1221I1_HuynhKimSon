@@ -26,7 +26,7 @@ public class ProductController {
 
     @GetMapping()
     public String list(Model model, CartDto cartDto) {
-        model.addAttribute("totalProduct", cartDto.totalQuantity());
+        model.addAttribute("totalQuantity", cartDto.totalQuantity());
         model.addAttribute("productList", productService.findAll());
         return  "product";
     }
