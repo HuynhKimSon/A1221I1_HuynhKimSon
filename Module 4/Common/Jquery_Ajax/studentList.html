@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+<h1>Student List</h1>
+<div>
+    <input type="text" id="inputSearch" autocomplete="off">
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Gender</th>
+    </tr>
+    </thead>
+    <tbody>
+        <!--gọi BE va render data vao day-->
+    </tbody>
+</table>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<script>
+    $(document).ready(function () { //kiem tra DOM da san sang su dung
+        $.ajax({
+            url: "http://localhost:8080/student/api/v1",
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data);
+                let tr = [];
+                for(let i = 0; i< data.length; i++){
+                    tr.push("<tr>");
+                    tr.push("<td>" + data[i].id + "</td>");
+                    tr.push("<td>" + data[i].name + "</td>");
+                    tr.push("<td>" + data[i].gender + "</td>");
+                    tr.push("</tr>");
+                }
+                $("table").append((tr.join("")));
+            }
+        })
+
+        $("#inputSearch").keyup(function () {
+            let value = $(this).val();
+
+            $("tbody").empty();
+            $.ajax({
+                url: "http://localhost:8080/student/api/v1/search?name="+value,
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    let tr = [];
+                    for(let i = 0; i< data.length; i++){
+                        tr.push("<tr>");
+                        tr.push("<td>" + data[i].id + "</td>");
+                        tr.push("<td>" + data[i].name + "</td>");
+                        tr.push("<td>" + data[i].gender + "</td>");
+                        tr.push("</tr>");
+                    }
+                    $("table").append((tr.join("")));
+                }
+            })
+
+        })
+    })
+</script>
+
+</body>
+</html>

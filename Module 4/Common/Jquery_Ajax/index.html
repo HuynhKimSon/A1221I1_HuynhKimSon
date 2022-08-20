@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p id="chu">Hello</p>
+    <button>Click me</button>
+    <div style="position: relative; height: 100px; width: 100px; background-color: green"></div>
+
+    <script src="jquery-3.5.1.min.js"></script>
+    <script>
+        // document.getElementById("chu").innerText = "Hello A12"
+        $("#chu").text("Hello A12");
+
+        $("button").click(function () {
+            // $("p").hide();
+            // $("p").show();
+            // $("p").toggle();
+            // $("p").fadeOut(3000);
+            // $("p").fadeIn(3000);
+            // $("p").fadeToggle(3000);
+            $("div").animate({
+                left: '200px',
+                height: '+=100px',
+                width: '+=100px'
+            })
+        })
+    </script>
+</body>
+</html>
