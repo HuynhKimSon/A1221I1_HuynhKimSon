@@ -19,17 +19,27 @@
     <h2 class="mt-5 mb-3 text-center">Blog List</h2>
     <div class="row mb-3">
         <div class="col-6">
-            <a type="button" class="btn btn-primary" data-bs-toggle="modal"
+            <a type="button" class="btn btn-primary" id="btn-create" data-bs-toggle="modal"
                data-bs-target="#createModal">Create</a>
         </div>
     </div>
     <table class="table table-hover table-striped text-center align-content-center" id="blogTable">
+        <thead>
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col" style="width: 500px">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col" style="width: 200px">Create time</th>
+            <th scope="col">Image</th>
+            <th scope="col" style="width: 200px">Action</th>
+        </tr>
+        </thead>
     </table>
     <!-- Create Modal HTML -->
     <div id="createModal" class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form enctype="multipart/form-data">
+                <form enctype="multipart/form-data" id="form-create">
                     <div class="modal-header">
                         <h4 class="modal-title">Create new blog</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
@@ -39,7 +49,7 @@
                         <div class="row">
                             <div class="col-12 form-group mb-2">
                                 <label>Title</label>
-                                <input type="text" class="form-control mt-2" name="title"
+                                <input type="text" class="form-control mt-2" name="title" id="title"
                                        required>
                             </div>
                         </div>
@@ -48,13 +58,13 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Author</label>
-                                    <input type="text" class="form-control mt-2" name="author"
+                                    <input type="text" class="form-control mt-2" name="author" id="author"
                                            required>
                                 </div>
                             </div>
                             <div class="col-6 form-group mb-2">
                                 <label>Image</label>
-                                <input type="file" class="form-control mt-2" name="image"
+                                <input type="file" class="form-control mt-2" name="image" id="image"
                                        accept="image/png, image/jpg"
                                        required>
                             </div>
@@ -63,7 +73,7 @@
                         <div class="row">
                             <div class="col-12 form-group mb-2">
                                 <label>Content</label>
-                                <textarea type="text" class="form-control mt-2" name="content"
+                                <textarea type="text" class="form-control mt-2" name="content" id="content"
                                           required style="height: 200px"></textarea>
                             </div>
                         </div>
@@ -71,7 +81,7 @@
                         <div class="modal-footer">
                             <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Close"
                                    onclick="this.form.reset()">
-                            <input type="submit" class="btn btn-primary" value="Submit">
+                            <input type="button" id="btn-submit-create" class="btn btn-primary" value="Submit">
                         </div>
                     </div>
                 </form>
@@ -82,7 +92,7 @@
     <!-- Detail Modal HTML -->
     <div id="detailModal" class="modal fade">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" >
+            <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Detail blog</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

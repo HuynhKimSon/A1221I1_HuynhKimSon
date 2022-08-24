@@ -5,7 +5,7 @@ $(document).ready(function () {
         url: "/blog",
         dataType: "json",
         success: function (data) {
-            var  html = `<thead>
+            var html = `<thead>
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col" style="width: 500px">Title</th>
@@ -18,14 +18,14 @@ $(document).ready(function () {
                          <tbody>`;
             for (let i = 0; i < data.length; i++) {
                 html += `<tr>
-                            <td>`+(i+1)+`</td>
-                            <td>`+data[i].title+`</td>
-                            <td>`+data[i].author+`</td>
-                            <td>`+data[i].createTime+`</td>
-                            <td><img src="/image/`+data[i].image+`" height="150px"
+                            <td>` + (i + 1) + `</td>
+                            <td>` + data[i].title + `</td>
+                            <td>` + data[i].author + `</td>
+                            <td>` + data[i].createTime + `</td>
+                            <td><img src="/image/` + data[i].image + `" height="150px"
                             width="250px"/></td>
                             <td>
-                                <a style="color: blue" id="btn-detail" data-id="`+data[i].id+`">
+                                <a style="color: blue" id="btn-detail" data-id="` + data[i].id + `">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
                                 <a id="btn-edit">
@@ -37,7 +37,7 @@ $(document).ready(function () {
                             </td>
                         </tr>`
             }
-            html+="</tbody>"
+            html += "</tbody>"
             document.getElementById('blogTable').insertAdjacentHTML('beforeend', html);
         }
     })
@@ -55,9 +55,31 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(dataRequest),
             success: function () {
-                
+
             }
         })
     })
+
+    // Show detail
+    $("#btn-submit-create").click(function () {
+        let image = $("#file")[0];
+        let dataRequest = {
+            title: $("#title").val(),
+            author: $("#author").val(),
+            content: $("#content").val(),
+            image: image.files[0]
+        }
+        console.log(dataRequest);
+        $.ajax({
+            method: "POST",
+            url: "/blog/create",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(dataRequest),
+            success: function (data) {
+                alert("oke");
+            }
+        })
+    });
 
 });

@@ -42,20 +42,18 @@ public class BlogController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity create(@ModelAttribute BlogForm blogForm) {
-        MultipartFile multipartFile = blogForm.getImage();
-        String fileName = multipartFile.getOriginalFilename();
+    public ResponseEntity create(@RequestParam("title") String title, @RequestParam("author") String author, @RequestParam("content") String content, @RequestParam("image") MultipartFile fileName) {
         try {
-            FileCopyUtils.copy(blogForm.getImage().getBytes(), new File(uploadFolder + fileName));
+            FileCopyUtils.copy(fileName.getBytes(), new File(uploadFolder + fileName));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         Blog blog = new Blog();
-        blog.setTitle(blogForm.getTitle());
-        blog.setAuthor(blogForm.getAuthor());
-        blog.setContent(blogForm.getContent());
+        blog.setTitle(title);
+        blog.setAuthor(author);
+        blog.setContent(content);
         blog.setCreateTime(LocalDate.now().toString());
-        blog.setImage(fileName);
+        blog.setImage(fileName.getOriginalFilename());
         blogService.save(blog);
         return new ResponseEntity(HttpStatus.OK);
     }
