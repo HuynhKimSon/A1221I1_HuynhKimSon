@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/blog")
 public class BlogController {
 
@@ -29,10 +30,10 @@ public class BlogController {
 
     @GetMapping()
     public String processBlog() {
-        return "index";
+        return "blog";
     }
 
-    @PostMapping()
+    @PostMapping("/list")
     public ResponseEntity<List<Blog>> list() {
         List<Blog> blogList = blogService.findAll();
         if (blogList.isEmpty()) {
@@ -42,9 +43,9 @@ public class BlogController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity create(@RequestParam("title") String title, @RequestParam("author") String author, @RequestParam("content") String content, @RequestParam("image") MultipartFile fileName) {
+    public ResponseEntity<List<Blog>> create(@RequestParam("id") String id, @RequestParam("title") String title, @RequestParam("author") String author, @RequestParam("content") String content, @RequestParam("image") MultipartFile fileName) {
         try {
-            FileCopyUtils.copy(fileName.getBytes(), new File(uploadFolder + fileName));
+            FileCopyUtils.copy(fileName.getBytes(), new File(uploadFolder + fileName.getOriginalFilename()));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -54,22 +55,25 @@ public class BlogController {
         blog.setContent(content);
         blog.setCreateTime(LocalDate.now().toString());
         blog.setImage(fileName.getOriginalFilename());
+        if (blogService.findById(Long.parseLong(id)) != null) {
+            blog.setId(Long.parseLong(id));
+        }
         blogService.save(blog);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(blogService.findAll(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Blog> delete(@PathVariable("id") Long id) {
+    @PostMapping("/delete")
+    public ResponseEntity<List<Blog>> delete(@RequestParam("id") Long id) {
         Blog blog = blogService.findById(id);
         if (blog == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         blogService.deleteBlogById(id);
-        return new ResponseEntity<>(blog, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(blogService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/detail")
-    public ResponseEntity<Blog> viewDetail(@RequestParam("id") Long id) {
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Blog> detail(@PathVariable("id") Long id) {
         Blog blog = blogService.findById(id);
         if (blog == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

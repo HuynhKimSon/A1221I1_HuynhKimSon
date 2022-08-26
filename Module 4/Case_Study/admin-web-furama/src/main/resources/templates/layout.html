@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav justify-content-between w-75" id="ul-navbar-dropdown">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer}">Customer</a>
+                        <a class="nav-link" th:href="@{/customer/list}">Customer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/employee}">Employee</a>
@@ -49,29 +49,23 @@
 </div>
 
 <!--View toast notification -->
-<div th:fragment="toast" id="toast">
-    <div id="toast-create" class="toast align-items-center text-white bg-primary border-0"
-         style="position: absolute; top: 5%; left:70%;">
-        <div class="d-flex">
-            <div class="toast-body">
-                Your customer is created <strong>successfully!</strong>
+<div th:fragment="notification-success" class="modal fade" id="notification-success" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                    aria-label="Close"></button>
-        </div>
-    </div>
-    <div id="toast-delete" class="toast align-items-center text-white bg-danger border-0"
-         style="position: absolute; top: 5%; left:70%;">
-        <div class="d-flex">
-            <div class="toast-body">
-                Your customer is delete <strong>successfully!</strong>
+            <div class="modal-body">
+                <div class="thank-you-pop">
+                    <img src="/image/Green-Round-Tick.png" alt="">
+                    <h1>Successfully!</h1>
+                </div>
             </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                    aria-label="Close"></button>
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

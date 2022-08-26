@@ -7,7 +7,7 @@ import vn.codegym.model.customer.Customer;
 import java.util.List;
 
 public interface ICustomerService {
-    Page<Customer> findPage(Pageable pageable);
+//    Page<Customer> findPage(Pageable pageable);
 
     List<Customer> findAll();
 

@@ -3,8 +3,8 @@
 <head th:replace="layout :: head">
 <body>
 <!-- Detail Modal HTML -->
-<div th:fragment="detailModal(customerDto,customerTypeName)" id="detailModal" class="modal fade">
-    <div class="modal-dialog modal-lg" th:object="${customerDto}">
+<div th:fragment="detailModal()" id="detailModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Detail customer</h4>
@@ -16,7 +16,7 @@
                     <div class="col-md-6 mb-4">
                         <div class="form-outline">
                             <label class="form-label">Name</label>
-                            <input type="text" id="customerName" name="customerName" th:field="*{customerName}"
+                            <input type="text" id="customerName" name="customerName"
                                    class="form-control" disabled/>
                         </div>
 
@@ -24,7 +24,7 @@
                     <div class="col-md-6 mb-4">
                         <div class="form-outline">
                             <label class="form-label">Customer Type</label>
-                            <input type="text" name="customerTypeId" th:value="${customerTypeName}"
+                            <input type="text" name="customerTypeId"
                                    class="form-control" id="customerTypeId" disabled/>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                     <div class="col-md-6 mb-4 d-flex align-items-center">
                         <div class="form-outline datepicker w-100">
                             <label class="form-label">Birthday</label>
-                            <input type="text" name="customerBirthday" th:field="*{customerBirthday}"
+                            <input type="text" name="customerBirthday"
                                    class="form-control" id="customerBirthday" disabled/>
                         </div>
 
@@ -64,7 +64,7 @@
                     <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
                             <label class="form-label">IdCard</label>
-                            <input type="text" name="customerIdCard" th:field="*{customerIdCard}"
+                            <input type="text" name="customerIdCard"
                                    id="customerIdCard"
                                    class="form-control" disabled/>
                         </div>
@@ -72,7 +72,7 @@
                     <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
                             <label class="form-label">Phone Number</label>
-                            <input type="tel" name="customerPhone" th:field="*{customerPhone}"
+                            <input type="tel" name="customerPhone"
                                    id="customerPhone"
                                    class="form-control" disabled/>
                         </div>
@@ -82,7 +82,7 @@
                     <div class="col-12 mb-4 pb-2">
                         <div class="form-outline">
                             <label class="form-label">Email</label>
-                            <input type="text" name="customerEmail" th:field="*{customerEmail}"
+                            <input type="text" name="customerEmail"
                                    id="customerEmail"
                                    class="form-control" disabled/>
                         </div>
@@ -93,7 +93,7 @@
                     <div class="col-12 mb-4 pb-2">
                         <div class="form-outline">
                             <label class="form-label">Address</label>
-                            <input type="text" name="customerAddress" th:field="*{customerAddress}"
+                            <input type="text" name="customerAddress"
                                    id="customerAddress"
                                    class="form-control" disabled/>
                         </div>
@@ -107,8 +107,7 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" th:inline="javascript">
+<script type="text/javascript">
 </script>
 </body>
 </html>

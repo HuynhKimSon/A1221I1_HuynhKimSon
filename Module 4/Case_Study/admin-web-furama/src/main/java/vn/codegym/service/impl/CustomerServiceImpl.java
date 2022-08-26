@@ -17,10 +17,10 @@ public class CustomerServiceImpl implements ICustomerService {
     @Autowired
     ICustomerRepository iCustomerRepository;
 
-    @Override
-    public Page<Customer> findPage(Pageable pageable) {
-        return iCustomerRepository.findAll(pageable);
-    }
+//    @Override
+//    public Page<Customer> findPage(Pageable pageable) {
+//        return iCustomerRepository.findAll(pageable);
+//    }
 
     @Override
     public List<Customer> findAll() {

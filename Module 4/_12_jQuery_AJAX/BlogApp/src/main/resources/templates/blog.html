@@ -5,6 +5,7 @@
     <title>Blog</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/index.css">
     <script type="text/javascript" src="/webjars/popper.js/2.9.3/umd/popper.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
@@ -46,6 +47,7 @@
                                 onclick="this.form.reset()"></button>
                     </div>
                     <div class="modal-body">
+                        <input type="hidden" id="id" value="0">
                         <div class="row">
                             <div class="col-12 form-group mb-2">
                                 <label>Title</label>
@@ -67,6 +69,7 @@
                                 <input type="file" class="form-control mt-2" name="image" id="image"
                                        accept="image/png, image/jpg"
                                        required>
+                                <span id="image-name" style="color: red"></span>
                             </div>
                         </div>
 
@@ -81,7 +84,7 @@
                         <div class="modal-footer">
                             <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Close"
                                    onclick="this.form.reset()">
-                            <input type="button" id="btn-submit-create" class="btn btn-primary" value="Submit">
+                            <input type="button" class="btn btn-primary" value="Submit" id="btn-submit-create">
                         </div>
                     </div>
                 </form>
@@ -94,29 +97,30 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Detail blog</h4>
+                    <h4 class="modal-title">Detail</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 form-group mb-2">
                             <label>Title</label>
-                            <pre readonly type="text" class="form-control mt-2" name="title"
-                                 required></pre>
+                            <input readonly type="text" class="form-control mt-2" name="title" id="title-detail"
+                                   required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group mb-2">
                                 <label>Author</label>
-                                <input readonly type="text" class="form-control mt-2" name="author"
+                                <input readonly type="text" class="form-control mt-2" name="author" id="author-detail"
                                        required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group mb-2">
                                 <label>Create Time</label>
-                                <input readonly type="text" class="form-control mt-2" name="author"
+                                <input readonly type="text" class="form-control mt-2" name="createTime"
+                                       id="createTime-detail"
                                        required>
                             </div>
                         </div>
@@ -124,8 +128,9 @@
                     <div class="row">
                         <div class="col-12 form-group mb-2">
                             <label>Content</label>
-                            <pre readonly type="text" class="form-control mt-2" name="content"
-                                 required style="height: 200px"></pre>
+                            <textarea readonly type="text" class="form-control mt-2" name="content" id="content-detail"
+                                      style="height: 200px"
+                                      required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -141,7 +146,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete blog</h4>
+                    <h4 class="modal-title">Delete</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -149,7 +154,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Close">
-                    <input type="submit" data-bs-dismiss="modal" class="btn btn-danger btn-confirm-delete"
+                    <input type="submit" data-bs-dismiss="modal" class="btn btn-danger" id="btn-submit-delete"
                            value="Confirm">
                 </div>
             </div>
@@ -158,30 +163,118 @@
 
 </div>
 
-<!--View toast notification -->
-<div id="toast-create" class="toast align-items-center text-white bg-primary border-0"
-     style="position: absolute; top: 5%; left:70%;">
-    <div class="d-flex">
-        <div class="toast-body">
-            Your blog is created <strong>successfully!</strong>
+<!--View modal notification -->
+<div class="modal fade" id="notification-success" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="thank-you-pop">
+                    <img src="/image/Green-Round-Tick.png" alt="">
+                    <h1>Successfully!</h1>
+                </div>
+            </div>
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                aria-label="Close"></button>
-    </div>
-</div>
-<div id="toast-delete" class="toast align-items-center text-white bg-danger border-0"
-     style="position: absolute; top: 5%; left:70%;">
-    <div class="d-flex">
-        <div class="toast-body">
-            Your blog is delete <strong>successfully!</strong>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                aria-label="Close"></button>
     </div>
 </div>
 
-<script type="text/javascript" th:inline="javascript">
+<script type="text/javascript">
+    // Delete
+    function remove(id) {
+        $('#deleteModal').modal('show');
+        $('#btn-submit-delete').click(function () {
+            let dataRequest = new FormData();
+            dataRequest.append("id", id);
+            $.ajax({
+                method: "POST",
+                url: "/blog/delete",
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                data: dataRequest,
+                success: function (data) {
+                    var html = `<table class="table table-hover table-striped text-center align-content-center" id="blogTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col" style="width: 500px">Title</th>
+                                        <th scope="col">Author</th>
+                                        <th scope="col" style="width: 200px">Create time</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col" style="width: 200px">Action</th>
+                                     </tr>
+                                </thead>`;
+                    for (let i = 0; i < data.length; i++) {
+                        html += `<tr>
+                            <td>` + (i + 1) + `</td>
+                            <td>` + data[i].title + `</td>
+                            <td>` + data[i].author + `</td>
+                            <td>` + data[i].createTime + `</td>
+                            <td><img src="/image/` + data[i].image + `" height="150px"
+                            width="250px"/></td>
+                            <td>
+                           <a style="color: blue" id="btn-detail" onclick="detail(` + data[i].id + `)">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
+                                <a id="btn-edit" onclick="edit(` + data[i].id + `)">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                 <a type="button" style="color: red" id="btn-delete" onclick="remove(` + data[i].id + `)">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
+                        </tr>`
+                    }
+                    html += '</table>';
+                    document.getElementById("blogTable").innerHTML = html;
+                    $('#deleteModal').modal('hide');
+                    $('#notification-success').modal('show');
+                    setTimeout(function () {
+                        $('#notification-success').modal('hide');
+                    }, 1500);
+                }
+            })
+        })
+    }
 
+    // Delete
+    function detail(id) {
+        $('#detailModal').modal('show');
+        $.ajax({
+            method: "GET",
+            url: "/blog/detail/" + id,
+            dataType: "json",
+            success: function (data) {
+                $('#title-detail').val(data.title);
+                $('#author-detail').val(data.author);
+                $('#createTime-detail').val(data.createTime);
+                $('#content-detail').val(data.content);
+            }
+        })
+    }
+
+    // Edit
+    function edit(id) {
+        let dataRequest = new FormData();
+        dataRequest.append("id", id);
+        $.ajax({
+            method: "GET",
+            url: "/blog/detail/" + id,
+            dataType: "json",
+            success: function (data) {
+                $('#id').val(data.id);
+                $('#title').val(data.title);
+                $('#author').val(data.author);
+                $('#createTime').val(data.createTime);
+                $('#content').val(data.content);
+                $('#image-name').text("*" + data.image);
+            }
+        })
+        $('#createModal').modal('show');
+    }
 </script>
 <script type="text/javascript" src="/js/index.js"></script>
 </body>

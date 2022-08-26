@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+<body>
+<!-- Create Modal HTML -->
+<div th:fragment="createModal(customerDto,customerTypeList)" id="createModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" th:action="@{/customer}" th:object="${customerDto}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create new customer</h4>
+                    <button type="button" class="btn-close btn-close-form" data-bs-dismiss="modal" aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="form-outline">
+                                <label class="form-label">Name</label>
+                                <input type="text" id="customerName" name="customerName" th:field="*{customerName}"
+                                       class="form-control"/>
+                                <p style="color: red" th:if="${#fields.hasErrors('customerName')}"
+                                   th:errors="*{customerName}" class="form-label"></p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="form-outline">
+                                <label class="form-label">Customer Type</label>
+                                <select class="form-select" th:field="*{customerTypeId}" id="customerTypeId"
+                                        name="customerTypeId"
+                                        aria-label="Default select example">
+                                    <option th:each="item: ${customerTypeList}"
+                                            th:value="${item.customerTypeId}"
+                                            th:text="${item.customerTypeName}"></option>
+                                </select>
+                                <p style="color: red" th:if="${#fields.hasErrors('customerTypeId')}"
+                                   th:errors="*{customerTypeId}" class="form-label"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4 d-flex align-items-center">
+                            <div class="form-outline datepicker w-100">
+                                <label class="form-label">Birthday</label>
+                                <input type="date" name="customerBirthday" th:field="*{customerBirthday}"
+                                       class="form-control" id="customerBirthday"/>
+                                <p style="color: red" th:if="${#fields.hasErrors('customerBirthday')}"
+                                   th:errors="*{customerBirthday}" class="form-label"></p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h6 class="mb-2 pb-1">Gender: </h6>
+                            <div class="mt-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="femaleGender" name="customerGender"
+                                           th:field="*{customerGender}"
+                                           value="0"/>
+                                    <label class="form-check-label">Female</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="maleGender" name="customerGender"
+                                           th:field="*{customerGender}"
+                                           value="1"/>
+                                    <label class="form-check-label">Male</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="otherGender" name="customerGender"
+                                           th:field="*{customerGender}"
+                                           value="2"/>
+                                    <label class="form-check-label">Other</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label">IdCard</label>
+                                <input type="text" name="customerIdCard" th:field="*{customerIdCard}"
+                                       id="customerIdCard"
+                                       class="form-control"/>
+                                <p style="color: red" th:if="${#fields.hasErrors('customerIdCard')}"
+                                   th:errors="*{customerIdCard}"
+                                   class="form-label"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" name="customerPhone" th:field="*{customerPhone}" id="customerPhone"
+                                       class="form-control"/>
+                                <p style="color: red" th:if="${#fields.hasErrors('customerPhone')}"
+                                   th:errors="*{customerPhone}" class="form-label"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label">Email</label>
+                                <input type="text" name="customerEmail" th:field="*{customerEmail}" id="customerEmail"
+                                       class="form-control"/>
+                                <p style="color: red" th:if="${#fields.hasErrors('customerEmail')}"
+                                   th:errors="*{customerEmail}" class="form-label"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label">Address</label>
+                                <input type="text" name="customerAddress" th:field="*{customerAddress}"
+                                       id="customerAddress"
+                                       class="form-control"/>
+                                <p style="color: red" th:if="${#fields.hasErrors('customerAddress')}"
+                                   th:errors="*{customerAddress}" class="form-label"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-secondary btn-close-form" data-bs-dismiss="modal"
+                               value="Close">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+
+</script>
+</body>
+</html>

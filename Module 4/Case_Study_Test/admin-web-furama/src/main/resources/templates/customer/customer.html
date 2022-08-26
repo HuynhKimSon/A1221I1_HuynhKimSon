@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+<div class="container">
+    <div class="row mt-4 mb-2" style="font-size: 14px">
+        <div class="row mb-2">
+            <div class="col-6" style="padding-left: 0">
+                <a type="button" id="btn-create" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i></a>
+            </div>
+        </div>
+        <table class="table table-hover table-striped text-center align-content-center">
+            <thead>
+            <th>#</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Type</th>
+            <th>Email</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+
+            <tr th:each="row,rowStat : ${customer}">
+                <td th:text="${rowStat.count}"></td>
+                <td th:text="${row.customerName}"></td>
+                <td th:th:switch="${row.customerGender}">
+                    <span th:case="0">Female</span>
+                    <span th:case="1">Male</span>
+                    <span th:case="*">Other</span>
+                </td>
+                <td th:text="${row.customerPhone}"></td>
+                <td th:text="${row.customerType.customerTypeName}"></td>
+                <td th:text="${row.customerEmail}"></td>
+                <td>
+                    <a th:href="@{/customer/detail/{id}(id = ${row.customerId})}"><i
+                            class="bi bi-eye-fill"></i></i></a>
+
+                    <a th:href="@{/customer/edit/{id}(id = ${row.customerId})}"><i
+                            class="bi bi-pencil-square"></i></a>
+
+                    <a class="btn-delete" th:data-delete-id="${row.customerId}" style="color: red"><i
+                            class="bi bi-trash"></i></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${customerTotalPage > 0}">
+            <nav th:fragment="pagination(customer,customerTotal,customerTotalPage,customerPageSize)"
+                 aria-label="Page navigation example">
+
+
+                <ul class="pagination justify-content-end">
+                    <li style="margin-right: 15px; line-height: 35px">
+                        <span>Page </span>
+                        <span th:text="${customer.number + 1}"></span>
+                        <span> / Show list from 1 to </span>
+                        <span th:text="${customerPageSize}"></span>
+                        <span> of </span>
+                        <span th:text="${customerTotal}"></span>
+                        <span> record</span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/customer'(page=${customer.number - 1})}"
+                           th:if="${customer.hasPrevious()}">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/customer'(page=${customer.number + 1})}"
+                           th:if="${customer.hasNext()}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{customer/delete :: deleteModal()}"></div>
+
+<div th:if="${isDetail == false}"
+     th:replace="~{customer/create :: createModal(customerDto=${customerDto},customerTypeList=${customerTypeList})}"></div>
+
+<div th:if="${isDetail == true}"
+     th:replace="~{customer/detail :: detailModal(customerDto=${customerDto},customerTypeName=${customerTypeName})}"></div>
+
+<div th:replace="~{layout :: toast}"></div>
+
+<script type="text/javascript" th:inline="javascript">
+
+    // Open Modal Create
+    $('#btn-create').click(function () {
+        $("#createModal").modal('show');
+    });
+
+    // Close Modal
+    $('.btn-close-form').click(function () {
+        location.replace("/customer")
+    });
+
+    // Delete Modal
+    $('.btn-delete').click(function () {
+        var id = {}
+        id["id"] = $(this).data('delete-id');
+        $("#deleteModal").modal('show');
+        $('.btn-confirm-delete').click(function () {
+            $.ajax({
+                contentType: "application/json",
+                type: "POST",
+                url: "customer/delete",
+                data: JSON.stringify(id),
+                dataType: 'json',
+                success: new bootstrap.Toast($('#toast-delete'), {delay: 2200}).show()
+            });
+        });
+    });
+
+    // Validate form create
+    if ([[${action}]] == "CREATE") {
+        $(window).on('load', function () {
+            $('#createModal').modal('show');
+        });
+    }
+
+    // Validate form detail
+    if ([[${action}]] == "DETAIL") {
+        $(window).on('load', function () {
+            $('#detailModal').modal('show');
+        });
+    }
+
+    // Check radio detail gender
+    switch ([[${customerDto.customerGender}]]) {
+        case 0:
+            document.getElementById("femaleGender").checked = true;
+            break;
+        case 1:
+            document.getElementById("maleGender").checked = true;
+            break;
+        default:
+            document.getElementById("otherGender").checked = true;
+            break
+    }
+</script>
+</body>
+</html>
