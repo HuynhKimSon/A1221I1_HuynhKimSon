@@ -20,9 +20,6 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
-    @Autowired
-    private ICustomerTypeService customerTypeService;
-
     @GetMapping()
     public String processCustomer() {
         return prefix + "/customer";

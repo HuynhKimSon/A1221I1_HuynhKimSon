@@ -2,6 +2,8 @@ package vn.codegym.blogapp.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 public class BlogForm {
     private Long id;
 

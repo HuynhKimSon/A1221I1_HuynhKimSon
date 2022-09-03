@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+<body>
+<!-- Detail Modal HTML -->
+<div th:fragment="detailModal()" id="detailModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detail customer</h4>
+                <button type="button" class="btn-close btn-close-form" data-bs-dismiss="modal" aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            <label class="form-label">Name</label>
+                            <input type="text" id="detail-customerName" name="customerName"
+                                   class="form-control" disabled/>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            <label class="form-label">Customer Type</label>
+                            <input type="text" name="customerTypeId"
+                                   class="form-control" id="detail-customerTypeId" disabled/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4 d-flex align-items-center">
+                        <div class="form-outline datepicker w-100">
+                            <label class="form-label">Birthday</label>
+                            <input type="text" name="customerBirthday"
+                                   class="form-control" id="detail-customerBirthday" disabled/>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            <label class="form-label">Gender</label>
+                            <input type="text" name="customerGender"
+                                   id="detail-customerGender"
+                                   class="form-control" disabled/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                            <label class="form-label">IdCard</label>
+                            <input type="text" name="customerIdCard"
+                                   id="detail-customerIdCard"
+                                   class="form-control" disabled/>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="customerPhone"
+                                   id="detail-customerPhone"
+                                   class="form-control" disabled/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-4 pb-2">
+                        <div class="form-outline">
+                            <label class="form-label">Email</label>
+                            <input type="text" name="customerEmail"
+                                   id="detail-customerEmail"
+                                   class="form-control" disabled/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mb-4 pb-2">
+                        <div class="form-outline">
+                            <label class="form-label">Address</label>
+                            <input type="text" name="customerAddress"
+                                   id="detail-customerAddress"
+                                   class="form-control" disabled/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-secondary btn-close-form" data-bs-dismiss="modal" value="Close">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

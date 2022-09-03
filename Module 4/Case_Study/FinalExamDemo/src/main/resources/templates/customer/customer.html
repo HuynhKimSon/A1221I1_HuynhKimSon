@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+<div class="container">
+    <div class="row mt-5 mb-4" style="font-size: 14px">
+        <div class="row mb-5">
+            <div class="col-2" style="padding-left: 0">
+                <a type="button" id="btn-create" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i></a>
+            </div>
+            <div class="col-10" style="padding-left: 0">
+                <form id="form-customer-search">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-3">
+                            <select class="form-select" id="key-Search"
+                                    name="key-Search"
+                                    aria-label="Default select example">
+                                <option value="">All</option>
+                                <option value="customerName">Customer name</option>
+                                <option value="customerPhoneNumber">Customer phone number</option>
+                                <option value="customerType">Customer type</option>
+                                <option value="customerIdCard">Customer idCard</option>
+                                <option value="customerAddress">Customer address</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="value-search" autofocus placeholder="Please enter your search information..."
+                                   id="value-search"
+                                   class="form-control"/>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-primary" type="button" id="btn-search">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <table class="table table-hover table-striped text-center align-content-center" id="table-customer">
+            <thead>
+            <th>#</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Type</th>
+            <th>Email</th>
+            <th>Action</th>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div th:replace="~{customer/delete :: deleteModal()}"></div>
+
+<div th:replace="~{customer/create :: createModal()}"></div>
+
+<div th:replace="~{customer/detail :: detailModal()}"></div>
+
+<div th:replace="~{layout :: notification-success}"></div>
+
+<script type="text/javascript" src="/js/customer.js"></script>
+<script type="text/javascript">
+    // Show list
+    function showList(data) {
+        var html = `<table className="table table-hover table-striped text-center align-content-center"
+                          id="table-customer">
+                        <thead>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Type</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </thead>`;
+        for (let i = 0; i < data.length; i++) {
+            // Check Gender
+            if (data[i].customerGender == 0) {
+                data[i].customerGender = "Female"
+            } else if (data[i].customerGender == 1) {
+                data[i].customerGender = "Male"
+            } else {
+                data[i].customerGender = "Other"
+            }
+            html += `<tr>
+                            <td>` + (i + 1) + `</td>
+                            <td>` + data[i].customerName + `</td>
+                            <td>` + data[i].customerGender + `</td>
+                            <td>` + data[i].customerPhone + `</td>
+                            <td>` + data[i].customerType.customerTypeName + `</td>
+                            <td>` + data[i].customerEmail + `</td>
+                            <td>
+                                 <a style="color: blue" id="btn-detail" onclick="viewDetail(` + data[i].customerId + `)">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
+                                <a style="color: blue" id="btn-edit" onclick="update(` + data[i].customerId + `)">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a type="button" style="color: red" id="btn-delete" onclick="remove(` + data[i].customerId + `)">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
+                        </tr>`
+        }
+        html += '</table>';
+        document.getElementById("table-customer").innerHTML = html;
+    }
+
+    // Show detail
+    function viewDetail(id) {
+        $("#form-create").trigger("reset");
+        $.ajax({
+            type: "POST",
+            url: "customer/detail?id=" + id,
+            dataType: "json",
+            success: function (data) {
+                $('#detailModal').modal('show');
+                $("#detail-customerName").val(data.customerName);
+                $("#detail-customerTypeId").val(data.customerType.customerTypeName);
+                $("#detail-customerBirthday").val(data.customerBirthday);
+                $("#detail-customerIdCard").val(data.customerIdCard);
+                $("#detail-customerPhone").val(data.customerPhone);
+                $("#detail-customerEmail").val(data.customerEmail);
+                $("#detail-customerAddress").val(data.customerAddress);
+                if (data.customerGender == 0) {
+                    $("#detail-customerGender").val("Female");
+                } else if (data.customerGender == 1) {
+                    $("#detail-customerGender").val("Male");
+                } else {
+                    $("#detail-customerGender").val("Other");
+                    ;
+                }
+            }
+        })
+    }
+
+    // Show info update
+    function update(id) {
+        $("#form-create").trigger("reset");
+        validate(null);
+        $.ajax({
+            type: "POST",
+            url: "customer/edit?id=" + id,
+            dataType: "json",
+            success: function (data) {
+                $('#createModal').modal('show');
+                $("#customerId").val(data.customer.customerId);
+                $("#customerName").val(data.customer.customerName);
+                $("#customerBirthday").val(data.customer.customerBirthday);
+                $("#customerIdCard").val(data.customer.customerIdCard);
+                $("#customerPhone").val(data.customer.customerPhone);
+                $("#customerEmail").val(data.customer.customerEmail);
+                $("#customerAddress").val(data.customer.customerAddress);
+                $.each(data.customerType, function (index, option) {
+                    $("select[name=customerTypeId]").find('[value="' + option.customerTypeId + '"]').remove();
+                    $("select[name=customerTypeId]").append('<option value="' + option.customerTypeId + '">' + option.customerTypeName + '</option>')
+                });
+                $("#customerTypeId").val(data.customer.customerType.customerTypeId);
+                if (data.customer.customerGender == 0) {
+                    $('input:radio[name="customerGender"][value="0"]').attr('checked', true);
+                    $('input:radio[name="customerGender"][value="1"]').attr('checked', false);
+                    $('input:radio[name="customerGender"][value="2"]').attr('checked', false);
+                } else if (data.customer.customerGender == 1) {
+                    $('input:radio[name="customerGender"][value="0"]').attr('checked', false);
+                    $('input:radio[name="customerGender"][value="1"]').attr('checked', true);
+                    $('input:radio[name="customerGender"][value="2"]').attr('checked', false);
+                } else if (data.customer.customerGender == 2) {
+                    $('input:radio[name="customerGender"][value="0"]').attr('checked', false);
+                    $('input:radio[name="customerGender"][value="1"]').attr('checked', false);
+                    $('input:radio[name="customerGender"][value="2"]').attr('checked', true);
+                }
+            }
+        })
+    }
+
+    // Remove
+    function remove(id) {
+        $('#deleteModal').modal('show');
+        event.preventDefault();
+        $("#btn-confirm-delete").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "customer/delete?id=" + id,
+                dataType: "json",
+                success: function (data) {
+                    showList(data);
+                    $('#deleteModal').modal('hide');
+                    $('#notification-success').modal('show');
+                    setTimeout(function () {
+                        $('#notification-success').modal('hide');
+                    }, 1500);
+                }
+            })
+        })
+    }
+
+    // Validate
+    function validate(errors) {
+        if (errors == null) {
+            $("#error-customerName").text("");
+            $("#error-customerTypeId").text("");
+            $("#error-customerBirthday").text("");
+            $("#error-customerIdCard").text("");
+            $("#error-customerPhone").text("");
+            $("#error-customerEmail").text("");
+            $("#error-customerAddress").text("");
+            return;
+        }
+        if (errors.customerName != null) {
+            $("#error-customerName").text(errors.customerName);
+        } else {
+            $("#error-customerName").text("");
+        }
+        if (errors.customerTypeId != null) {
+            $("#error-customerTypeId").text(errors.customerTypeId);
+        } else {
+            $("#error-customerTypeId").text("");
+        }
+        if (errors.customerBirthday != null) {
+            $("#error-customerBirthday").text(errors.customerBirthday);
+        } else {
+            $("#error-customerBirthday").text("");
+        }
+        if (errors.customerIdCard != null) {
+            $("#error-customerIdCard").text(errors.customerIdCard);
+        } else {
+            $("#error-customerIdCard").text("");
+        }
+        if (errors.customerPhone != null) {
+            $("#error-customerPhone").text(errors.customerPhone);
+        } else {
+            $("#error-customerPhone").text("");
+        }
+        if (errors.customerEmail != null) {
+            $("#error-customerEmail").text(errors.customerEmail);
+        } else {
+            $("#error-customerEmail").text("");
+        }
+        if (errors.customerAddress != null) {
+            $("#error-customerAddress").text(errors.customerAddress);
+        } else {
+            $("#error-customerAddress").text("");
+        }
+    }
+
+</script>
+</body>
+</html>

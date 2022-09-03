@@ -5,6 +5,7 @@ $(document).ready(function () {
         url: "/customer/list",
         dataType: "json",
         success: function (data) {
+            console.log(data);
             var html = "";
             for (let i = 0; i < data.length; i++) {
                 html += `<tr>

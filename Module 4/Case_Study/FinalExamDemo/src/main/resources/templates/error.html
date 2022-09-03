@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout :: head">
+<body>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12" style="display: flex; justify-content: center; text-align: center;">
+            <div class="content">
+                <h1 style="font-size:146px; font-weight: 700; margin: 0">4<span style="display: inline-block"><img
+                        th:src="@{/image/error.png}"
+                        height="120px" width="120px"></span>4</h1>
+                <div>
+                    <h2>Oops! Page Not Be Found</h2>
+                    <p style="font-family: sans-serif; font-weight: 300; color: #787878">Sorry but the page you are looking for does not exist, have been removed. name changed or is
+                        temporarily unavailable</p>
+                </div>
+                <button  th:href="@{/}" class="button" style="height: 50px;width: 200px; font-size: 18px ;background-color: #f99827; font-weight: bold; border: none; border-radius: 30px">
+                    <a th:href="@{/}" style="color: white; text-decoration: none">Back to homepage</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
