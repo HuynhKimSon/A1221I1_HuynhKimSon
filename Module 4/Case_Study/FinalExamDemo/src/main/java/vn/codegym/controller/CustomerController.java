@@ -70,4 +70,10 @@ public class CustomerController {
         List<Customer> list = customerService.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Customer>> search(@RequestParam("key") String key, @RequestParam("val") String val){
+        List<Customer> list = customerService.search(key,val);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

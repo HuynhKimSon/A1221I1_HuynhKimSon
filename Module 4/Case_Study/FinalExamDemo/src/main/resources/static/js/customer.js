@@ -58,7 +58,7 @@ $(document).ready(function () {
                     $('#notification-success').modal('show');
                     setTimeout(function () {
                         $('#notification-success').modal('hide');
-                    }, 1500);
+                    }, 1200);
                 }
             }
         })

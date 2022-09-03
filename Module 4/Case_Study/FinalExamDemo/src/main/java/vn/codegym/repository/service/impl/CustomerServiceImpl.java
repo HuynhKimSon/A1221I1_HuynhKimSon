@@ -1,7 +1,9 @@
 package vn.codegym.repository.service.impl;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import vn.codegym.dto.CustomerDto;
 import vn.codegym.dto.response.ResultCustomerRes;
@@ -9,6 +11,7 @@ import vn.codegym.model.customer.Customer;
 import vn.codegym.model.customer.CustomerType;
 import vn.codegym.repository.ICustomerRepository;
 import vn.codegym.repository.service.ICustomerService;
+import vn.codegym.type.SearchType;
 import vn.codegym.type.StatusType;
 
 import java.util.HashMap;
@@ -63,27 +66,53 @@ public class CustomerServiceImpl implements ICustomerService {
         iCustomerRepository.deleteById(id);
     }
 
+    @Override
+    public List<Customer> search(String key, String val) {
+        if (key.equals(SearchType.NAME.value())) {
+            return iCustomerRepository.findByCustomerName(val);
+        }
+        if (key.equals(SearchType.PHONE.value())) {
+            return iCustomerRepository.findByCustomerPhone(val);
+        }
+        if (key.equals(SearchType.TYPE.value())) {
+            return iCustomerRepository.findByCustomerType(val);
+        }
+        if (key.equals(SearchType.ID_CARD.value())) {
+            return iCustomerRepository.findByCustomerIdCard(val);
+        }
+        if (key.equals(SearchType.ADDRESS.value())) {
+            return iCustomerRepository.findByCustomerAddress(val);
+        }
+        return iCustomerRepository.findAll();
+    }
+
     private HashMap<String, String> checkCustomer(CustomerDto customerDto) {
         HashMap<String, String> errors = new HashMap<>();
 
         if (customerDto.getCustomerName() == null || customerDto.getCustomerName().isBlank()) {
             errors.put("customerName", "Not blank");
         }
+
         if (customerDto.getCustomerBirthday() == null || customerDto.getCustomerBirthday().isBlank()) {
             errors.put("customerBirthday", "Not blank");
         }
-        if (customerDto.getCustomerIdCard() == null || customerDto.getCustomerIdCard().isBlank()) {
-            errors.put("customerIdCard", "Not blank");
+
+        if (customerDto.getCustomerIdCard() == null || customerDto.getCustomerIdCard().isBlank() || !NumberUtils.isParsable(customerDto.getCustomerIdCard())) {
+            errors.put("customerIdCard", "Number is required");
         }
-        if (customerDto.getCustomerPhone() == null || customerDto.getCustomerPhone().isBlank()) {
-            errors.put("customerPhone", "Not blank");
+
+        if (customerDto.getCustomerPhone() == null || customerDto.getCustomerPhone().isBlank() || !NumberUtils.isParsable(customerDto.getCustomerPhone())) {
+            errors.put("customerPhone", "Number is required");
         }
+
         if (customerDto.getCustomerEmail() == null || customerDto.getCustomerEmail().isBlank()) {
             errors.put("customerEmail", "Not blank");
         }
+
         if (customerDto.getCustomerAddress() == null || customerDto.getCustomerAddress().isBlank()) {
             errors.put("customerAddress", "Not blank");
         }
+
         if (customerDto.getCustomerTypeId() == null || customerDto.getCustomerTypeId().isBlank()) {
             errors.put("customerTypeName", "Not blank");
         }

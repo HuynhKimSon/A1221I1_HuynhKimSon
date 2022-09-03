@@ -15,4 +15,6 @@ public interface ICustomerService {
     ResultCustomerRes save(CustomerDto customerDto);
 
     void delete(Long id);
+
+    List<Customer> search(String key, String val);
 }

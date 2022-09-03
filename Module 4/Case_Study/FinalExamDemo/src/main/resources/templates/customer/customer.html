@@ -15,24 +15,25 @@
                     <div class="row">
                         <div class="col-2"></div>
                         <div class="col-3">
-                            <select class="form-select" id="key-Search"
-                                    name="key-Search"
+                            <select class="form-select" id="key-search"
+                                    name="key-search"
                                     aria-label="Default select example">
                                 <option value="">All</option>
-                                <option value="customerName">Customer name</option>
-                                <option value="customerPhoneNumber">Customer phone number</option>
-                                <option value="customerType">Customer type</option>
-                                <option value="customerIdCard">Customer idCard</option>
-                                <option value="customerAddress">Customer address</option>
+                                <option value="NAME">Name</option>
+                                <option value="PHONE">Phone number</option>
+                                <option value="TYPE">Type</option>
+                                <option value="ID_CARD">IdCard</option>
+                                <option value="ADDRESS">Address</option>
                             </select>
                         </div>
                         <div class="col-6">
-                            <input type="text" name="value-search" autofocus placeholder="Please enter your search information..."
+                            <input type="text" name="value-search" autofocus
+                                   placeholder="Please enter your search information..."
                                    id="value-search"
                                    class="form-control"/>
                         </div>
                         <div class="col-1">
-                            <button class="btn btn-primary" type="button" id="btn-search">Search</button>
+                            <button class="btn btn-primary" type="button" onclick="search()">Search</button>
                         </div>
                     </div>
                 </form>
@@ -48,6 +49,7 @@
             <th>Email</th>
             <th>Action</th>
             </thead>
+            <tbody id="tbody-customer"></tbody>
         </table>
     </div>
 </div>
@@ -74,7 +76,7 @@
                             <th>Type</th>
                             <th>Email</th>
                             <th>Action</th>
-                        </thead>`;
+                        </thead> <tbody id="tbody-customer">`;
         for (let i = 0; i < data.length; i++) {
             // Check Gender
             if (data[i].customerGender == 0) {
@@ -104,7 +106,7 @@
                             </td>
                         </tr>`
         }
-        html += '</table>';
+        html += '</tbody></table>';
         document.getElementById("table-customer").innerHTML = html;
     }
 
@@ -130,7 +132,6 @@
                     $("#detail-customerGender").val("Male");
                 } else {
                     $("#detail-customerGender").val("Other");
-                    ;
                 }
             }
         })
@@ -190,9 +191,26 @@
                     $('#notification-success').modal('show');
                     setTimeout(function () {
                         $('#notification-success').modal('hide');
-                    }, 1500);
+                    }, 1200);
                 }
             })
+        })
+    }
+
+    // Search
+    function search() {
+        let key = $("#key-search").val();
+        let val = $("#value-search").val();
+        $.ajax({
+            type: "GET",
+            url: "/customer/search?key=" + key + "&val=" + val,
+            dataType: "json",
+            success: function (data) {
+                showList(data);
+                if (data.length == 0) {
+                    document.getElementById("tbody-customer").innerHTML = `<tr><td colspan="7" class="text-danger">No records found!</td></tr>`;
+                }
+            }
         })
     }
 
