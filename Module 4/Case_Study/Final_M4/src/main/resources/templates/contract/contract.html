@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout :: head">
+</head>
+<body>
+<div class="container">
+    <div class="row mt-5 mb-4" style="font-size: 14px">
+        <div class="row mb-5">
+            <div class="col-2" style="padding-left: 0">
+                <a type="button" id="btn-create" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i></a>
+            </div>
+        </div>
+        <table class="table table-hover table-striped text-center align-content-center" id="table-contract">
+            <thead>
+            <th>Mã hợp đồng</th>
+            <th>Mã phòng</th>
+            <th>Tên người thuê</th>
+            <th>Ngày làm hợp đồng</th>
+            <th>Thời gian thuê</th>
+            <th>Tổng tiền</th>
+            <th>Action</th>
+            </thead>
+            <tbody id="tbody-contract"></tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="~{contract/delete :: deleteModal()}"></div>
+
+<div th:replace="~{contract/create :: createModal()}"></div>
+
+<div th:replace="~{layout :: notification-success}"></div>
+
+<script type="text/javascript" src="/js/contract.js"></script>
+</body>
+
+<script type="text/javascript">
+    function showList(data) {
+        var html = `<table className="table table-hover table-striped text-center align-content-center"
+                          id="table-customer">
+                        <thead>
+                                <th>Mã hợp đồng</th>
+                                <th>Mã phòng</th>
+                                <th>Tên người thuê</th>
+                                <th>Ngày làm hợp đồng</th>
+                                <th>Thời gian thuê</th>
+                                <th>Tổng tiền</th>
+                                <th>Action</th>
+                        </thead> <tbody id="tbody-contract">`;
+        for (let i = 0; i < data.length; i++) {
+            let idContract = "HD-" + data[i].idContract;
+            let idHouse = "PT-" + data[i].house.idHouse;
+            html += `<tr>
+                            <td>` + idContract + `</td>
+                            <td>` + idHouse + `</td>
+                            <td>` + data[i].nameCustomer + `</td>
+                            <td>` + data[i].createTime + `</td>
+                            <td>` + data[i].typeTime + `</td>
+                            <td>` + data[i].totalAmount + `</td>
+                            <td>
+                                <a type="button" style="color: red" id="btn-delete" onclick="remove(` + data[i].idContract + `)">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
+                        </tr>`
+        }
+        html += '</tbody></table>';
+        document.getElementById("table-contract").innerHTML = html;
+    }
+
+    function remove(id) {
+        $('#deleteModal').modal('show');
+        event.preventDefault();
+        $("#btn-confirm-delete").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "contract/delete?id=" + id,
+                dataType: "json",
+                success: function (data) {
+                    showList(data);
+                    $('#deleteModal').modal('hide');
+                    $('#notification-success').modal('show');
+                    setTimeout(function () {
+                        $('#notification-success').modal('hide');
+                    }, 1200);
+                }
+            })
+        })
+    }
+</script>
+</html>

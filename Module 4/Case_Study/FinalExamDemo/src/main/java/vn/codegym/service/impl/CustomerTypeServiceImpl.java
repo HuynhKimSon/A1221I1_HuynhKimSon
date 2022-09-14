@@ -1,10 +1,10 @@
-package vn.codegym.repository.service.impl;
+package vn.codegym.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.codegym.model.customer.CustomerType;
 import vn.codegym.repository.ICustomerTypeRepository;
-import vn.codegym.repository.service.ICustomerTypeService;
+import vn.codegym.service.ICustomerTypeService;
 
 import java.util.List;
 

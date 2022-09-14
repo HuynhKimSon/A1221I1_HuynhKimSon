@@ -9,8 +9,8 @@ import vn.codegym.dto.CustomerDto;
 import vn.codegym.dto.response.ResultCustomerRes;
 import vn.codegym.model.customer.Customer;
 import vn.codegym.model.customer.CustomerType;
-import vn.codegym.repository.service.ICustomerService;
-import vn.codegym.repository.service.ICustomerTypeService;
+import vn.codegym.service.ICustomerService;
+import vn.codegym.service.ICustomerTypeService;
 
 import java.util.HashMap;
 import java.util.List;

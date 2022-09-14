@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+<body>
+<!-- Create Modal HTML -->
+<div th:fragment="createModal()" id="createModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="form-create">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm mới hợp đồng</h4>
+                    <button type="button" class="btn-close btn-close-form" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="form-outline">
+                                <label class="form-label">Mã hợp đồng</label>
+                                <input type="text" name="idContract"
+                                       id="idContract"
+                                       class="form-control"/>
+                                <p style="color: red" class="form-label" id="error-idContract"></p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="form-outline">
+                                <label class="form-label">Mã phòng</label>
+                                <select class="form-select" id="house"
+                                        name="house"
+                                        aria-label="Default select example">
+                                </select>
+                                <p style="color: red" class="form-label" id="error-house"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="form-outline">
+                                <label class="form-label">Tên người thuê</label>
+                                <input type="text" name="nameCustomer"
+                                       id="nameCustomer"
+                                       class="form-control"/>
+                                <p style="color: red" class="form-label" id="error-nameCustomer"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label">Số CMND</label>
+                                <input type="text" name="idCard"
+                                       id="idCard"
+                                       class="form-control"/>
+                                <p style="color: red" class="form-label" id="error-idCard"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4 d-flex align-items-center">
+                            <div class="form-outline datepicker w-100">
+                                <label class="form-label">Ngày làm hợp đồng</label>
+                                <input type="date" name="createTime"
+                                       id="createTime"
+                                       class="form-control"/>
+                                <p style="color: red" class="form-label" id="error-createTime"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="form-outline">
+                                <label class="form-label">Thời gian thuê</label>
+                                <select class="form-select" id="typeTime"
+                                        name="typeTime"
+                                        aria-label="Default select example">
+                                    <option value="3" selected>3 Tháng</option>
+                                    <option value="6">6 Tháng</option>
+                                    <option value="12">12 Tháng</option>
+                                </select>
+                                <p style="color: red" class="form-label" id="error-typeTime"></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-secondary btn-close-form" data-bs-dismiss="modal"
+                                   value="Hủy">
+                            <input type="button" class="btn btn-primary" id="btn-submit-create" value="Đồng ý">
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

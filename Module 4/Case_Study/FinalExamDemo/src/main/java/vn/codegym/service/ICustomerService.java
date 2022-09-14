@@ -1,4 +1,4 @@
-package vn.codegym.repository.service;
+package vn.codegym.service;
 
 import vn.codegym.dto.CustomerDto;
 import vn.codegym.dto.response.ResultCustomerRes;

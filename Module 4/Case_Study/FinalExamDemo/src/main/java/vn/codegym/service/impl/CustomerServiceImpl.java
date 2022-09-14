@@ -1,16 +1,15 @@
-package vn.codegym.repository.service.impl;
+package vn.codegym.service.impl;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import vn.codegym.dto.CustomerDto;
 import vn.codegym.dto.response.ResultCustomerRes;
 import vn.codegym.model.customer.Customer;
 import vn.codegym.model.customer.CustomerType;
 import vn.codegym.repository.ICustomerRepository;
-import vn.codegym.repository.service.ICustomerService;
+import vn.codegym.service.ICustomerService;
 import vn.codegym.type.SearchType;
 import vn.codegym.type.StatusType;
 
@@ -38,7 +37,7 @@ public class CustomerServiceImpl implements ICustomerService {
     public ResultCustomerRes save(CustomerDto customerDto) {
         // Validate
         ResultCustomerRes resultCustomerRes = new ResultCustomerRes();
-        HashMap<String, String> listError = checkCustomer(customerDto);
+            HashMap<String, String> listError = checkCustomer(customerDto);
         if (listError.size() > 0) {
             resultCustomerRes.setCode(StatusType.FAIL.value());
             resultCustomerRes.setErrors(listError);
@@ -52,7 +51,6 @@ public class CustomerServiceImpl implements ICustomerService {
         CustomerType customerType = new CustomerType();
         customerType.setCustomerTypeId(Long.parseLong((customerDto.getCustomerTypeId())));
         customer.setCustomerType(customerType);
-
         // Save
         iCustomerRepository.save(customer);
         // Set result

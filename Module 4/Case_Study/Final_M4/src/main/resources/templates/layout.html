@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>System</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/popper.js/2.9.3/umd/popper.js"></script>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+    <style>
+        /*--thank you pop starts here--*/
+        .thank-you-pop{
+            width:100%;
+            padding:20px;
+            text-align:center;
+        }
+        .thank-you-pop img{
+            width:76px;
+            height:auto;
+            margin:0 auto;
+            display:block;
+            margin-bottom:25px;
+        }
+
+        .thank-you-pop h1{
+            font-size: 42px;
+            margin-bottom: 25px;
+            color:#5C5C5C;
+        }
+        #notification-success .modal-header{
+            border:0px;
+        }
+        /*--thank you pop ends here--*/
+        i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:fragment="header" class="container-fluid">
+    <div class="row">
+        <nav class="col-12 navbar navbar-expand-lg navbar-dark" style="background-color: #3c8dbc; color: white">
+            <div class="collapse navbar-collapse justify-content-center w-auto">
+                <strong>FURAMA SYSTEM</strong>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav justify-content-between w-75" id="ul-navbar-dropdown">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/customer}">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/employee}">Employee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/service}">Service</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contract}">Contract</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<!--View toast notification -->
+<div th:fragment="notification-success" class="modal fade" id="notification-success" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="thank-you-pop">
+                    <img src="/image/Green-Round-Tick.png" alt="">
+                    <h1>Successfully!</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
