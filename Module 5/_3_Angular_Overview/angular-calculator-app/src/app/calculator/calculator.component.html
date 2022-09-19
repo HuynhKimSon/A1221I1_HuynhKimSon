@@ -1,0 +1,13 @@
+<p>Số thứ nhất:</p>
+<input type="number" name="firstNumber" autofocus #firstNumber>
+<p>Số thứ hai:</p>
+<input type="number" name="secondNumber" #secondNumber><br><br>
+<button type="button" (click)="calculate('+', firstNumber.value, secondNumber.value )">+</button>
+<button type="button" (click)="calculate('-', firstNumber.value, secondNumber.value )">-</button>
+<button type="button" (click)="calculate('*', firstNumber.value, secondNumber.value )">*</button>
+<button type="button" (click)="calculate('/', firstNumber.value, secondNumber.value )">/</button>
+
+<p>
+    <span>Kết quả:</span>
+    <span>{{result}}</span>
+</p>

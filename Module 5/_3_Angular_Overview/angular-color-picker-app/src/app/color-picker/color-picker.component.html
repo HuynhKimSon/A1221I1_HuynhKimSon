@@ -1,0 +1,5 @@
+<p>Danh sách mã màu:</p>
+<select #color (change)="changeColorValue($event.target.value)">
+    <option *ngFor="let color of colors" [ngValue]="color.id">{{color.name}}</option>
+</select>
+<div style="width:500px; height: 500px;" [style.backgroundColor]="code"></div>
